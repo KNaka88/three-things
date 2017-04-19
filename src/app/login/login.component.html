@@ -1,0 +1,12 @@
+<div class="modal-dialog">
+  <div class="loginmodal-container">
+    <form>
+      <h1>Login to Your Account</h1><br>
+      <label for="email" type="email">Email</label>
+      <input #email class="form-control">
+      <label>Password</label>
+      <input type="password" #password class="form-control"><br>
+      <button class="btn btn-default" (click)="login(email.value, password.value)">Login</button>
+    </form>
+  </div>
+</div>
