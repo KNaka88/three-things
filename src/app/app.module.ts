@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { IndexComponent } from './index/index.component';
 import { LoginComponent } from './login/login.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 export const firebaseConfig = {
   apiKey: masterFirebaseConfig.apiKey,
@@ -24,7 +25,8 @@ export const firebaseConfig = {
     AppComponent,
     IndexComponent,
     LoginComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
