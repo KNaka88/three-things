@@ -25,11 +25,12 @@ export class UserService {
     });
   }
 
-  saveUserInfoFromForm(uid: string, firstName: string, lastName: string, email: string) {
+  saveUserInfoFromForm(uid: string, firstName: string, lastName: string, email: string, searchKeyword: string) {
   return this.af.database.object('users/' + uid).set({
     firstName: firstName,
     lastName: lastName,
     email: email,
+    searchKeyword: searchKeyword
   });
 }
 
@@ -64,6 +65,14 @@ export class UserService {
     return this.af.database.object('users/' + uid);
   }
 
+  getUserIdBySearchKeyword(searchKeyword: string) {
+    return this.af.database.list('/searchKeywords', {
+      query: {
+        orderByChild: 'searchKeyword',
+        equalTo: searchKeyword
+      }
+    });
+  }
 
 //CREATE
   makeDiary(good1, good2, good3, privacyLevel, userId){
@@ -77,5 +86,16 @@ export class UserService {
     this.af.database.list('users/' + userId + '/diaries').push(diary);
   }
 
-  
+  registerSearchKeyword(searchKeyword, userId){
+    return this.af.database.list('searchKeywords').push({
+      userId: userId,
+      searchKeyword: searchKeyword
+    });
+  }
+
+
+
+
+
+
 }

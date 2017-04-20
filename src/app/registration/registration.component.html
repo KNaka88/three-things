@@ -9,6 +9,9 @@
   <input #newPassword type="password" id='password' class="form-control"><br>
   <label for="confirmPassword">Confirm Password</label>
   <input #confirmPassword type="password" id='confirmPassword' class="form-control"><br>
+  <label>Search Keyword</label>
+  <input #searchKeyword type="text" class="form-control">
+
   <br>
-  <button (click)="checkPassword(firstName.value, lastName.value, newEmail.value, newPassword.value, confirmPassword.value)">Click me</button>
+  <button (click)="validationCheck(firstName.value, lastName.value, newEmail.value, newPassword.value, confirmPassword.value, searchKeyword.value)">Click me</button>
 </form>
