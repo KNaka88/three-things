@@ -4,14 +4,17 @@ import {AngularFire, AuthProviders, AuthMethods, FirebaseListObservable, Firebas
 @Injectable()
 export class UserService {
 
-
+  public userId: any;
   public userName: any;
   public userEmail: any;
 
+  //path of firebase
+  public diaries: FirebaseListObservable<any>;
 
-  constructor(
-    public af: AngularFire
-  ) { }
+
+  constructor(public af: AngularFire)
+    {
+    }
 
 
   //REGISTER to Firebase
@@ -52,16 +55,27 @@ export class UserService {
 
 
 
-
-
-
+//READ
   getUserById(uid: string) {
     return this.af.database.object("users/" + uid);
   }
 
   getUser(uid: string) {
-  return this.af.database.object('users/' + uid);
+    return this.af.database.object('users/' + uid);
   }
 
 
+//CREATE
+  makeDiary(good1, good2, good3, privacyLevel, userId){
+    let diary = {
+      date: Date.now(),
+      good1: good1,
+      good2: good2,
+      good3: good3,
+      privacyLevel: privacyLevel
+    }
+    this.af.database.list('users/' + userId + '/diaries').push(diary);
+  }
+
+  
 }

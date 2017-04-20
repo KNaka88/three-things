@@ -1,3 +1,20 @@
-<p>
-  index works!
-</p>
+Hello, {{(user | async)?.firstName}} <br>
+
+Today is {{today | date}}
+<form>
+  <label>Write Three Good things</label>
+  <input #good1 type="text" class='form-control'>
+  <input #good2 type="text" class='form-control'>
+  <input #good3 type="text" class='form-control'>
+  <label>Who can see this happy memory?</label>
+
+  <div>
+    Your privacy preference is: {{privacy}}
+  </div>
+  <select class='form-control' (change)="setPrivacyLevel($event.target.value)">
+    <option value="onlyMe" selected="selected">Only Me</option>
+    <option value='onlyFriends'>Only Friends</option>
+    <option value='anyone'>Anyone</option>
+  </select>
+  <button (click)="makeDiary(good1.value, good2.value, good3.value, privacyLevel)" >Make Diary</button>
+</form>
