@@ -18,9 +18,18 @@ export class RegistrationComponent implements OnInit {
   }
 
 
-  registerUserButton(firstName, lastName, email, password, birthday, sex){
+  checkPassword(firstName, lastName, email, password, confirmPassword){
+
+    if(password === confirmPassword){
+      this.registerUserButton(firstName, lastName, email, password);
+    }else {
+      console.log("password doesn't match");
+    }
+  }
+
+  registerUserButton(firstName, lastName, email, password){
     this.userService.registerUser(email, password).then( (user) => {
-      this.userService.saveUserInfoFromForm(user.uid, firstName, lastName, email, birthday, sex).then(() => {
+      this.userService.saveUserInfoFromForm(user.uid, firstName, lastName, email).then(() => {
         this.router.navigate(['user/' + user.uid]);
       })
       // when register user method failed, catch error

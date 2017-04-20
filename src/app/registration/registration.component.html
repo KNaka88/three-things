@@ -1,3 +1,14 @@
-<p>
-  registration works!
-</p>
+<form>
+  <label for="firstName">First Name</label>
+  <input #firstName type="text" id="firstName" class="form-control"><br>
+  <label for="lastName">Last Name</label>
+  <input #lastName type="text" id="lastName" class="form-control"><br>
+  <label for="email">Email</label>
+  <input #newEmail type="email" id="email" class="form-control"><br>
+  <label for="password">Password</label>
+  <input #newPassword type="password" id='password' class="form-control"><br>
+  <label for="confirmPassword">Confirm Password</label>
+  <input #confirmPassword type="password" id='confirmPassword' class="form-control"><br>
+  <br>
+  <button (click)="checkPassword(firstName.value, lastName.value, newEmail.value, newPassword.value, confirmPassword.value)">Click me</button>
+</form>
