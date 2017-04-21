@@ -1,17 +1,29 @@
 <form>
-  <label for="firstName">First Name</label>
-  <input #firstName type="text" id="firstName" class="form-control"><br>
-  <label for="lastName">Last Name</label>
-  <input #lastName type="text" id="lastName" class="form-control"><br>
-  <label for="email">Email</label>
-  <input #newEmail type="email" id="email" class="form-control"><br>
-  <label for="password">Password</label>
-  <input #newPassword type="password" id='password' class="form-control"><br>
-  <label for="confirmPassword">Confirm Password</label>
-  <input #confirmPassword type="password" id='confirmPassword' class="form-control"><br>
-  <label>Search Keyword</label>
-  <input #searchKeyword type="text" class="form-control">
-
+  <div class="form-group">
+    <label for="firstName">First Name</label>
+    <input #firstName type="text" id="firstName" class="form-control" required><br>
+  </div>
+  <div class="form-group">
+    <label for="lastName">Last Name</label>
+    <input #lastName type="text" id="lastName" class="form-control" required><br>
+  </div>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input #newEmail type="email" id="email" class="form-control" required><br>
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input #newPassword type="password" id='password' class="form-control" required><br>
+  </div>
+  <div class="form-group">
+    <label for="confirmPassword">Confirm Password</label>
+    <input #confirmPassword type="password" id='confirmPassword' class="form-control" required><br>
+  </div>
+  <div class="form-group">
+    <label>Search Keyword</label>
+    <input #searchKeyword type="text" class="form-control" required>
+  </div>
   <br>
-  <button (click)="validationCheck(firstName.value, lastName.value, newEmail.value, newPassword.value, confirmPassword.value, searchKeyword.value)">Click me</button>
+  <button type="submit" class='btn btn-success' (click)="validationCheck(firstName.value, lastName.value, newEmail.value, newPassword.value, confirmPassword.value, searchKeyword.value)">Create Account</button>
 </form>
+  <p class='errorMessage'>{{displayError}}</p>

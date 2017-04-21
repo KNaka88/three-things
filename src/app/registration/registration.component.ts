@@ -11,16 +11,20 @@ import { Router } from '@angular/router';
 })
 export class RegistrationComponent implements OnInit {
   public error: any;
+  public displayError: any;
+  public submitted = false;
 
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
   }
 
+  onSubmit() {
+    this.submitted = true;
+  }
+
 
   validationCheck(firstName, lastName, email, password, confirmPassword, searchKeyword){
-
-
     //check if password is typed correct
     if(password === confirmPassword){
 
@@ -32,20 +36,19 @@ export class RegistrationComponent implements OnInit {
 
         //check if searchKeyword is already exist
         this.userService.getUserIdBySearchKeyword(searchKeyword).subscribe( (result) => {
-          console.log(result);
           //if there no searchKeyword exists
           if(result.length === 0){
-            console.log("no match");
-
             this.registerUser(firstNameInput, lastNameInput, emailInput, passwordInput, searchKeywordInput);
           }else{
-            console.log("this keyword already exists");
+            this.displayError = "This keyword already exists. Try another keyword"
           }
         });
     }else {
-      console.log("password doesn't match");
+      //when password does not match
+      this.displayError = "Password doesn't match";
     }
   }
+
 
   registerUser(firstName, lastName, email, password, searchKeyword){
 
