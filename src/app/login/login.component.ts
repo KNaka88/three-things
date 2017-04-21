@@ -25,7 +25,15 @@ export class LoginComponent implements OnInit {
   //call userService login and access to firebase auth
   login(email, password) {
     this.userService.login(email, password).then((data) => {
-      this.router.navigate(['user/' + data.uid]);
+
+      //check if user verified the email (boolean)
+      if(this.userService.checkEmailVerified()) {
+        //true
+        this.router.navigate(['user/' + data.uid]);
+      }else{
+        //false
+        this.router.navigate(['email_confirm_waiting']);
+      }
     })
     .catch((error: any) => {
       if (error) {

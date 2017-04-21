@@ -94,6 +94,13 @@ export class UserService {
   }
 
 
+  checkEmailVerified(){
+    return this.af.auth.subscribe( (getAuth) => {
+      getAuth.auth.emailVerified;
+    })
+  }
+
+
 
 
 

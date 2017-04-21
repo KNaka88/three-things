@@ -54,7 +54,11 @@ export class RegistrationComponent implements OnInit {
 
         //save searchKeyword to firebase
         this.userService.registerSearchKeyword(searchKeyword, user.uid).then(() => {
-          this.router.navigate(['user/' + user.uid]);
+          this.userService.af.auth.subscribe( (getAuth) => {
+            getAuth.auth.sendEmailVerification().then( () => {
+              this.router.navigate(['email_confirm_waiting']);
+            });
+          });
         });
       })
       // when register user method failed, catch error
