@@ -10,70 +10,104 @@ import { Router } from '@angular/router';
   providers: [UserService]
 })
 export class RegistrationComponent implements OnInit {
-  public error: any;
-  public displayError: any;
-  public submitted = false;
 
-  constructor(private userService: UserService, private router: Router) { }
+  //For register to firebase
+  public error: any;
+
+  //For registration form
+  public displayError: any;
+  public firstName: string;
+  public lastName: string;
+  public email: string;
+  public password: string = '';
+  public confirmPassword: string = '';
+  public searchKeyword: string;
+
+  //For registration form: css handling
+  public isPasswordMatch: boolean;
+  public isPasswordLength: boolean;
+  public isEmailVerified: boolean;
+  public emailValidation: RegExp = new RegExp( /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+
+
+  constructor(
+    private userService: UserService,
+    private router: Router,
+  ) { }
 
   ngOnInit() {
   }
 
-  onSubmit() {
-    this.submitted = true;
-  }
 
-
-  validationCheck(firstName, lastName, email, password, confirmPassword, searchKeyword){
+  validationCheck(){
     //check if password is typed correct
-    if(password === confirmPassword){
+    let verified = (this.isPasswordMatch && this.isPasswordLength && this.isEmailVerified);
 
-      let firstNameInput = firstName;
-      let lastNameInput = lastName;
-      let emailInput = email;
-      let passwordInput = password;
-      let searchKeywordInput = searchKeyword;
-
+    if(verified){
+      console.log("verified");
         //check if searchKeyword is already exist
-        this.userService.getUserIdBySearchKeyword(searchKeyword).subscribe( (result) => {
+        this.userService.getUserIdBySearchKeyword(this.searchKeyword).subscribe( (result) => {
           //if there no searchKeyword exists
           if(result.length === 0){
-            this.registerUser(firstNameInput, lastNameInput, emailInput, passwordInput, searchKeywordInput);
+            this.registerUser(this.firstName, this.lastName, this.email, this.password, this.searchKeyword);
           }else{
             this.displayError = "This keyword already exists. Try another keyword"
           }
         });
-    }else {
-      //when password does not match
-      this.displayError = "Password doesn't match";
     }
   }
 
 
   registerUser(firstName, lastName, email, password, searchKeyword){
 
-    this.userService.registerUser(email, password).then( (user) => {
-      this.userService.saveUserInfoFromForm(user.uid, firstName, lastName, email, searchKeyword).then(() => {
+      this.userService.registerUser(email, password).then( (user) => {
+        this.userService.saveUserInfoFromForm(user.uid, firstName, lastName, email, searchKeyword).then(() => {
 
-        //save searchKeyword to firebase
-        this.userService.registerSearchKeyword(searchKeyword, user.uid).then(() => {
-          this.userService.af.auth.subscribe( (getAuth) => {
-            getAuth.auth.sendEmailVerification().then( () => {
-              this.router.navigate(['email_confirm_waiting']);
+          //save searchKeyword to firebase
+          this.userService.registerSearchKeyword(searchKeyword, user.uid).then(() => {
+            this.userService.af.auth.subscribe( (getAuth) => {
+              getAuth.auth.sendEmailVerification().then( () => {
+                this.router.navigate(['email_confirm_waiting']);
+              });
             });
           });
+        })
+        // when register user method failed, catch error
+        .catch((error) => {
+          this.error = error;
+          alert(error.message);
         });
       })
-      // when register user method failed, catch error
+      // when register method failed, catch error
       .catch((error) => {
         this.error = error;
         alert(error.message);
       });
-    })
-    // when register method failed, catch error
-    .catch((error) => {
-        this.error = error;
-        alert(error.message);
-    });
   }
+
+  ngDoCheck(){
+    //if password length is more than 6, change color to green
+    if(this.password.length >= 6){
+      this.isPasswordLength = true;
+    }else{
+      this.isPasswordLength = false;
+    }
+
+    //if password and confirm password matches, change color to green
+    if (this.password === this.confirmPassword && this.password.length >= 6){
+      this.isPasswordMatch = true;
+    }else{
+      this.isPasswordMatch = false;
+    }
+
+    //if email is valid format, change color to green
+    if(this.emailValidation.test(this.email)){
+      this.isEmailVerified = true;
+    }else {
+      this.isEmailVerified = false;
+    }
+  }
+
+
+
 }

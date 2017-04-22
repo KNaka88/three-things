@@ -8,6 +8,7 @@ export class UserService {
   public userName: any;
   public userEmail: any;
 
+
   //path of firebase
   public diaries: FirebaseListObservable<any>;
 
