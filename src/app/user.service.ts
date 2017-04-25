@@ -26,12 +26,11 @@ export class UserService {
     });
   }
 
-  saveUserInfoFromForm(uid: string, firstName: string, lastName: string, email: string, searchKeyword: string) {
+  saveUserInfoFromForm(uid: string, firstName: string, lastName: string, email: string) {
   return this.af.database.object('users/' + uid).set({
     firstName: firstName,
     lastName: lastName,
-    email: email,
-    searchKeyword: searchKeyword
+    email: email
   });
 }
 

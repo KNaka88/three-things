@@ -39,50 +39,45 @@ export class RegistrationComponent implements OnInit {
   }
 
 
-  validationCheck(){
-    //check if password is typed correct
-    let verified = (this.isPasswordMatch && this.isPasswordLength && this.isEmailVerified);
+  // validationCheck(){
+  //   //check if password is typed correct
+  //   let verified = (this.isPasswordMatch && this.isPasswordLength && this.isEmailVerified);
+  //
+  //   if(verified){
+  //     console.log("verified");
+  //       //check if searchKeyword is already exist
+  //       this.userService.getUserIdBySearchKeyword(this.searchKeyword).subscribe( (result) => {
+  //         //if there no searchKeyword exists
+  //         if(result.length === 0){
+  //           this.registerUser(this.firstName, this.lastName, this.email, this.password, this.searchKeyword);
+  //         }else{
+  //           this.displayError = "This keyword already exists. Try another keyword"
+  //         }
+  //       });
+  //   }
+  // }
 
-    if(verified){
-      console.log("verified");
-        //check if searchKeyword is already exist
-        this.userService.getUserIdBySearchKeyword(this.searchKeyword).subscribe( (result) => {
-          //if there no searchKeyword exists
-          if(result.length === 0){
-            this.registerUser(this.firstName, this.lastName, this.email, this.password, this.searchKeyword);
-          }else{
-            this.displayError = "This keyword already exists. Try another keyword"
-          }
-        });
-    }
-  }
 
-
-  registerUser(firstName, lastName, email, password, searchKeyword){
-
-      this.userService.registerUser(email, password).then( (user) => {
-        this.userService.saveUserInfoFromForm(user.uid, firstName, lastName, email, searchKeyword).then(() => {
-
-          //save searchKeyword to firebase
-          this.userService.registerSearchKeyword(searchKeyword, user.uid).then(() => {
-            this.userService.af.auth.subscribe( (getAuth) => {
-              getAuth.auth.sendEmailVerification().then( () => {
-                this.router.navigate(['email_confirm_waiting']);
-              });
+  registerUser(){
+    this.userService.registerUser(this.email, this.password).then( (user) => {
+      this.userService.saveUserInfoFromForm(user.uid, this.firstName, this.lastName, this.email).then(() => {
+          this.userService.af.auth.subscribe( (getAuth) => {
+            getAuth.auth.sendEmailVerification().then( () => {
+              this.router.navigate(['email_confirm_waiting']);
             });
           });
         })
-        // when register user method failed, catch error
-        .catch((error) => {
-          this.error = error;
-          alert(error.message);
-        });
-      })
-      // when register method failed, catch error
+      // when register user method failed, catch error
       .catch((error) => {
         this.error = error;
         alert(error.message);
-      });
+        });
+      })
+    // when register method failed, catch error
+    .catch((error) => {
+      this.error = error;
+      alert(error.message);
+    });
   }
 
   ngDoCheck(){
