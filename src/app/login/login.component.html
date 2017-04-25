@@ -7,6 +7,16 @@
       <label>Password</label>
       <input type="password" #password class="form-control"><br>
       <button class="btn btn-default" (click)="login(email.value, password.value)">Login</button>
+      <div *ngIf="verifyRequired">
+        <p class="error">Please verify your email</p>
+
+        <div id="send" *ngIf="!isSent">
+          <p (click)="sendVerifyEmail(email.value, password.value)">send me again</p>
+        </div>
+        <div id="sent" *ngIf="isSent">
+          <p>sent</p>
+        </div>
+      </div>
     </form>
   </div>
 </div>

@@ -13,6 +13,11 @@ export class LoginComponent implements OnInit {
 
   public error: any;
 
+  //display
+  public verifyRequired: boolean = false;
+  public isSent: boolean = false;
+
+
   constructor(
     public userService: UserService,
     private router: Router
@@ -24,15 +29,15 @@ export class LoginComponent implements OnInit {
 
   //call userService login and access to firebase auth
   login(email, password) {
-    this.userService.login(email, password).then((data) => {
+    this.userService.login(email, password).then((user) => {
 
       //check if user verified the email (boolean)
-      if(this.userService.checkEmailVerified()) {
+      if(user.auth.emailVerified) {
         //true
-        this.router.navigate(['user/' + data.uid]);
+        this.router.navigate(['user/' + user.uid]);
       }else{
         //false
-        this.router.navigate(['email_confirm_waiting']);
+        this.verifyRequired = true;
       }
     })
     .catch((error: any) => {
@@ -40,6 +45,14 @@ export class LoginComponent implements OnInit {
         this.error = error;
         alert(error.message);
       }
+    });
+  }
+
+  sendVerifyEmail(){
+    console.log("clicked");
+    this.userService.af.auth.subscribe( (getAuth) => {
+      this.isSent = true;
+      getAuth.auth.sendEmailVerification();
     });
   }
 }

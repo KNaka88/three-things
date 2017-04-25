@@ -92,17 +92,4 @@ export class UserService {
       searchKeyword: searchKeyword
     });
   }
-
-
-  checkEmailVerified(){
-    return this.af.auth.subscribe( (getAuth) => {
-      getAuth.auth.emailVerified;
-    })
-  }
-
-
-
-
-
-
 }

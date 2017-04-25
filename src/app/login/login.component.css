@@ -42,3 +42,22 @@
   opacity: 0.6;
   transition: opacity ease 0.5s;
 }
+
+.error {
+  color: red;
+}
+
+#send {
+  color: blue;
+  cursor:pointer;
+}
+#send:hover {
+  color: blue;
+  opacity:0.8;
+  cursor:pointer;
+}
+
+
+#sent {
+  color: green;
+}

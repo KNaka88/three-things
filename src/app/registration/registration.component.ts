@@ -58,11 +58,13 @@ export class RegistrationComponent implements OnInit {
   // }
 
 
+
   registerUser(){
     this.userService.registerUser(this.email, this.password).then( (user) => {
       this.userService.saveUserInfoFromForm(user.uid, this.firstName, this.lastName, this.email).then(() => {
           this.userService.af.auth.subscribe( (getAuth) => {
             getAuth.auth.sendEmailVerification().then( () => {
+              console.log("navigating");
               this.router.navigate(['email_confirm_waiting']);
             });
           });
@@ -102,7 +104,6 @@ export class RegistrationComponent implements OnInit {
       this.isEmailVerified = false;
     }
   }
-
 
 
 }

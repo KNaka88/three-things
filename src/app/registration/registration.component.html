@@ -20,11 +20,6 @@
     <label for="confirmPassword">Confirm Password</label>
     <input  type="password" id='confirmPassword' class="form-control" [class.confirmPassword]="isPasswordMatch" [class.notConfirmPassword]="!isPasswordMatch" [(ngModel)]="confirmPassword" name="confirmPassword" required><br>
   </div>
-  <!-- (change)="onChange($event.target.value)" -->
-  <div class="form-group isFormFilled">
-    <label for="searchKeyword">Search Keyword</label>
-    <input  type="text" id='searchKeyword' class="form-control" [(ngModel)]="searchKeyword" name="searchKeyword" required>
-  </div>
   <br>
   <button (click)="registerUser()" class='btn btn-success'>Create Account</button>
 </form>

@@ -17,15 +17,7 @@ export class AppComponent {
         if (auth === null) {
           this.isLoggedIn = false;
           this.router.navigate([""]);
-        } else {
-            this.userService.userName = userService.getUser(auth.uid).subscribe(
-              (userObject) => {
-                this.userService.userName = userObject.displayName;
-              });
-              this.userService.userEmail = auth.auth.email;
-              this.isLoggedIn = true;
-              this.router.navigate(['user/' + auth.uid]);
-          }
+        }
         }
       );
     }
@@ -34,5 +26,4 @@ export class AppComponent {
   logout() {
     this.userService.logout();
   }
-
 }
