@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {AngularFire, AuthProviders, AuthMethods, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2';
+import {AngularFire, AngularFireAuth, AuthProviders, AuthMethods, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2';
 
 @Injectable()
 export class UserService {
@@ -13,9 +13,9 @@ export class UserService {
   public diaries: FirebaseListObservable<any>;
 
 
-  constructor(public af: AngularFire)
-    {
-    }
+  constructor(
+    public af: AngularFire,
+  ){ }
 
 
   //REGISTER to Firebase

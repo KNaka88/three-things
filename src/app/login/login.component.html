@@ -7,6 +7,7 @@
       <label>Password</label>
       <input type="password" #password class="form-control"><br>
       <button class="btn btn-default" (click)="login(email.value, password.value)">Login</button>
+      <a routerLink="reset_password">Forgot your password?</a>
       <div *ngIf="verifyRequired">
         <p class="error">Please verify your email</p>
 
