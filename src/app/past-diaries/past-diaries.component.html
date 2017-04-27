@@ -1,0 +1,17 @@
+<p (click)="showMyAllDiaries()">
+  past-diaries works!
+</p>
+
+<!-- <div *ngIf="myAllDiaries">
+  <div *ngFor="let myAllDiary of myAllDiaries | async">
+      {{myAllDiary}}
+  </div>
+</div> -->
+
+<div *ngIf="myAllDiaries">
+  <ul>
+    <div *ngFor="let myAllDiariesByYear of myAllDiaries">
+        <li click="showMyAllDiariesByYear(myAllDiariesByYear)">{{myAllDiariesByYear.$key}}</li>
+    </div>
+  </ul>
+</div>

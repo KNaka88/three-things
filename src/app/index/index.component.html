@@ -17,3 +17,5 @@ Today is {{today | date}}
   </select>
   <button (click)="makeDiary(good1.value, good2.value, good3.value, privacyLevel)" >Make Diary</button>
 </form>
+
+<app-past-diaries [userId]="userId"></app-past-diaries>

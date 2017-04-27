@@ -10,7 +10,6 @@ import {Router} from "@angular/router";
   providers: [UserService]
 })
 export class LoginComponent implements OnInit {
-
   public error: any;
 
   //display

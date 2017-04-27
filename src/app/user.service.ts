@@ -83,7 +83,9 @@ export class UserService {
       good3: good3,
       privacyLevel: privacyLevel
     }
-    this.af.database.list('users/' + userId + '/diaries').push(diary);
+    let year = new Date().getUTCFullYear();
+    let month = new Date().getUTCMonth() + 1;
+    this.af.database.list('users/' + userId + '/diaries/' + year + '/' + month).push(diary);
   }
 
   registerSearchKeyword(searchKeyword, userId){
@@ -92,4 +94,11 @@ export class UserService {
       searchKeyword: searchKeyword
     });
   }
+
+
+//Used at past-diaries.component
+showMyAllDiaries(userId){
+  return this.af.database.list('users/' + userId + '/diaries/');
+}
+
 }

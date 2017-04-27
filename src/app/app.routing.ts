@@ -4,6 +4,7 @@ import { IndexComponent } from './index/index.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { WaitingConfirmationComponent } from './waiting-confirmation/waiting-confirmation.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { PastDiariesComponent } from './past-diaries/past-diaries.component';
 const appRoutes: Routes = [
  {
    path: 'user/:id',
@@ -21,6 +22,10 @@ const appRoutes: Routes = [
    path: 'reset_password',
    component: ResetPasswordComponent
  },
+ {
+   path: 'past_diaries',
+   component: PastDiariesComponent 
+ }
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);

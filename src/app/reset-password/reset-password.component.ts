@@ -10,26 +10,17 @@ import { UserService } from '../user.service';
   providers: [UserService],
 })
 export class ResetPasswordComponent implements OnInit {
+  public sent: boolean = false;
 
   constructor(
     private userService: UserService,
   ) { }
-
-
-
   ngOnInit() {
   }
 
-  // passwordReset(email:String){
-  //     this.userService.af.sendPasswordResetEmail(email).then( (data)=> {
-  //       console.log(data);
-  //     });
-  // }
-
   resetPassword(email: string): firebase.Promise<any> {
-  return firebase.auth().sendPasswordResetEmail(email).then( (result) => {
-    console.log(result);
-  });
+    this.sent = true;
+    return firebase.auth().sendPasswordResetEmail(email);
 }
 
 }

@@ -14,6 +14,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { WaitingConfirmationComponent } from './waiting-confirmation/waiting-confirmation.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { PastDiariesComponent } from './past-diaries/past-diaries.component';
 
 export const firebaseConfig = {
   apiKey: masterFirebaseConfig.apiKey,
@@ -31,6 +32,7 @@ export const firebaseConfig = {
     RegistrationComponent,
     WaitingConfirmationComponent,
     ResetPasswordComponent,
+    PastDiariesComponent,
   ],
   imports: [
     BrowserModule,
