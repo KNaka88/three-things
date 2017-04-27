@@ -5,6 +5,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { WaitingConfirmationComponent } from './waiting-confirmation/waiting-confirmation.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { PastDiariesComponent } from './past-diaries/past-diaries.component';
+import { PastDiariesYearComponent } from './past-diaries-year/past-diaries-year.component';
 const appRoutes: Routes = [
  {
    path: 'user/:id',
@@ -24,7 +25,11 @@ const appRoutes: Routes = [
  },
  {
    path: 'past_diaries',
-   component: PastDiariesComponent 
+   component: PastDiariesComponent
+ },
+ {
+   path: 'user/:id/past_diaries/:year',
+   component: PastDiariesYearComponent
  }
 ];
 
