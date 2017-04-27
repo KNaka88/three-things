@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from '../user.service';
 import { KeysPipe } from '../keys.pipe';
+import { MonthNumberToWordPipe } from '../month-number-to-word.pipe';
 
 @Component({
   selector: 'app-past-diaries',

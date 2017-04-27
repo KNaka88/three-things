@@ -2,18 +2,12 @@
   past-diaries works!
 </p>
 
-<!-- <div *ngIf="myAllDiaries">
-  <div *ngFor="let myAllDiary of myAllDiaries | async">
-      {{myAllDiary}}
-  </div>
-</div> -->
-
 <div *ngIf="myAllDiaries">
   <ul>
     <div *ngFor="let myAllDiariesByYear of myAllDiaries">
       <div *ngFor="let month of myAllDiariesByYear | keys">
         {{myAllDiariesByYear.$key}}: <br>
-        <a routerLink="past_diaries/{{myAllDiariesByYear.$key}}/{{month}}">{{month}}</a>
+        <a routerLink="past_diaries/{{myAllDiariesByYear.$key}}/{{month}}">{{month | monthNumberToWord:monthNumber}}</a>
       </div>
     </div>
   </ul>
