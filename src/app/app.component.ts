@@ -8,11 +8,12 @@ import { Router } from "@angular/router";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  public isLoggedIn: boolean;
+  public isLoggedIn: boolean; //if false, hide from nav bar
 
   constructor(public userService: UserService, private router: Router) {
     this.userService.af.auth.subscribe((auth) => {
         if (auth === null) {
+          //if user is not logged in, navigate to welcome page
           this.isLoggedIn = false;
           this.router.navigate([""]);
         }else {
@@ -21,10 +22,12 @@ export class AppComponent {
     });
   }
 
+
   logout() {
+    //hide logout button
     this.isLoggedIn = false;
-    console.log(this.isLoggedIn);
+
+    //log out from firebase
     this.userService.logout();
-    this.router.navigate( [""]);
   }
 }

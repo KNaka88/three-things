@@ -16,6 +16,7 @@ import { WaitingConfirmationComponent } from './waiting-confirmation/waiting-con
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { PastDiariesComponent } from './past-diaries/past-diaries.component';
 import { PastDiariesYearComponent } from './past-diaries-year/past-diaries-year.component';
+import { KeysPipe } from './keys.pipe';
 
 export const firebaseConfig = {
   apiKey: masterFirebaseConfig.apiKey,
@@ -35,6 +36,7 @@ export const firebaseConfig = {
     ResetPasswordComponent,
     PastDiariesComponent,
     PastDiariesYearComponent,
+    KeysPipe,
   ],
   imports: [
     BrowserModule,

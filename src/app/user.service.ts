@@ -101,4 +101,12 @@ showMyAllDiaries(userId){
   return this.af.database.list('users/' + userId + '/diaries/');
 }
 
+
+
+//Used at past-diaries-year.component.ts
+getYearDiaries(userId, year){
+  return this.af.database.list('users/' + userId + '/diaries/' + year );
+}
+
+
 }
