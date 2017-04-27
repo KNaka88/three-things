@@ -17,6 +17,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { PastDiariesComponent } from './past-diaries/past-diaries.component';
 import { PastDiariesYearComponent } from './past-diaries-year/past-diaries-year.component';
 import { KeysPipe } from './keys.pipe';
+import { PastDiariesYearMonthComponent } from './past-diaries-year-month/past-diaries-year-month.component';
 
 export const firebaseConfig = {
   apiKey: masterFirebaseConfig.apiKey,
@@ -37,6 +38,7 @@ export const firebaseConfig = {
     PastDiariesComponent,
     PastDiariesYearComponent,
     KeysPipe,
+    PastDiariesYearMonthComponent,
   ],
   imports: [
     BrowserModule,

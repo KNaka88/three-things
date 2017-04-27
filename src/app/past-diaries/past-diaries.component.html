@@ -11,7 +11,10 @@
 <div *ngIf="myAllDiaries">
   <ul>
     <div *ngFor="let myAllDiariesByYear of myAllDiaries">
-        <a routerLink="past_diaries/{{myAllDiariesByYear.$key}}">{{myAllDiariesByYear.$key}}</a>
+      <div *ngFor="let month of myAllDiariesByYear | keys">
+        {{myAllDiariesByYear.$key}}: <br>
+        <a routerLink="past_diaries/{{myAllDiariesByYear.$key}}/{{month}}">{{month}}</a>
+      </div>
     </div>
   </ul>
 </div>

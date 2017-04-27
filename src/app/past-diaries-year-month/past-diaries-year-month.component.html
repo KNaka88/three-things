@@ -1,0 +1,12 @@
+<ul>
+
+    <!-- keysPipe: returning each object's key -->
+    <div *ngFor='let diary of monthlyDiaries  | async'>
+      {{diary.date | date: "MM/dd"}}:
+      <ul>
+        <li>{{diary.good1}}</li>
+        <li>{{diary.good2}}</li>
+        <li>{{diary.good3}}</li>
+      </ul>
+    </div>
+</ul>

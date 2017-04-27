@@ -108,5 +108,9 @@ getYearDiaries(userId, year){
   return this.af.database.list('users/' + userId + '/diaries/' + year );
 }
 
+//Used at past-diaries-year-month.component.ts
+getMonthlyDiaries(userId, year, month){
+  return this.af.database.list('users/' + userId + '/diaries/' + year + '/' + month);
+}
 
 }

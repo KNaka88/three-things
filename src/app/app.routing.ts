@@ -6,6 +6,7 @@ import { WaitingConfirmationComponent } from './waiting-confirmation/waiting-con
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { PastDiariesComponent } from './past-diaries/past-diaries.component';
 import { PastDiariesYearComponent } from './past-diaries-year/past-diaries-year.component';
+import { PastDiariesYearMonthComponent} from './past-diaries-year-month/past-diaries-year-month.component';
 const appRoutes: Routes = [
  {
    path: 'user/:id',
@@ -30,6 +31,10 @@ const appRoutes: Routes = [
  {
    path: 'user/:id/past_diaries/:year',
    component: PastDiariesYearComponent
+ },
+ {
+   path: 'user/:id/past_diaries/:year/:month',
+   component: PastDiariesYearMonthComponent
  }
 ];
 
