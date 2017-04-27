@@ -40,7 +40,7 @@ export class IndexComponent implements OnInit {
 
 
   makeDiary(good1, good2, good3, privacyLevel){
-    this.userService.makeDiary(good2, good2, good3, privacyLevel, this.userId);
+    this.userService.makeDiary(good1, good2, good3, privacyLevel, this.userId);
   }
 
   setPrivacyLevel(privacyLevel){

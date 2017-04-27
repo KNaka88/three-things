@@ -85,7 +85,10 @@ export class UserService {
     }
     let year = new Date().getUTCFullYear();
     let month = new Date().getUTCMonth() + 1;
-    this.af.database.list('users/' + userId + '/diaries/' + year + '/' + month).push(diary);
+    this.af.database.list('diaries/' + userId + '/' + year + '/' + month).push(diary).then((result)=> {
+      let diaryId = result["path"]["o"][4]; //get this diary's id
+      this.af.database.list('users/' + userId + '/diaries/' + year + '/' + month).push(diaryId); //save path to users section
+    });
   }
 
   registerSearchKeyword(searchKeyword, userId){
@@ -96,21 +99,21 @@ export class UserService {
   }
 
 
-//Used at past-diaries.component
-showMyAllDiaries(userId){
-  return this.af.database.list('users/' + userId + '/diaries/');
-}
+  //Used at past-diaries.component
+  showMyAllDiaries(userId){
+    return this.af.database.list('users/' + userId + '/diaries/');
+  }
 
 
 
-//Used at past-diaries-year.component.ts
-getYearDiaries(userId, year){
-  return this.af.database.list('users/' + userId + '/diaries/' + year );
-}
+  //Used at past-diaries-year.component.ts
+  getYearDiaries(userId, year){
+    return this.af.database.list('diaries/' + userId + '/' + year);
+  }
 
-//Used at past-diaries-year-month.component.ts
-getMonthlyDiaries(userId, year, month){
-  return this.af.database.list('users/' + userId + '/diaries/' + year + '/' + month);
-}
+  //Used at past-diaries-year-month.component.ts
+  getMonthlyDiaries(userId, year, month){
+    return this.af.database.list('diaries/' + userId + '/' + year + '/' + month);
+  }
 
 }
