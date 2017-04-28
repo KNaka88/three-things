@@ -19,6 +19,7 @@ import { PastDiariesYearComponent } from './past-diaries-year/past-diaries-year.
 import { KeysPipe } from './keys.pipe';
 import { PastDiariesYearMonthComponent } from './past-diaries-year-month/past-diaries-year-month.component';
 import { MonthNumberToWordPipe } from './month-number-to-word.pipe';
+import { ImageCyclePipe } from './image-cycle.pipe';
 
 export const firebaseConfig = {
   apiKey: masterFirebaseConfig.apiKey,
@@ -41,6 +42,7 @@ export const firebaseConfig = {
     KeysPipe,
     PastDiariesYearMonthComponent,
     MonthNumberToWordPipe,
+    ImageCyclePipe,
   ],
   imports: [
     BrowserModule,

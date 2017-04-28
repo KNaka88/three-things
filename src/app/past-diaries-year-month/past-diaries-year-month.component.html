@@ -8,7 +8,7 @@
       <h2 class="mdl-card__title-text">{{diary.date | date: "MM/dd"}}</h2>
     </div>
     <div class="mdl-card__media">
-      <div class="card card-img{{i}}"></div>
+      <div class="card card-img{{i | imageCycle:number}}"></div>
     </div>
     <div class="mdl-card__supporting-text">
       <li>{{diary.good1}}</li>
