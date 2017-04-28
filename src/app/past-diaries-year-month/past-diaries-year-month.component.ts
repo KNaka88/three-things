@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FirebaseListObservable } from 'angularfire2';
 import { KeysPipe } from '../keys.pipe';
 import { ImageCyclePipe } from '../image-cycle.pipe';
+import {ShareButtonsModule} from 'ng2-sharebuttons';
 
 @Component({
   selector: 'app-past-diaries-year-month',
@@ -18,7 +19,7 @@ export class PastDiariesYearMonthComponent implements OnInit {
   public month: any;
   public monthlyDiaries: FirebaseListObservable<any>;
   public arrayOfKeys;
-
+  public link: any = "www.facebook.com";
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,

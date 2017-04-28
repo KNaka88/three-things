@@ -20,6 +20,7 @@ import { KeysPipe } from './keys.pipe';
 import { PastDiariesYearMonthComponent } from './past-diaries-year-month/past-diaries-year-month.component';
 import { MonthNumberToWordPipe } from './month-number-to-word.pipe';
 import { ImageCyclePipe } from './image-cycle.pipe';
+import {ShareButtonsModule} from 'ng2-sharebuttons';
 
 export const firebaseConfig = {
   apiKey: masterFirebaseConfig.apiKey,
@@ -49,7 +50,8 @@ export const firebaseConfig = {
     FormsModule,
     HttpModule,
     routing,
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
+    ShareButtonsModule.forRoot(),
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

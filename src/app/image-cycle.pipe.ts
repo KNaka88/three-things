@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'imageCycle',
-  pure: false,
+  pure: true,
 })
 export class ImageCyclePipe implements PipeTransform {
 
