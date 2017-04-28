@@ -1,0 +1,36 @@
+.card {
+  width: 330px;
+  height: 330px;
+
+  background-position:center center;
+  background-repeat:no-repeat;
+  background-size:cover;
+}
+
+.card-img0 {
+  background-image:url('../../assets/card/coffee.jpg');
+}
+
+.card-img1 {
+  background-image:url('../../assets/card/paint.jpg');
+}
+
+.card-img2 {
+  background-image:url('../../assets/card/paperclip.jpg');
+}
+
+.card-img3 {
+  background-image:url('../../assets/card/pear.jpg');
+}
+
+.card-img4 {
+  background-image:url('../../assets/card/roses.jpg');
+}
+
+.card-img5 {
+  background-image:url('../../assets/card/spring.jpg');
+}
+
+.card-img6 {
+  background-image:url('../../assets/card/wood.jpg');
+}

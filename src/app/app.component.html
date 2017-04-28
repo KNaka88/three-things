@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html>
-  <body>
-    <nav class="navbar navbar-inverse bg-faded">
-      <div *ngIf="isLoggedIn" class="nav navbar-nav navbar-right">
-        <a  class="navbar-btn btn-default" (click)="logout()">Logout</a>
-      </div>
-      <span class="navbar-text title">Three Things</span>
-    </nav>
-    <router-outlet></router-outlet>
-  </body>
-</html>
+<nav class="navbar navbar-inverse bg-faded">
+  <div *ngIf="isLoggedIn" class="nav navbar-nav navbar-right">
+    <a  class="navbar-btn btn-default" (click)="logout()">Logout</a>
+  </div>
+  <span class="navbar-text title">Three Things</span>
+</nav>
+<router-outlet></router-outlet>
