@@ -77,7 +77,7 @@ export class UserService {
 //CREATE
   makeDiary(good1, good2, good3, privacyLevel, userId){
     let diary = {
-      date: Date.now(),
+      year: Date.now(),
       good1: good1,
       good2: good2,
       good3: good3,
@@ -128,4 +128,22 @@ export class UserService {
       }
     });
   }
+
+
+  deleteDiary(userId, diary){
+
+    ////TODO FIX 
+    let year =  new Date(diary.date).getUTCFullYear();
+    let month = new Date(diary.date).getUTCMonth() + 1;
+    let promise = this.af.database.list('diaries/' + userId + '/' + year + '/' + month + '/' + diary.$key).remove();
+    promise
+      .then(_ => console.log('success'))
+      .catch(err => console.log(err, 'You do not have access'));
+
+    let promise2 = this.af.database.list('users/' + userId + '/diaries/' + year + '/' + month + '/' + diary.$key).remove();
+    promise2
+      .then(_ => console.log('success'))
+      .catch(err => console.log(err, 'You do not have access'));
+  }
+
 }
