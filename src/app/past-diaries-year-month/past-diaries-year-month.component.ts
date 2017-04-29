@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { FirebaseListObservable } from 'angularfire2';
 import { KeysPipe } from '../keys.pipe';
 import { ImageCyclePipe } from '../image-cycle.pipe';
-import {ShareButtonsModule} from 'ng2-sharebuttons';
 
 @Component({
   selector: 'app-past-diaries-year-month',

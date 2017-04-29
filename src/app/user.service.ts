@@ -116,4 +116,16 @@ export class UserService {
     return this.af.database.list('diaries/' + userId + '/' + year + '/' + month);
   }
 
+  //Used at recent-diaries.component.ts
+  getRecentDiaries(userId){
+    console.log(userId);
+    let year = new Date().getUTCFullYear();
+    let month = new Date().getUTCMonth() + 1;
+    return this.af.database.list('diaries/' + userId + '/' + year + '/' + month, {
+      query: {
+        orderByChild: 'date',
+        limitToLast: 3,
+      }
+    });
+  }
 }

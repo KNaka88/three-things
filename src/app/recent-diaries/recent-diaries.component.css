@@ -1,3 +1,11 @@
+:host {
+  display: block;
+  background-color: #f2fff9;
+}
+
+h2.title {
+  text-align: center;
+}
 
 .mdl-grid {
   justify-content: center;

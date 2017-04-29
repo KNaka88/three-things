@@ -7,8 +7,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ImageCyclePipe implements PipeTransform {
 
   transform(number: any, args?: any): any {
+    console.log("number:");
     let inputNumber = parseInt(number);
-
     if(inputNumber >= 7){
       let numberCycle = Math.floor(inputNumber/7);
       inputNumber = inputNumber - (7 * numberCycle);

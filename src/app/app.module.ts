@@ -21,6 +21,8 @@ import { PastDiariesYearMonthComponent } from './past-diaries-year-month/past-di
 import { MonthNumberToWordPipe } from './month-number-to-word.pipe';
 import { ImageCyclePipe } from './image-cycle.pipe';
 import {ShareButtonsModule} from 'ng2-sharebuttons';
+import { RecentDiariesComponent } from './recent-diaries/recent-diaries.component';
+import { ReversePipe } from './reverse.pipe';
 
 export const firebaseConfig = {
   apiKey: masterFirebaseConfig.apiKey,
@@ -44,6 +46,8 @@ export const firebaseConfig = {
     PastDiariesYearMonthComponent,
     MonthNumberToWordPipe,
     ImageCyclePipe,
+    RecentDiariesComponent,
+    ReversePipe,
   ],
   imports: [
     BrowserModule,

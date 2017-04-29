@@ -1,21 +1,28 @@
-Hello, {{(user | async)?.firstName}} <br>
-Today is {{today | date}}
-<form>
-  <label>Write Three Good things</label>
-  <input #good1 type="text" class='form-control'>
-  <input #good2 type="text" class='form-control'>
-  <input #good3 type="text" class='form-control'>
-  <label>Who can see this happy memory?</label>
-
-  <div>
-    Your privacy preference is: {{privacy}}
-  </div>
-  <select class='form-control' (change)="setPrivacyLevel($event.target.value)">
-    <option value="onlyMe" selected="selected">Only Me</option>
-    <option value='onlyFriends'>Only Friends</option>
-    <option value='anyone'>Anyone</option>
-  </select>
-  <button (click)="makeDiary(good1.value, good2.value, good3.value, privacyLevel)" >Make Diary</button>
-</form>
+<h3 class='welcome-sign'>Hello, {{(user | async)?.firstName}} <br>
+<p class="welcome-sign">Today is {{today | date}}</p>
+<div class='container'>
+  <form>
+    <label>Write Three Good things</label>
+    <div class="form-group">
+      <input #good1 type="text" class='form-control'>
+    </div>
+    <div class="form-group">
+      <input #good2 type="text" class='form-control'>
+    </div>
+    <div class="form-group">
+      <input #good3 type="text" class='form-control'>
+    </div>
+    <div class="form-group">
+      <label for="privacy">Privacy</label>
+      <select id="privacy" class='form-control' (change)="setPrivacyLevel($event.target.value)">
+        <option value="onlyMe" selected="selected">Only Me</option>
+        <option value='onlyFriends'>Only Friends</option>
+        <option value='anyone'>Anyone</option>
+      </select>
+    </div>
+    <button class="center-block mdl-button mdl-js-button mdl-button--accent" (click)="makeDiary(good1.value, good2.value, good3.value, privacyLevel)" >Make Diary</button>
+  </form>
+</div>
+<app-recent-diaries></app-recent-diaries>
 
 <app-past-diaries [userId]="userId"></app-past-diaries>
