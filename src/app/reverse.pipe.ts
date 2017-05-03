@@ -10,7 +10,6 @@ export class ReversePipe implements PipeTransform {
     if(value === ""){
       return value;
     }else if(value){
-      console.log(value.length);
       return value.slice().reverse();
     }
   }

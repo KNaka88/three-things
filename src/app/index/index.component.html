@@ -1,16 +1,15 @@
 <h3 class='welcome-sign'>Hello, {{(user | async)?.firstName}} <br>
 <p class="welcome-sign">Today is {{today | date}}</p>
 <div class='container'>
-  <form>
     <label>Write Three Good things</label>
     <div class="form-group">
-      <input #good1 type="text" class='form-control'>
+      <input [(ngModel)]="good1" type="text" class='form-control'>
     </div>
     <div class="form-group">
-      <input #good2 type="text" class='form-control'>
+      <input [(ngModel)]="good2" type="text" class='form-control'>
     </div>
     <div class="form-group">
-      <input #good3 type="text" class='form-control'>
+      <input [(ngModel)]="good3" type="text" class='form-control'>
     </div>
     <div class="form-group">
       <label for="privacy">Privacy</label>
@@ -20,8 +19,8 @@
         <option value='anyone'>Anyone</option>
       </select>
     </div>
-    <button class="center-block mdl-button mdl-js-button mdl-button--accent" (click)="makeDiary(good1.value, good2.value, good3.value, privacyLevel)" >Make Diary</button>
-  </form>
+    <button class="center-block mdl-button mdl-js-button mdl-button--accent" (click)="makeDiary()" >Make Diary</button>
+
 </div>
 <app-recent-diaries></app-recent-diaries>
 

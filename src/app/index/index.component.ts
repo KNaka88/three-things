@@ -15,7 +15,12 @@ export class IndexComponent implements OnInit {
   public userEmail: any;
   public user: FirebaseObjectObservable<any>;
   public today: number;
+
+  public good1: string;
+  public good2: string;
+  public good3: string;
   public privacyLevel: string = "onlyMe";
+
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
@@ -39,8 +44,14 @@ export class IndexComponent implements OnInit {
 
 
 
-  makeDiary(good1, good2, good3, privacyLevel){
-    this.userService.makeDiary(good1, good2, good3, privacyLevel, this.userId);
+  makeDiary(){
+    this.userService.makeDiary(this.good1, this.good2, this.good3, this.privacyLevel, this.userId);
+
+    //After create diary, clear the form
+    this.good1 = "";
+    this.good2 = "";
+    this.good3 = "";
+    this.privacyLevel = "onlyMe";
   }
 
   setPrivacyLevel(privacyLevel){
