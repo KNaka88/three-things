@@ -42,8 +42,6 @@ export class IndexComponent implements OnInit {
 
   }
 
-
-
   makeDiary(){
     this.userService.makeDiary(this.good1, this.good2, this.good3, this.privacyLevel, this.userId);
 
