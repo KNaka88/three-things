@@ -8,7 +8,6 @@ export class UserService {
   public userName: any;
   public userEmail: any;
 
-
   //path of firebase
   public diaries: FirebaseListObservable<any>;
 
@@ -101,7 +100,7 @@ export class UserService {
 
   //Used at past-diaries.component
   showMyAllDiaries(userId){
-    return this.af.database.list('users/' + userId + '/diaries/');
+    return this.af.database.list('diaries/' + userId);
   }
 
 
@@ -118,7 +117,6 @@ export class UserService {
 
   //Used at recent-diaries.component.ts
   getRecentDiaries(userId){
-    console.log(userId);
     let year = new Date().getUTCFullYear();
     let month = new Date().getUTCMonth() + 1;
     return this.af.database.list('diaries/' + userId + '/' + year + '/' + month, {
@@ -131,17 +129,9 @@ export class UserService {
 
 
   deleteDiary(userId, diary){
-    console.log(diary);
-    ////TODO FIX
     let year =  new Date(diary.date).getUTCFullYear();
     let month = new Date(diary.date).getUTCMonth() + 1;
-    console.log("year" + year);
-    console.log("month" + month);
-
-    let promise = this.af.database.list('/diaries/' + userId + '/' + year + '/' + month + '/' + diary.$key).remove();
-
-    // this.af.database.list('/users/' + userId + '/diaries/' + year + '/' + month, {
-    // }).remove();
+    this.af.database.list('/diaries/' + userId + '/' + year + '/' + month + '/' + diary.$key).remove();
   }
 
 }

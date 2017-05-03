@@ -24,7 +24,6 @@ export class PastDiariesComponent implements OnInit {
   showMyAllDiaries(){
       this.userService.showMyAllDiaries(this.userId).subscribe( (diaries)=> {
         this.myAllDiaries = diaries;
-        console.log(this.myAllDiaries);
       });
   }
 }

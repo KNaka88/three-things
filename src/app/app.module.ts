@@ -20,7 +20,6 @@ import { KeysPipe } from './keys.pipe';
 import { PastDiariesYearMonthComponent } from './past-diaries-year-month/past-diaries-year-month.component';
 import { MonthNumberToWordPipe } from './month-number-to-word.pipe';
 import { ImageCyclePipe } from './image-cycle.pipe';
-import {ShareButtonsModule} from 'ng2-sharebuttons';
 import { RecentDiariesComponent } from './recent-diaries/recent-diaries.component';
 import { ReversePipe } from './reverse.pipe';
 
@@ -55,7 +54,6 @@ export const firebaseConfig = {
     HttpModule,
     routing,
     AngularFireModule.initializeApp(firebaseConfig),
-    ShareButtonsModule.forRoot(),
   ],
   providers: [UserService],
   bootstrap: [AppComponent]
