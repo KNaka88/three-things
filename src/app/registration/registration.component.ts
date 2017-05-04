@@ -62,9 +62,9 @@ export class RegistrationComponent implements OnInit {
   registerUser(){
     this.userService.registerUser(this.email, this.password).then( (user) => {
       this.userService.saveUserInfoFromForm(user.uid, this.firstName, this.lastName, this.email).then(() => {
-          this.userService.af.auth.subscribe( (getAuth) => {
+          this.userService.afAuth.authState.subscribe( (getAuth) => {
             console.log(getAuth);
-            getAuth.auth.sendEmailVerification().then( () => {
+            getAuth.sendEmailVerification().then( () => {
               console.log("navigating");
               this.router.navigate(['user/' + user.uid]);
             });

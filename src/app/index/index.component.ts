@@ -2,7 +2,7 @@ import { Component, OnInit, NgModule } from '@angular/core';
 import { UserService } from '../user.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
+import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',

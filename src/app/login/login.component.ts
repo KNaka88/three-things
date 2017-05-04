@@ -29,9 +29,9 @@ export class LoginComponent implements OnInit {
   //call userService login and access to firebase auth
   login(email, password) {
     this.userService.login(email, password).then((user) => {
-
+      console.log(user);
       //check if user verified the email (boolean)
-      if(user.auth.emailVerified) {
+      if(user.emailVerified) {
         //true
         this.router.navigate(['user/' + user.uid]);
       }else{
@@ -47,11 +47,12 @@ export class LoginComponent implements OnInit {
     });
   }
 
+
   sendVerifyEmail(){
     console.log("clicked");
-    this.userService.af.auth.subscribe( (getAuth) => {
+    this.userService.afAuth.authState.subscribe( (getAuth) => {
       this.isSent = true;
-      getAuth.auth.sendEmailVerification();
+      getAuth.sendEmailVerification();
     });
   }
 }
