@@ -55,3 +55,7 @@ h2.title {
 }
 
 .material-icons{ color: #ff99d4; }
+
+.edit-form {
+    height: 330px;
+}
