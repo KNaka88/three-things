@@ -86,13 +86,15 @@ export class RecentDiariesComponent implements OnInit {
   }
 
   updateDiary(thisDiary){
-    console.log("updateDiary!");
     this.userService.updateDiary(this.good1, this.good2, this.good3, this.privacyLevel, this.userId, thisDiary);
     //After create diary, clear the form
     this.good1 = "";
     this.good2 = "";
     this.good3 = "";
     this.privacyLevel = "onlyMe";
+
+    //Close the form
+    this.isFormVisible = false;
   }
 
 }

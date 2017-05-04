@@ -131,6 +131,7 @@ export class UserService {
     let month = new Date(thisDiary.date).getUTCMonth() + 1;
     let diaryKey = thisDiary.$key;
     let date = thisDiary.date;
+    
     let diary = {
       date:  date,
       good1: good1,
@@ -138,8 +139,6 @@ export class UserService {
       good3: good3,
       privacyLevel: privacyLevel
     }
-    console.log(diary);
-    let existingDiary = this.db.list('diaries/' + userId + '/' + year + '/' + month).update(diaryKey, diary);
-    // existingDiary.update(diary);
+     return this.db.list('diaries/' + userId + '/' + year + '/' + month).update(diaryKey, diary);
   }
 }

@@ -53,13 +53,24 @@
               Delete
             </button>
           </div>
+
           <div *ngIf="isFormVisible">
-            <button (click)="editDiary(diary, i)" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-              Cancel
-            </button>
-            <button (click)="updateDiary(diary)" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-              Save
-            </button>
+            <div *ngIf="i === thisForm else elseBlock">
+              <button (click)="editDiary(diary, i)" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                Cancel
+              </button>
+              <button (click)="updateDiary(diary)" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                Save
+              </button>
+            </div>
+            <ng-template #elseBlock>
+              <button (click)="editDiary(diary, i)" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                Edit
+              </button>
+              <button (click)="deleteDiary(diary)" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                Delete
+              </button>
+            </ng-template>
           </div>
         </div>
         <div class="mdl-card__menu">
