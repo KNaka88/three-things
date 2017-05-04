@@ -14,6 +14,7 @@ export class RecentDiariesComponent implements OnInit {
   public recentDiaries: any;
   public bgTree: any = "../../assets/background/tree_bark.png";
   public showEditForm: boolean = false;
+  public thisForm: number;
 
   constructor(
     private userService: UserService,
@@ -28,9 +29,9 @@ export class RecentDiariesComponent implements OnInit {
     });
   }
 
-  editDiary(diary){
+  editDiary(diary, formNumber){
+    this.thisForm = formNumber;
     this.showEditForm = true;
-    console.log(diary.$key);
   }
 
   deleteDiary(diary){
