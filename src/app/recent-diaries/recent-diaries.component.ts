@@ -15,6 +15,10 @@ export class RecentDiariesComponent implements OnInit {
   public bgTree: any = "../../assets/background/tree_bark.png";
   public thisForm: number = null;
   public isFormVisible: boolean = false;
+  public good1: string;
+  public good2: string;
+  public good3: string;
+  public privacyLevel: string = "onlyMe";
 
   constructor(
     private userService: UserService,
@@ -48,6 +52,12 @@ export class RecentDiariesComponent implements OnInit {
       let editForm = document.getElementById("edit-form-" + this.thisForm);
       thisCard.style.display = "block";
       editForm.style.display = "none";
+
+      //clear the input form
+      this.good1 = "";
+      this.good2 = "";
+      this.good3 = "";
+      this.privacyLevel = "onlyMe";
 
 
       //Open this form
