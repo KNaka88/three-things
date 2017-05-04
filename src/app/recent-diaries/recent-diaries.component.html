@@ -6,7 +6,7 @@
           <h2 class="mdl-card__title-text">{{diary.date | date: "MM/dd"}}</h2>
         </div>
         <div id="card-{{i}}">
-          <div class="mdl-card__media">
+          <div  class="mdl-card__media">
             <div class="card card-img{{i | imageCycle:number}}"></div>
           </div>
         </div>
@@ -14,23 +14,25 @@
         <!-- Only Appears when user clicked the edit button -->
           <div id="edit-form-{{i}}">
             <div *ngIf="i === thisForm">
-              <div class="edit-form">
-                <div class="form-group">
-                  <input [(ngModel)]="good1" type="text" class='form-control'>
-                </div>
-                <div class="form-group">
-                  <input [(ngModel)]="good2" type="text" class='form-control'>
-                </div>
-                <div class="form-group">
-                  <input [(ngModel)]="good3" type="text" class='form-control'>
-                </div>
-                <div class="form-group">
-                  <label for="privacy">Privacy</label>
-                  <select id="privacy" class='form-control' (change)="setPrivacyLevel($event.target.value)">
-                    <option value="onlyMe" selected="selected">Only Me</option>
-                    <option value='onlyFriends'>Only Friends</option>
-                    <option value='anyone'>Anyone</option>
-                  </select>
+              <div *ngIf = "isFormVisible">
+                <div class="edit-form">
+                  <div class="form-group">
+                    <input [(ngModel)]="good1" type="text" class='form-control'>
+                  </div>
+                  <div class="form-group">
+                    <input [(ngModel)]="good2" type="text" class='form-control'>
+                  </div>
+                  <div class="form-group">
+                    <input [(ngModel)]="good3" type="text" class='form-control'>
+                  </div>
+                  <div class="form-group">
+                    <label for="privacy">Privacy</label>
+                    <select id="privacy" class='form-control' (change)="setPrivacyLevel($event.target.value)">
+                      <option value="onlyMe" selected="selected">Only Me</option>
+                      <option value='onlyFriends'>Only Friends</option>
+                      <option value='anyone'>Anyone</option>
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>
