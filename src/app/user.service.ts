@@ -126,4 +126,20 @@ export class UserService {
     this.db.list('/diaries/' + userId + '/' + year + '/' + month + '/' + diary.$key).remove();
   }
 
+  updateDiary(good1, good2, good3, privacyLevel, userId, thisDiary){
+    let year =  new Date(thisDiary.date).getUTCFullYear();
+    let month = new Date(thisDiary.date).getUTCMonth() + 1;
+    let diaryKey = thisDiary.$key;
+    let date = thisDiary.date;
+    let diary = {
+      date:  date,
+      good1: good1,
+      good2: good2,
+      good3: good3,
+      privacyLevel: privacyLevel
+    }
+    console.log(diary);
+    let existingDiary = this.db.list('diaries/' + userId + '/' + year + '/' + month).update(diaryKey, diary);
+    // existingDiary.update(diary);
+  }
 }

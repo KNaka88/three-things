@@ -45,12 +45,22 @@
           <h4>{{diary.good3}}</h4>
         </div>
         <div class="mdl-card__actions mdl-card--border">
-          <button (click)="editDiary(diary, i)" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-            Edit
-          </button>
-          <button (click)="deleteDiary(diary)" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-            Delete
-          </button>
+          <div *ngIf="!isFormVisible">
+            <button (click)="editDiary(diary, i)" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+              Edit
+            </button>
+            <button (click)="deleteDiary(diary)" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+              Delete
+            </button>
+          </div>
+          <div *ngIf="isFormVisible">
+            <button (click)="editDiary(diary, i)" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+              Cancel
+            </button>
+            <button (click)="updateDiary(diary)" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+              Save
+            </button>
+          </div>
         </div>
         <div class="mdl-card__menu">
           <button id="share-button{{i}}" class="mdl-button mdl-js-button mdl-button--icon">

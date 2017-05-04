@@ -34,14 +34,10 @@ export class RecentDiariesComponent implements OnInit {
   }
 
   editDiary(diary, formNumber){
-
     //Initialize value of thisForm (only once)
     if(this.thisForm === null){
       this.thisForm = formNumber;
     }
-
-
-
 
     if(this.thisForm !== formNumber){
       console.log("false!!");
@@ -87,6 +83,16 @@ export class RecentDiariesComponent implements OnInit {
     if(confirm("You want to delete this diary?")){
       this.userService.deleteDiary(this.userId, diary);
     }
+  }
+
+  updateDiary(thisDiary){
+    console.log("updateDiary!");
+    this.userService.updateDiary(this.good1, this.good2, this.good3, this.privacyLevel, this.userId, thisDiary);
+    //After create diary, clear the form
+    this.good1 = "";
+    this.good2 = "";
+    this.good3 = "";
+    this.privacyLevel = "onlyMe";
   }
 
 }
