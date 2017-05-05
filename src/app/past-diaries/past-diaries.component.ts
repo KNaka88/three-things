@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from '../user.service';
 import { KeysPipe } from '../keys.pipe';
+import { ActivatedRoute } from '@angular/router';
 import { MonthNumberToWordPipe } from '../month-number-to-word.pipe';
 @Component({
   selector: 'app-past-diaries',
@@ -10,14 +11,22 @@ import { MonthNumberToWordPipe } from '../month-number-to-word.pipe';
 })
 export class PastDiariesComponent implements OnInit {
   public myAllDiaries: any;
+  public userId: any;
 
- @Input()userId;
 
   constructor(
     private userService: UserService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
+    //getting user id from url
+    this.route.params.forEach((urlParameters) => {
+      //setting user id to local variable
+    this.userId = urlParameters['id'];
+    });
+
+    this.showMyAllDiaries();
   }
 
   showMyAllDiaries(){

@@ -24,6 +24,8 @@ import { MonthNumberToWordPipe } from './month-number-to-word.pipe';
 import { ImageCyclePipe } from './image-cycle.pipe';
 import { RecentDiariesComponent } from './recent-diaries/recent-diaries.component';
 import { ReversePipe } from './reverse.pipe';
+import { CreateDiaryComponent } from './create-diary/create-diary.component';
+import { MdlUppgradeElementDirective } from './mdl-uppgrade-element.directive';
 
 export const firebaseConfig = {
   apiKey: masterFirebaseConfig.apiKey,
@@ -49,6 +51,8 @@ export const firebaseConfig = {
     ImageCyclePipe,
     RecentDiariesComponent,
     ReversePipe,
+    CreateDiaryComponent,
+    MdlUppgradeElementDirective,
   ],
   imports: [
     BrowserModule,
