@@ -21,6 +21,8 @@ export class IndexComponent implements OnInit {
   public good3: string;
   public privacyLevel: string = "onlyMe";
 
+  public isDiaryFormOpened: boolean = false;
+
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
@@ -46,6 +48,7 @@ export class IndexComponent implements OnInit {
     this.userService.makeDiary(this.good1, this.good2, this.good3, this.privacyLevel, this.userId);
 
     //After create diary, clear the form
+    this.isDiaryFormOpened = false;
     this.good1 = "";
     this.good2 = "";
     this.good3 = "";
@@ -56,4 +59,7 @@ export class IndexComponent implements OnInit {
     this.privacyLevel = privacyLevel;
   }
 
+  showDiaryForm() {
+    this.isDiaryFormOpened = true;
+  }
 }

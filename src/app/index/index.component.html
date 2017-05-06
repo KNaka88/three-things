@@ -1,6 +1,10 @@
-<h3 class='welcome-sign'>Hello, {{(user | async)?.firstName}} <br>
-<p class="welcome-sign">Today is {{today | date}}</p>
-<div class='container'>
-    <label>Write Three Good things</label>
-</div>
-<app-recent-diaries></app-recent-diaries>
+  <h3 class='welcome-sign'>Hello, {{(user | async)?.firstName}} <br>
+  <p class="welcome-sign">Today is {{today | date}}</p>
+  <div class='container'>
+    <p id='write-good'>Write Three Good things</p>
+      <button *ngIf='!isDiaryFormOpened' class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" (click)="showDiaryForm()">Make Diary</button>
+    <div *ngIf='isDiaryFormOpened'>
+      <app-create-diary></app-create-diary>
+    </div>
+  </div>
+  <app-recent-diaries></app-recent-diaries>

@@ -1,10 +1,13 @@
-<div *ngIf="myAllDiaries">
-  <ul>
-    <div *ngFor="let myAllDiariesByYear of myAllDiaries">
-      {{myAllDiariesByYear.$key}}: <br>
-      <div *ngFor="let month of myAllDiariesByYear | keys">
-        <a routerLink="{{myAllDiariesByYear.$key}}/{{month}}">{{month | monthNumberToWord:monthNumber}}</a>
+<div class="mdl-textfield mdl-js-textfield">
+  <h2>Past Diaries</h2>
+  <div *ngIf="myAllDiaries">
+    <ul>
+      <div *ngFor="let myAllDiariesByYear of myAllDiaries">
+        {{myAllDiariesByYear.$key}}: <br>
+        <div *ngFor="let month of myAllDiariesByYear | keys">
+          <a routerLink="{{myAllDiariesByYear.$key}}/{{month}}">{{month | monthNumberToWord:monthNumber}}</a>
+        </div>
       </div>
-    </div>
-  </ul>
+    </ul>
+  </div>
 </div>

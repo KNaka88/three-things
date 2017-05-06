@@ -1,25 +1,24 @@
-<div mdl *ngIf="isLoggedIn" class="mdl-layout mdl-js-layout" id="navigation-menu">
-  <header class="mdl-layout__header">
-    <div class="mdl-layout__header-row" *ngIf="isLoggedIn">
+    <div mdl *ngIf="isLoggedIn" class="mdl-layout mdl-js-layout" id="navigation-menu">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row" *ngIf="isLoggedIn">
+            <span class="mdl-layout-title">Three Things</span>
+            <div class="mdl-layout-spacer"></div>
+            <nav class="mdl-navigation">
+              <!-- <a class="mdl-navigation__link">See Other's Diary</a> -->
+              <a class="mdl-navigation__link" routerLink='/user/{{userId}}/past_diaries'>Past Diary</a>
+              <a class="mdl-navigation__link" (click)="logout()">Logout</a>
+            </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
         <span class="mdl-layout-title">Three Things</span>
-        <div class="mdl-layout-spacer"></div>
         <nav class="mdl-navigation">
-          <a class="mdl-navigation__link" routerLink='/user/{{userId}}/make_diary'>Make Diary</a>
-          <a class="mdl-navigation__link">See Other's Diary</a>
+          <a class="mdl-navigation__link" routerLink='/user/{{userId}}/'>Top</a>
+          <!-- <a class="mdl-navigation__link">See Other's Diary</a> -->
           <a class="mdl-navigation__link" routerLink='/user/{{userId}}/past_diaries'>Past Diary</a>
           <a class="mdl-navigation__link" (click)="logout()">Logout</a>
         </nav>
+      </div>
     </div>
-  </header>
-  <div class="mdl-layout__drawer">
-    <span class="mdl-layout-title">Three Things</span>
-    <nav class="mdl-navigation">
-      <a class="mdl-navigation__link" routerLink='/user/{{userId}}/'>Top</a>
-      <a class="mdl-navigation__link" routerLink='/user/{{userId}}/make_diary'>Make Diary</a>
-      <a class="mdl-navigation__link">See Other's Diary</a>
-      <a class="mdl-navigation__link" routerLink='/user/{{userId}}/past_diaries'>Past Diary</a>
-      <a class="mdl-navigation__link" (click)="logout()">Logout</a>
-    </nav>
-  </div>
-</div>
-<router-outlet></router-outlet>
+    <div id='space-div'></div>
+    <router-outlet></router-outlet>
