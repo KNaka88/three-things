@@ -1,6 +1,11 @@
-img#background {
-    display: block;
-    margin: auto;
-    width: 100%;
-    z-index: -1;
+
+.btn-block {
+  margin-right: auto;
+  margin-left: auto;
+  width: 50%;
+}
+
+.space-div {
+  position:relative;
+  top:10vh;
 }

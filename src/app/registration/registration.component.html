@@ -1,26 +1,28 @@
-<form>
-  <div class="form-group isFormFilled">
-    <label for="firstName">First Name</label>
-    <input  type="text" id="firstName" class="form-control" [(ngModel)]="firstName" name="firstName" required><br>
-  </div>
+<div class='container register-form'>
+  <form>
+    <div class="form-group isFormFilled">
+      <label for="firstName">First Name</label>
+      <input  type="text" id="firstName" class="form-control" [(ngModel)]="firstName" name="firstName" required><br>
+    </div>
 
-  <div class="form-group isFormFilled">
-    <label for="lastName">Last Name</label>
-    <input  type="text" id="lastName" class="form-control" [(ngModel)]="lastName" name="lastName" required><br>
-  </div>
-  <div class="form-group">
-    <label for="email">Email</label>
-    <input  type="email" id="email" class="form-control" [(ngModel)]="email" name="email"  [class.verifyEmail]="isEmailVerified" [class.notVerifyEmail]="!isEmailVerified" required><br>
-  </div>
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input  type="password" id='password' class="form-control" [(ngModel)]="password" name="password" [class.isPasswordLength]="isPasswordLength" [class.isNotPasswordLength]="!isPasswordLength" required><br>
-  </div>
-  <div class="form-group">
-    <label for="confirmPassword">Confirm Password</label>
-    <input  type="password" id='confirmPassword' class="form-control" [class.confirmPassword]="isPasswordMatch" [class.notConfirmPassword]="!isPasswordMatch" [(ngModel)]="confirmPassword" name="confirmPassword" required><br>
-  </div>
-  <br>
-  <button (click)="registerUser()" class='btn btn-success'>Create Account</button>
-</form>
-  <p class='errorMessage'>{{displayError}}</p>
+    <div class="form-group isFormFilled">
+      <label for="lastName">Last Name</label>
+      <input  type="text" id="lastName" class="form-control" [(ngModel)]="lastName" name="lastName" required><br>
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input  type="email" id="email" class="form-control" [(ngModel)]="email" name="email"  [class.verifyEmail]="isEmailVerified" [class.notVerifyEmail]="!isEmailVerified" required><br>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input  type="password" id='password' class="form-control" [(ngModel)]="password" name="password" [class.isPasswordLength]="isPasswordLength" [class.isNotPasswordLength]="!isPasswordLength" required><br>
+    </div>
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password</label>
+      <input  type="password" id='confirmPassword' class="form-control" [class.confirmPassword]="isPasswordMatch" [class.notConfirmPassword]="!isPasswordMatch" [(ngModel)]="confirmPassword" name="confirmPassword" required><br>
+    </div>
+    <br>
+    <button (click)="registerUser()" class='btn btn-success btn-block'>Create Account</button>
+  </form>
+    <p class='errorMessage'>{{displayError}}</p>
+</div>

@@ -1,6 +1,13 @@
-<img src='/../../assets/bridge.jpg' id='background' alt='bridge-pic'/>
-<app-login></app-login>
-
-<div class='container'>
-  <app-registration></app-registration>
+<div class='row'>
+  <div class='col-md-6 col-md-offset-5'>
+    <app-login></app-login>
+  </div>
+  <div class='container'>
+    <div class='space-div' *ngIf='!isSignUpVisible'>
+      <button (click)="showSignUpForm()" class="mdl-button mdl-js-button mdl-button--raised  btn-info btn-block">Sign up</button>
+    </div>
+    <div *ngIf='isSignUpVisible'>
+      <app-registration></app-registration>
+    </div>
+  </div>
 </div>

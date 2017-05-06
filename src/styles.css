@@ -1,5 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
-:host {
-  display: block;
-  background: linear-gradient(135deg,#50E3C2,#85BAFF);
+img.background {
+  min-height: 100%;
+  min-width: 1920px;
+
+  width: 100%;
+  height: auto;
+
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  bottom:0px;
+  left: 0px;
+
+  -webkit-filter: opacity(.5);
+  filter: opacity(.5);
+  z-index: -1;
 }

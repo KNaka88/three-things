@@ -1,13 +1,18 @@
+.login-form {
+  position: relative;
+}
+
 .loginmodal-container {
   padding: 30px;
   max-width: 350px;
   width: 100% !important;
-  background-color: #F7F7F7;
+  background-color: #FFF;
   margin: 0 auto;
   border-radius: 2px;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
   overflow: hidden;
   font-family: roboto;
+  opacity: 0.8;
 }
 .loginmodal-container h1 {
   text-align: center;
@@ -41,6 +46,14 @@
   display: inline-block;
   opacity: 0.6;
   transition: opacity ease 0.5s;
+}
+
+a.forgot {
+  margin-left: 8px;
+}
+a.forgot:hover{
+  opacity:0.9;
+  font-weight: bold;
 }
 
 .error {

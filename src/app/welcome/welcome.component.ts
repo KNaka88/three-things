@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./welcome.component.css']
 })
 export class WelcomeComponent implements OnInit {
+  public isSignUpVisible: boolean = false;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  showSignUpForm(){
+    this.isSignUpVisible = true;
   }
 
 }
