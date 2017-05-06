@@ -1,3 +1,9 @@
+:host {
+  display: block;
+  background: linear-gradient(135deg,#c1f4ff,#efdefc);
+  min-height: 100vh;
+}
+
 .demo-card-wide.mdl-card {
   width: 512px;
 }
@@ -8,4 +14,19 @@
 }
 .demo-card-wide > .mdl-card__menu {
   color: #fff;
+}
+
+.header {
+  text-align: center;
+  font-weight: 200;
+}
+
+.year {
+  font-size: 1.5rem;
+  font-weight: bold;
+  list-style: none;
+}
+
+.month {
+  list-style: none;
 }

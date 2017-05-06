@@ -1,6 +1,6 @@
 
     <!-- keysPipe: returning each object's key -->
-
+<h2 class='diary-result'>Diaries Result</h2>
 <div class="mdl-grid">
     <div *ngFor='let i=index; let diary of monthlyDiaries  | async;' class="main-div">
       <div class="mdl-card  mdl-shadow--2dp card-float">
@@ -14,7 +14,6 @@
           <h4>{{diary.good1}}</h4>
           <h4>{{diary.good2}}</h4>
           <h4>{{diary.good3}}</h4>
-          <h4>{{i}}</h4>
         </div>
         <div class="mdl-card__actions mdl-card--border">
           <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
