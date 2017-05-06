@@ -3,10 +3,10 @@
 }
 
 .isFormFilled .ng-valid[required], .ng-valid.required, .isPasswordLength, .verifyEmail, .confirmPassword {
-  border-left: 5px solid #42A948; /* green */
+  border-left: 5px solid #b3f442; /* green */
 }
 .ng-invalid:not(form), .notVerifyEmail, .isNotPasswordLength, .notConfirmPassword {
-  border-left: 5px solid #a94442; /* red */
+  border-left: 5px solid #f45641; /* red */
 }
 
 
