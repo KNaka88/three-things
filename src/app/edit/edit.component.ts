@@ -5,13 +5,11 @@ import { ImageCyclePipe } from '../image-cycle.pipe';
 import { ReversePipe } from '../reverse.pipe';
 
 @Component({
-  selector: 'app-past-diaries-year-month',
-  templateUrl: './past-diaries-year-month.component.html',
-  styleUrls: ['./past-diaries-year-month.component.css'],
-  providers: [UserService]
+  selector: 'app-edit',
+  templateUrl: './edit.component.html',
+  styleUrls: ['./edit.component.css']
 })
-
-export class PastDiariesYearMonthComponent implements OnInit {
+export class EditComponent implements OnInit {
   public userId: any;
   public diaries: any;
   public thisForm: number = null;
@@ -21,26 +19,16 @@ export class PastDiariesYearMonthComponent implements OnInit {
   public good3: string;
   public privacyLevel: string = "onlyMe";
 
-  public year: any;
-  public month: any;
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
-    //getting user id from url
     this.route.params.forEach((urlParameters) => {
-      //setting user id to local variable
       this.userId = urlParameters['id'];
-      //setting diary year to local variable
-      this.year = urlParameters['year'];
-      //setting diary month to local variable
-      this.month = urlParameters['month'];
-
-      //getting diaries of specific year
-      this.diaries = this.userService.getMonthlyDiaries(this.userId, this.year, this.month);
-
+      //getting diaries of recent
+      this.diaries = this.userService.getRecentDiaries(this.userId);
     });
   }
 
@@ -107,4 +95,6 @@ export class PastDiariesYearMonthComponent implements OnInit {
     //Close the form
     this.isFormVisible = false;
   }
+
+
 }

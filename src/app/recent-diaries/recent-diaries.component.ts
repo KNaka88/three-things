@@ -11,8 +11,7 @@ import { ReversePipe } from '../reverse.pipe';
 })
 export class RecentDiariesComponent implements OnInit {
   public userId: any;
-  public recentDiaries: any;
-  public bgTree: any = "../../assets/background/tree_bark.png";
+  public diaries: any;
   public thisForm: number = null;
   public isFormVisible: boolean = false;
   public good1: string;
@@ -29,7 +28,7 @@ export class RecentDiariesComponent implements OnInit {
     this.route.params.forEach((urlParameters) => {
       this.userId = urlParameters['id'];
       //getting diaries of recent
-      this.recentDiaries = this.userService.getRecentDiaries(this.userId);
+      this.diaries = this.userService.getRecentDiaries(this.userId);
     });
   }
 

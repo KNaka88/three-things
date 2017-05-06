@@ -17,7 +17,6 @@ import { RegistrationComponent } from './registration/registration.component';
 import { WaitingConfirmationComponent } from './waiting-confirmation/waiting-confirmation.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { PastDiariesComponent } from './past-diaries/past-diaries.component';
-import { PastDiariesYearComponent } from './past-diaries-year/past-diaries-year.component';
 import { KeysPipe } from './keys.pipe';
 import { PastDiariesYearMonthComponent } from './past-diaries-year-month/past-diaries-year-month.component';
 import { MonthNumberToWordPipe } from './month-number-to-word.pipe';
@@ -26,6 +25,7 @@ import { RecentDiariesComponent } from './recent-diaries/recent-diaries.componen
 import { ReversePipe } from './reverse.pipe';
 import { CreateDiaryComponent } from './create-diary/create-diary.component';
 import { MdlUppgradeElementDirective } from './mdl-uppgrade-element.directive';
+import { EditComponent } from './edit/edit.component';
 
 export const firebaseConfig = {
   apiKey: masterFirebaseConfig.apiKey,
@@ -44,7 +44,6 @@ export const firebaseConfig = {
     WaitingConfirmationComponent,
     ResetPasswordComponent,
     PastDiariesComponent,
-    PastDiariesYearComponent,
     KeysPipe,
     PastDiariesYearMonthComponent,
     MonthNumberToWordPipe,
@@ -53,6 +52,7 @@ export const firebaseConfig = {
     ReversePipe,
     CreateDiaryComponent,
     MdlUppgradeElementDirective,
+    EditComponent,
   ],
   imports: [
     BrowserModule,
