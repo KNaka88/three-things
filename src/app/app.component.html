@@ -4,6 +4,7 @@
             <span class="mdl-layout-title">Three Things</span>
             <div class="mdl-layout-spacer"></div>
             <nav class="mdl-navigation">
+              <a class="mdl-navigation__link" routerLink='/user/{{userId}}/'>Top</a>
               <!-- <a class="mdl-navigation__link">See Other's Diary</a> -->
               <a class="mdl-navigation__link" routerLink='/user/{{userId}}/past_diaries'>Past Diary</a>
               <a class="mdl-navigation__link" (click)="logout()">Logout</a>
