@@ -10,7 +10,8 @@ import { UserService } from '../user.service';
   providers: [UserService],
 })
 export class ResetPasswordComponent implements OnInit {
-  public sent: boolean = false;
+  public isSubmitted: boolean = false;
+  public message: any;
 
   constructor(
     private userService: UserService,
@@ -19,8 +20,14 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   resetPassword(email: string): firebase.Promise<any> {
-    this.sent = true;
-    return firebase.auth().sendPasswordResetEmail(email);
+    return firebase.auth().sendPasswordResetEmail(email).then( value => {
+      console.log(value);
+      this.isSubmitted = true;
+      this.message = "Sent!";
+    }, reason => {
+      this.isSubmitted = true;
+      this.message = "Please type correct email address";
+    });
 }
 
 }
