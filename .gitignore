@@ -5,6 +5,8 @@
 /tmp
 /out-tsc
 
+/exec -l
+
 # dependencies
 /node_modules
 /bower_components
@@ -43,4 +45,4 @@ testem.log
 Thumbs.db
 
 #Firebase credentials
-/src/app/api-keys.ts 
+/src/app/api-keys.ts

@@ -131,7 +131,7 @@ export class UserService {
     let month = new Date(thisDiary.date).getUTCMonth() + 1;
     let diaryKey = thisDiary.$key;
     let date = thisDiary.date;
-    
+
     let diary = {
       date:  date,
       good1: good1,
