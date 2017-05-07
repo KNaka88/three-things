@@ -27,7 +27,6 @@ import { RecentDiariesComponent } from './recent-diaries/recent-diaries.componen
 import { ReversePipe } from './reverse.pipe';
 import { CreateDiaryComponent } from './create-diary/create-diary.component';
 import { MdlUppgradeElementDirective } from './mdl-uppgrade-element.directive';
-import { UploadComponent } from './upload/upload.component';
 
 export const firebaseConfig = {
   apiKey: masterFirebaseConfig.apiKey,
@@ -55,7 +54,6 @@ export const firebaseConfig = {
     ReversePipe,
     CreateDiaryComponent,
     MdlUppgradeElementDirective,
-    UploadComponent,
   ],
   imports: [
     BrowserModule,
