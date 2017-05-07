@@ -72,10 +72,7 @@ export class UserService {
     }
     let year = new Date().getUTCFullYear();
     let month = new Date().getUTCMonth() + 1;
-    this.db.list('diaries/' + userId + '/' + year + '/' + month).push(diary).then((result)=> {
-      let diaryId = result["path"]["o"][4]; //get this diary's id
-      this.db.list('users/' + userId + '/diaries/' + year + '/' + month).push(diaryId); //save path to users section
-    });
+    this.db.list('diaries/' + userId + '/' + year + '/' + month).push(diary);
   }
 
   registerSearchKeyword(searchKeyword, userId){
