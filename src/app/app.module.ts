@@ -18,7 +18,6 @@ import { RegistrationComponent } from './registration/registration.component';
 import { WaitingConfirmationComponent } from './waiting-confirmation/waiting-confirmation.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { PastDiariesComponent } from './past-diaries/past-diaries.component';
-import { PastDiariesYearComponent } from './past-diaries-year/past-diaries-year.component';
 import { KeysPipe } from './keys.pipe';
 import { PastDiariesYearMonthComponent } from './past-diaries-year-month/past-diaries-year-month.component';
 import { MonthNumberToWordPipe } from './month-number-to-word.pipe';
@@ -45,7 +44,6 @@ export const firebaseConfig = {
     WaitingConfirmationComponent,
     ResetPasswordComponent,
     PastDiariesComponent,
-    PastDiariesYearComponent,
     KeysPipe,
     PastDiariesYearMonthComponent,
     MonthNumberToWordPipe,
