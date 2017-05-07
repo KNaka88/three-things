@@ -8,6 +8,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule} from 'angularfire2/database';
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import { UserService } from './user.service';
+import { ImageManagementService } from './image-management.service';
 
 import { AppComponent } from './app.component';
 import { IndexComponent } from './index/index.component';
@@ -65,7 +66,7 @@ export const firebaseConfig = {
     AngularFireDatabaseModule,
     AngularFireAuthModule,
   ],
-  providers: [UserService],
+  providers: [UserService, ImageManagementService],
   bootstrap: [AppComponent]
 
 })

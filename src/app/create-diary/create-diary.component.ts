@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
+import { ImageManagementService } from '../image-management.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
@@ -11,7 +12,6 @@ import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/d
   styleUrls: ['./create-diary.component.css']
 })
 export class CreateDiaryComponent implements OnInit {
-
   public userId: any;
   public userName: any;
   public userEmail: any;
@@ -22,9 +22,12 @@ export class CreateDiaryComponent implements OnInit {
   public good2: string;
   public good3: string;
   public privacyLevel: string = "onlyMe";
+  public url:any;
+  public imgFile:FileList;
 
   constructor(
     private userService: UserService,
+    private imgManagementService: ImageManagementService,
     private route: ActivatedRoute,
     // private params: Params,
   ) { }
@@ -45,7 +48,19 @@ export class CreateDiaryComponent implements OnInit {
   }
 
   makeDiary(){
-    this.userService.makeDiary(this.good1, this.good2, this.good3, this.privacyLevel, this.userId);
+
+    let imgURL = '';
+
+    //Check if user uploaded the image
+    if(this.imgFile === undefined){
+      //NO updated image
+      imgURL = 'none';
+      this.userService.makeDiary(this.good1, this.good2, this.good3, this.privacyLevel, this.userId, imgURL);
+    }else {
+      //User updated image
+      //save to firebase storage
+      this.uploadImage();
+    }
 
     //After create diary, clear the form
     this.good1 = "";
@@ -57,5 +72,26 @@ export class CreateDiaryComponent implements OnInit {
   setPrivacyLevel(privacyLevel){
     this.privacyLevel = privacyLevel;
   }
+  setUploadImage(event){
+      this.imgFile = event.target.files;
+  }
 
+
+  uploadImage() {
+    let promise1 = new Promise((resolve) => {
+      //save to firebase
+      this.imgManagementService.uploadImage(this.imgFile, this.userId);
+      resolve(this.imgFile[0].name);
+    });
+
+    promise1.then( (imgFile)=> {
+      //SUCCESS: get the image url
+      return this.imgManagementService.downloadImage(this.userId, imgFile);
+    })
+    .then((imgURL)=> {
+      this.userService.makeDiary(this.good1, this.good2, this.good3, this.privacyLevel, this.userId, imgURL);
+    }).catch((error)=> {
+      console.log(error);
+    });
+  }
 }

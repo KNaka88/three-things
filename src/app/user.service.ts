@@ -6,13 +6,8 @@ import * as firebase from 'firebase/app';
 @Injectable()
 export class UserService {
 
-  public userId: any;
-  public userName: any;
-  public userEmail: any;
-
   //path of firebase
   public diaries: FirebaseListObservable<any>;
-
 
   constructor(
     public afAuth: AngularFireAuth,
@@ -66,13 +61,14 @@ export class UserService {
   }
 
 //CREATE
-  makeDiary(good1, good2, good3, privacyLevel, userId){
+  makeDiary(good1, good2, good3, privacyLevel, userId, imgURL){
     let diary = {
       date: Date.now(),
       good1: good1,
       good2: good2,
       good3: good3,
-      privacyLevel: privacyLevel
+      privacyLevel: privacyLevel,
+      imgURL: imgURL
     }
     let year = new Date().getUTCFullYear();
     let month = new Date().getUTCMonth() + 1;

@@ -1,3 +1,5 @@
+<h1>URL</h1>
+{{url}}
 <div class='mdl-textfield mdl-js-textfield'>
   <div class="form-group">
     <input [(ngModel)]="good1" type="text" class='form-control' placeholder='good thing 1'>
@@ -8,6 +10,9 @@
   <div class="form-group">
     <input [(ngModel)]="good3" type="text" class='form-control' placeholder='good thing 3'>
   </div>
+  <!-- <input type="file" (change)="uploadImage($event)" placeholder="Upload file" accept=".jpg,.jpeg,.png"> -->
+  <input type="file" (change)="setUploadImage($event)" placeholder="Upload file" accept=".jpg,.jpeg,.png">
+
   <div class="form-group">
     <label for="privacy">Privacy</label>
     <select id="privacy" class='form-control' (change)="setPrivacyLevel($event.target.value)">
