@@ -7,12 +7,7 @@
         </div>
         <div id="card-{{i}}">
           <div  class="mdl-card__media">
-            <div *ngIf='diary.imgURL === "none"'>
-              <div class="card card-img{{i | imageCycle:number}}"></div>
-            </div>
-            <div *ngIf='diary.imgURL !== "none"'>
               <img src="{{diary.imgURL}}" class='user-image'>
-            </div>
           </div>
         </div>
 

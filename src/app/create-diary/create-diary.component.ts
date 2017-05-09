@@ -54,7 +54,7 @@ export class CreateDiaryComponent implements OnInit {
     //Check if user uploaded the image
     if(this.imgFile === undefined){
       //NO updated image
-      imgURL = 'none';
+      imgURL = this.setDefaultImage();
       this.userService.makeDiary(this.good1, this.good2, this.good3, this.privacyLevel, this.userId, imgURL);
     }else {
       //User updated image
@@ -93,5 +93,10 @@ export class CreateDiaryComponent implements OnInit {
     }).catch((error)=> {
       console.log(error);
     });
+  }
+
+  setDefaultImage() {
+      let imageNumber = Math.floor(Math.random() * 7);
+      return '../../assets/card/card-image' + imageNumber + '.jpg';
   }
 }
