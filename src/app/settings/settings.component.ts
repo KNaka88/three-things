@@ -15,6 +15,7 @@ export class SettingsComponent implements OnInit {
   public firstName: string;
   public lastName: string;
   public email: string;
+  public searchKeyword: string;
   public isProfileSettingOpened: boolean = false;
   public isAccountSettingOpened: boolean = false;
   public message: string;
