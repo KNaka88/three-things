@@ -1,0 +1,26 @@
+<div class='mdl-textfield'>
+  <h2>Setting</h2>
+  <div>
+    <p (click)="toggleProfileSetting()">Profile Setting</p>
+    <div *ngIf='isProfileSettingOpened'>
+      <div class="form-group isFormFilled">
+        <label for="firstName">First Name</label>
+        <input  type="text" id="firstName" class="form-control" [(ngModel)]="firstName" name="firstName" required><br>
+      </div>
+
+      <div class="form-group isFormFilled">
+        <label for="lastName">Last Name</label>
+        <input  type="text" id="lastName" class="form-control" [(ngModel)]="lastName" name="lastName" required><br>
+      </div>
+
+      <button (click)="updateUserName()" class='btn btn-success btn-block'>Update</button>
+      <div *ngIf="message">
+        {{message}}
+      </div>
+    </div>
+    <p (click)="toggleAccountSetting()">Account Setting</p>
+    <div *ngIf='isAccountSettingOpened'>
+      test
+    </div>
+  </div>
+</div>

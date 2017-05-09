@@ -26,7 +26,6 @@ export class IndexComponent implements OnInit {
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
-    // private params: Params,
   ) { }
 
   ngOnInit() {

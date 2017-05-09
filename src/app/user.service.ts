@@ -134,4 +134,12 @@ export class UserService {
     }
      return this.db.list('diaries/' + userId + '/' + year + '/' + month).update(diaryKey, diary);
   }
+
+  //used at setting.component
+  updateUserName(firstName, lastName, userId){
+    return this.db.object('users/' + userId).update({
+      firstName: firstName,
+      lastName: lastName,
+    });
+  }
 }
