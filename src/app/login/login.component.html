@@ -4,7 +4,7 @@
       <label for="email">Email</label>
       <input #email  type="email" class="form-control">
       <label>Password</label>
-      <input type="password" #password class="form-control"><br>
+      <input type="password" #password class="form-control" (keyup.enter)="login(email.value, password.value)"><br>
       <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" (click)="login(email.value, password.value)">Login</button>
       <a class='forgot' routerLink="reset_password">Forgot your password?</a>
       <div *ngIf="verifyRequired">
