@@ -18,16 +18,33 @@
         <label for="searchKeyword">Search Keyword (optional)</label>
         <input  type="text" id="searchKeyword" class="form-control" [(ngModel)]="searchKeyword" name="searchKeyword"><br>
       </div> -->
-      
+
       <button (click)="updateUserName()" class='btn btn-success btn-block'>Update</button>
       <div *ngIf="message">
         {{message}}
       </div>
     </div>
+
+
     <p (click)="toggleAccountSetting()">Account Setting</p>
     <div *ngIf='isAccountSettingOpened'>
       <!-- TODO: CHANGE EMAIL ADDRESS -->
+
       <!-- TODO: UPDATE PASSWORD -->
+        <p>Change Password</p>
+        <div class="modal-dialog login-form">
+          <div class="loginmodal-container">
+              <h1>Please confirm your account</h1><br>
+              <label for="email">Email</label>
+              <input #email  type="email" class="form-control">
+              <label>Password</label>
+              <input type="password" #password class="form-control" (keyup.enter)="confirm(email.value, password.value)"><br><br>
+              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" (click)="confirm(password.value)">Confirm</button>
+          </div>
+        </div>
+
+
+
       <!-- TODO: DELETE USER ACCOUNT -->
     </div>
   </div>

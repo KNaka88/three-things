@@ -54,4 +54,19 @@ export class SettingsComponent implements OnInit {
     .then(_ => this.message = "Updated!")
     .catch(err => this.message = "Failed :(");
   }
+
+  confirm(password){
+
+    //TODO: add credential -> then run update function
+
+
+    let update = this.userService.updatePassword(password);
+    update.then(()=>{
+      //success
+      console.log("success");
+    }), function(error) {
+      console.log('error');
+    };
+
+  }
 }

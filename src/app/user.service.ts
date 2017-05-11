@@ -51,6 +51,15 @@ export class UserService {
     return this.db.object('users/' + uid);
   }
 
+  updatePassword(password){
+    let user = firebase.auth().currentUser;
+    let newPassword = password;
+
+    return user.updatePassword(newPassword);
+  }
+
+
+
   getUserIdBySearchKeyword(searchKeyword: string) {
     return this.db.list('/searchKeywords', {
       query: {
