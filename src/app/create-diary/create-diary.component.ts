@@ -17,6 +17,7 @@ export class CreateDiaryComponent implements OnInit {
   public userEmail: any;
   public user: FirebaseObjectObservable<any>;
   public today: number;
+  public errorMessage: boolean = false;
 
   public good1: string;
   public good2: string;
@@ -48,25 +49,36 @@ export class CreateDiaryComponent implements OnInit {
   }
 
   makeDiary(){
+    //check if user typed all the form
+    if(this.good1 && this.good2 && this.good3){
 
-    let imgURL = '';
+      //hide the error message
+      this.errorMessage = false;
 
-    //Check if user uploaded the image
-    if(this.imgFile === undefined){
-      //NO updated image
-      imgURL = this.setDefaultImage();
-      this.userService.makeDiary(this.good1, this.good2, this.good3, this.privacyLevel, this.userId, imgURL);
+      //initialize imgURL
+      let imgURL = '';
+
+      //Check if user uploaded the image
+      if(this.imgFile === undefined){
+        //NO updated image
+        imgURL = this.setDefaultImage();
+        this.userService.makeDiary(this.good1, this.good2, this.good3, this.privacyLevel, this.userId, imgURL);
+      }else {
+        //User updated image
+        //save to firebase storage
+        this.uploadImage();
+      }
+
+      //After create diary, clear the form
+      this.good1 = "";
+      this.good2 = "";
+      this.good3 = "";
+      this.privacyLevel = "onlyMe";
+
     }else {
-      //User updated image
-      //save to firebase storage
-      this.uploadImage();
+      //show the error message
+      this.errorMessage = true;
     }
-
-    //After create diary, clear the form
-    this.good1 = "";
-    this.good2 = "";
-    this.good3 = "";
-    this.privacyLevel = "onlyMe";
   }
 
   setPrivacyLevel(privacyLevel){

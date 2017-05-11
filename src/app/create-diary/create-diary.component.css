@@ -3,3 +3,8 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+.errorMessage {
+  color: red;
+  font-weight: bold;
+}

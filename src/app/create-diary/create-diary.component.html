@@ -24,3 +24,6 @@
   <br><br>
   <button class="btn-block mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" (click)="makeDiary()" >Happy</button>
 </div>
+<div *ngIf='errorMessage'>
+  <p class='errorMessage'>Please fill the all forms!</p>
+</div>

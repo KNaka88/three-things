@@ -60,27 +60,33 @@ export class RegistrationComponent implements OnInit {
 
 
   registerUser(){
-    this.userService.registerUser(this.email, this.password).then( (user) => {
-      this.userService.saveUserInfoFromForm(user.uid, this.firstName, this.lastName, this.email).then(() => {
+
+    //check if form is typed correct
+    let verified = (this.firstName && this.lastName && this.isPasswordMatch && this.isPasswordLength && this.isEmailVerified);
+
+    if(verified){
+      this.userService.registerUser(this.email, this.password).then( (user) => {
+        this.userService.saveUserInfoFromForm(user.uid, this.firstName, this.lastName, this.email).then(() => {
           this.userService.afAuth.authState.subscribe( (getAuth) => {
-            console.log(getAuth);
             getAuth.sendEmailVerification().then( () => {
-              console.log("navigating");
               this.router.navigate(['user/' + user.uid]);
             });
           });
         })
-      // when register user method failed, catch error
+        // when register user method failed, catch error
+        .catch((error) => {
+          this.error = error;
+          alert(error.message);
+        });
+      })
+      // when register method failed, catch error
       .catch((error) => {
         this.error = error;
         alert(error.message);
-        });
-      })
-    // when register method failed, catch error
-    .catch((error) => {
-      this.error = error;
-      alert(error.message);
-    });
+      });
+    }else {
+      alert('Please type all necessary information');
+    }
   }
 
   ngDoCheck(){
