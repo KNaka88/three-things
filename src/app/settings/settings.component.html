@@ -1,0 +1,34 @@
+<div class='mdl-textfield'>
+  <h2>Setting</h2>
+  <div>
+    <p (click)="toggleProfileSetting()">Profile Setting</p>
+    <div *ngIf='isProfileSettingOpened'>
+      <div class="form-group isFormFilled">
+        <label for="firstName">First Name</label>
+        <input  type="text" id="firstName" class="form-control" [(ngModel)]="firstName" name="firstName" required><br>
+      </div>
+
+      <div class="form-group isFormFilled">
+        <label for="lastName">Last Name</label>
+        <input  type="text" id="lastName" class="form-control" [(ngModel)]="lastName" name="lastName" required><br>
+      </div>
+
+      <!-- TODO: add searchkeyword functionallity -->
+      <!-- <div class="form-group">
+        <label for="searchKeyword">Search Keyword (optional)</label>
+        <input  type="text" id="searchKeyword" class="form-control" [(ngModel)]="searchKeyword" name="searchKeyword"><br>
+      </div> -->
+      
+      <button (click)="updateUserName()" class='btn btn-success btn-block'>Update</button>
+      <div *ngIf="message">
+        {{message}}
+      </div>
+    </div>
+    <p (click)="toggleAccountSetting()">Account Setting</p>
+    <div *ngIf='isAccountSettingOpened'>
+      <!-- TODO: CHANGE EMAIL ADDRESS -->
+      <!-- TODO: UPDATE PASSWORD -->
+      <!-- TODO: DELETE USER ACCOUNT -->
+    </div>
+  </div>
+</div>

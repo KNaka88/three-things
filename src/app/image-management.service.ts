@@ -15,6 +15,14 @@ export class ImageManagementService {
   constructor() { }
 
   uploadImage(fileList, userId) {
+
+
+
+    // TODO: Compress Image File
+
+
+
+
     if(fileList.length > 0) {
         this.file = fileList[0];
         let uploadTask = this.storageRef.child('images/' + userId +  '/' + this.file.name).put(this.file, this.metadata);
