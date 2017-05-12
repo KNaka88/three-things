@@ -27,6 +27,10 @@ import { ReversePipe } from './reverse.pipe';
 import { CreateDiaryComponent } from './create-diary/create-diary.component';
 import { MdlUppgradeElementDirective } from './mdl-uppgrade-element.directive';
 import { SettingsComponent } from './settings/settings.component';
+import { DeleteAccountComponent } from './delete-account/delete-account.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ChangeNameComponent } from './change-name/change-name.component';
+
 export const firebaseConfig = {
   apiKey: masterFirebaseConfig.apiKey,
   authDomain: masterFirebaseConfig.authDomain,
@@ -53,6 +57,9 @@ export const firebaseConfig = {
     CreateDiaryComponent,
     MdlUppgradeElementDirective,
     SettingsComponent,
+    DeleteAccountComponent,
+    ChangePasswordComponent,
+    ChangeNameComponent,
   ],
   imports: [
     BrowserModule,

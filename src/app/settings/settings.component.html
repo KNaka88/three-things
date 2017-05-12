@@ -1,62 +1,37 @@
 <div class='mdl-textfield'>
+  <div *ngIf="message">
+    {{message}}
+  </div>
   <h2>Setting</h2>
   <div>
     <p (click)="toggleProfileSetting()">Profile Setting</p>
-    <div *ngIf="message">
-      {{message}}
-    </div>
 
 
     <p (click)="toggleAccountSetting()">Account Setting</p>
     <div *ngIf='isProfileSettingOpened'>
-      <div class="form-group isFormFilled">
-        <label for="firstName">First Name</label>
-        <input  type="text" id="firstName" class="form-control" [(ngModel)]="firstName" name="firstName" required><br>
-      </div>
-
-      <div class="form-group isFormFilled">
-        <label for="lastName">Last Name</label>
-        <input  type="text" id="lastName" class="form-control" [(ngModel)]="lastName" name="lastName" required><br>
-      </div>
-
-      <!-- TODO: add searchkeyword functionallity -->
-      <!-- <div class="form-group">
-      <label for="searchKeyword">Search Keyword (optional)</label>
-      <input  type="text" id="searchKeyword" class="form-control" [(ngModel)]="searchKeyword" name="searchKeyword"><br>
-    </div> -->
-    <button (click)="updateUserName()" class='btn btn-success btn-block'>Update</button>
+      <app-change-name (messageSender)="setMessage($event)"></app-change-name>
     </div>
 
-    
+
     <div *ngIf='isAccountSettingOpened'>
-      <!-- TODO: CHANGE EMAIL ADDRESS -->
+      <p (click)="toggleConfirmPasswordForm()">Change Password</p>
+      <div *ngIf="isConfirmPasswordFormOpened">
+        <app-change-password (messageSender)="setMessage($event)"></app-change-password>
+      </div>
 
-      <!-- TODO: UPDATE PASSWORD -->
-      <p>Change Password</p>
-      <div *ngIf='!isChangePasswordFormOpened'>
-        <div class="modal-dialog login-form">
-          <div class="loginmodal-container">
-            <h1>Please confirm your account</h1><br>
-            <label for="email">Email</label>
-            <input #email  type="email" class="form-control">
-            <label>Password</label>
-            <input type="password" #password class="form-control" (keyup.enter)="confirm(email.value, password.value)"><br><br>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" (click)="confirm(email.value, password.value)">Confirm</button>
-          </div>
-        </div>
-    <!-- TODO: DELETE USER ACCOUNT -->
+
+      <p (click)="toggleDeleteAccountForm()">Delete Account</p>
+      <div *ngIf='isDeleteAccountFormOpened'>
+        <app-delete-account></app-delete-account>
       </div>
-      <div *ngIf='isChangePasswordFormOpened'>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input  type="password" id='password' class="form-control" [(ngModel)]="newPassword" name="newPassword" [class.isPasswordLength]="isPasswordLength" [class.isNotPasswordLength]="!isPasswordLength" required><br>
-        </div>
-        <div class="form-group">
-          <label for="confirmPassword">Confirm Password</label>
-          <input  type="password" id='confirmPassword' class="form-control" [class.confirmPassword]="isPasswordMatch" [class.notConfirmPassword]="!isPasswordMatch" [(ngModel)]="confirmPassword" name="confirmPassword" required><br>
-        </div>
-        <br>
-        <button (click)="updatePassword()" class='btn btn-success btn-block'>Update</button>
-      </div>
-    </div>
+    </div> <!-- End of isAccountSettingOpened -->
+  </div>
+
 </div>
+
+
+<!-- TODO: add searchkeyword functionallity -->
+<!-- <div class="form-group">
+<label for="searchKeyword">Search Keyword (optional)</label>
+<input  type="text" id="searchKeyword" class="form-control" [(ngModel)]="searchKeyword" name="searchKeyword"><br>
+</div> -->
