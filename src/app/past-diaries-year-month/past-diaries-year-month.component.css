@@ -25,3 +25,11 @@
 }
 
 .material-icons{ color: #ff99d4; }
+
+.user-image {
+  max-width: 330px;
+  max-height: 330px;
+  width: 100%;
+  margin: auto;
+  position: relative;
+}
