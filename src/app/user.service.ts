@@ -69,6 +69,10 @@ export class UserService {
     });
   }
 
+  reauthenticate(credential){
+    return firebase.auth().currentUser.reauthenticateWithCredential(credential);
+  }
+
 //CREATE
   makeDiary(good1, good2, good3, privacyLevel, userId, imgURL){
     let diary = {
@@ -91,6 +95,9 @@ export class UserService {
     });
   }
 
+  getCredentials(email, password){
+    return firebase.auth.EmailAuthProvider.credential(email, password);
+  }
 
   //Used at past-diaries.component
   showMyAllDiaries(userId){

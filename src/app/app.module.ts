@@ -27,7 +27,6 @@ import { ReversePipe } from './reverse.pipe';
 import { CreateDiaryComponent } from './create-diary/create-diary.component';
 import { MdlUppgradeElementDirective } from './mdl-uppgrade-element.directive';
 import { SettingsComponent } from './settings/settings.component';
-
 export const firebaseConfig = {
   apiKey: masterFirebaseConfig.apiKey,
   authDomain: masterFirebaseConfig.authDomain,
