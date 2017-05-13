@@ -1,4 +1,4 @@
-    <div mdl *ngIf="isLoggedIn" class="mdl-layout mdl-js-layout" id="navigation-menu">
+    <div mdl *ngIf="isLoggedIn" class="mdl-layout mdl-js-layout mdl-layout__header--scroll" id="navigation-menu">
       <header class="mdl-layout__header">
         <div class="mdl-layout__header-row" *ngIf="isLoggedIn">
             <span class="mdl-layout-title">Three Things</span>
@@ -23,5 +23,7 @@
         </nav>
       </div>
     </div>
-    <div id='space-div'></div>
+    <div class="mdl-layout__content main-content">
+      <div id='space-div'></div>
       <router-outlet></router-outlet>
+    </div>
