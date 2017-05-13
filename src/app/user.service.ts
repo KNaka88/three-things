@@ -88,7 +88,7 @@ export class UserService {
     }
     let year = new Date().getUTCFullYear();
     let month = new Date().getUTCMonth() + 1;
-    this.db.list('diaries/' + userId + '/' + year + '/' + month).push(diary);
+    this.db.list('diaries/' + userId + '/year/' + year + '/' + month).push(diary);
     this.db.list('diaries/' + userId + '/allImages/').push( {imgFileName: imgFileName});
   }
 
@@ -107,26 +107,26 @@ export class UserService {
 
   //Used at past-diaries.component
   showMyAllDiaries(userId){
-    return this.db.list('diaries/' + userId);
+    return this.db.list('diaries/' + userId + '/year/');
   }
 
 
 
   //Used at past-diaries-year.component.ts
   getYearDiaries(userId, year){
-    return this.db.list('diaries/' + userId + '/' + year);
+    return this.db.list('diaries/' + userId + '/year/' + year);
   }
 
   //Used at past-diaries-year-month.component.ts
   getMonthlyDiaries(userId, year, month){
-    return this.db.list('diaries/' + userId + '/' + year + '/' + month);
+    return this.db.list('diaries/' + userId + '/year/' + year + '/' + month);
   }
 
   //Used at recent-diaries.component.ts
   getRecentDiaries(userId){
     let year = new Date().getUTCFullYear();
     let month = new Date().getUTCMonth() + 1;
-    return this.db.list('diaries/' + userId + '/' + year + '/' + month, {
+    return this.db.list('diaries/' + userId + '/year/' + year + '/' + month, {
       query: {
         orderByChild: 'date',
         limitToLast: 3,
@@ -138,7 +138,7 @@ export class UserService {
   deleteDiary(userId, diary){
     let year =  new Date(diary.date).getUTCFullYear();
     let month = new Date(diary.date).getUTCMonth() + 1;
-    this.db.list('/diaries/' + userId + '/' + year + '/' + month + '/' + diary.$key).remove();
+    this.db.list('/diaries/' + userId + '/year/' + year + '/' + month + '/' + diary.$key).remove();
   }
 
   deleteAllDiary(userId){
@@ -165,7 +165,7 @@ export class UserService {
       good3: good3,
       privacyLevel: privacyLevel
     }
-     return this.db.list('diaries/' + userId + '/' + year + '/' + month).update(diaryKey, diary);
+     return this.db.list('diaries/' + userId + '/year/' + year + '/' + month).update(diaryKey, diary);
   }
 
   //used at setting.component
@@ -180,24 +180,20 @@ export class UserService {
 
     let user = firebase.auth().currentUser;
 
-    console.log("getAllImageReference");
     this.getAllImageReference(user.uid).subscribe( (data) => {
 
       //avoid running function several times
       if(data.$value !== null) {
         this.ImageManagementService.deleteAllImage(user.uid, data)
         .then(()=> {
-          console.log("Running deleteAlldiary");
           return this.deleteAllDiary(user.uid);
         })
         .then( () => {
-          console.log("Running delete account()");
           return user.delete();
         })
         .then( () => {
           alert("Account is deleted. See you again!");
         }, (error) =>{
-          console.log("Show error");
           console.log(error);
         });
       }
