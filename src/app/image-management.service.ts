@@ -17,15 +17,14 @@ export class ImageManagementService {
   uploadImage(fileList, userId) {
 
 
+    let promise1 = new Promise((resolve) => {
 
-    // TODO: Compress Image File
+      if(fileList.length > 0) {
 
-
-
-
-    if(fileList.length > 0) {
         this.file = fileList[0];
-        let uploadTask = this.storageRef.child('images/' + userId +  '/' + this.file.name).put(this.file, this.metadata);
+        let imgFileName = this.file.name;
+
+        let uploadTask = this.storageRef.child('images/' + userId +  '/' + imgFileName).put(this.file, this.metadata);
 
         uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
           function(snapshot) {
@@ -33,33 +32,36 @@ export class ImageManagementService {
             console.log('upload is ' + progress + '% done');
             switch(snapshot.state) {
               case firebase.storage.TaskState.PAUSED:
-                console.log('upload is paused');
-                break;
+              console.log('upload is paused');
+              break;
               case firebase.storage.TaskState.RUNNING:
-                console.log('upload is running');
-                break;
+              console.log('upload is running');
+              break;
             }
           },function(error) {
             console.log("Error:");
             console.log(error);
           }, function() {
-            this.downloadURL = uploadTask.snapshot.downloadURL;
-          });
-    } //if closed
+              console.log("Promise1, resolve");
+              resolve(imgFileName);
+          }
+        );
+      }
+    });
+
+    return promise1;
+
+
   }
 
-  downloadImage(userId, imgFile){
-    return this.storageRef.child('images/' + userId + '/' + imgFile).getDownloadURL();
-    // this.storageRef.child('images/' + userId + '/' + imgFile).getDownloadURL().then((url)=> {
-    //   console.log('result');
-    //   console.log(url);
-    //   // let img = (<HTMLImageElement>document.getElementById('myImg'));
-    //   // img.src = url;
-    //   return url;
-    // }).catch((error)=> {
-    //   console.log(error);
-    //   return "error";
-    // });
+  downloadImage(imgFileName, userId ){
+
+    let promise2 = new Promise( (resolve) => {
+      let imgURL = this.storageRef.child('images/' + userId + '/' + imgFileName).getDownloadURL();
+      resolve(imgURL);
+    });
+
+    return promise2;
   }
 
   deleteImage(){

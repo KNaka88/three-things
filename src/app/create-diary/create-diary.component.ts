@@ -92,28 +92,23 @@ export class CreateDiaryComponent implements OnInit {
 
 
   uploadImage() {
-    let promise1 = new Promise((resolve) => {
-      //save to firebase
-      this.imgManagementService.uploadImage(this.imgFile, this.userId);
-      resolve(this.imgFile[0].name);
-    });
+    let imgFileName = this.imgFile[0].name;
+    let promise1 = this.imgManagementService.uploadImage(this.imgFile, this.userId);
 
-    promise1.then( (imgFile)=> {
-      //SUCCESS: get the image url
-      console.log('imgFile~~');
-      console.log(imgFile);
-      return this.imgManagementService.downloadImage(this.userId, imgFile);
+
+    promise1.then( (imgFileName) => {
+      return this.imgManagementService.downloadImage(imgFileName, this.userId);
     })
-    .then((imgURL)=> {
-      let imgFileName = this.imgFile[0].name;
-      console.log("good1" + this.good1);
+    .then( (imgURL) => {
       this.userService.makeDiary(this.good1, this.good2, this.good3, this.privacyLevel, this.userId, imgURL, imgFileName);
       //After create diary, clear the form
       this.good1 = "";
       this.good2 = "";
       this.good3 = "";
       this.privacyLevel = "onlyMe";
-    }).catch((error)=> {
+    })
+
+    .catch((error)=> {
       console.log(error);
     });
   }
