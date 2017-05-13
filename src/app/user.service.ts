@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuthModule, AngularFireAuth} from 'angularfire2/auth';
 import { AngularFireDatabaseModule, AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { ImageManagementService } from './image-management.service';
 import * as firebase from 'firebase/app';
 
 @Injectable()
@@ -12,6 +13,7 @@ export class UserService {
   constructor(
     public afAuth: AngularFireAuth,
     public db: AngularFireDatabase,
+    public ImageManagementService: ImageManagementService,
   ){ }
 
 
@@ -39,6 +41,7 @@ export class UserService {
   logout() {
     return firebase.auth().signOut();
   }
+
 
 
 
@@ -74,7 +77,7 @@ export class UserService {
   }
 
 //CREATE
-  makeDiary(good1, good2, good3, privacyLevel, userId, imgURL){
+  makeDiary(good1, good2, good3, privacyLevel, userId, imgURL, imgFileName){
     let diary = {
       date: Date.now(),
       good1: good1,
@@ -86,6 +89,7 @@ export class UserService {
     let year = new Date().getUTCFullYear();
     let month = new Date().getUTCMonth() + 1;
     this.db.list('diaries/' + userId + '/' + year + '/' + month).push(diary);
+    this.db.list('diaries/' + userId + '/allImages/').push( {imgFileName: imgFileName});
   }
 
   registerSearchKeyword(searchKeyword, userId){
@@ -94,6 +98,8 @@ export class UserService {
       searchKeyword: searchKeyword
     });
   }
+
+
 
   getCredentials(email, password){
     return firebase.auth.EmailAuthProvider.credential(email, password);
@@ -135,6 +141,12 @@ export class UserService {
     this.db.list('/diaries/' + userId + '/' + year + '/' + month + '/' + diary.$key).remove();
   }
 
+  deleteAllDiary(userId){
+    this.db.list('users/' + userId).remove();
+    this.db.list('diaries/' + userId).remove();
+  }
+
+
   updateDiary(good1, good2, good3, privacyLevel, userId, thisDiary){
     let year =  new Date(thisDiary.date).getUTCFullYear();
     let month = new Date(thisDiary.date).getUTCMonth() + 1;
@@ -157,5 +169,23 @@ export class UserService {
       firstName: firstName,
       lastName: lastName,
     });
+  }
+
+  deleteAccount(){
+    let user = firebase.auth().currentUser;
+    this.getAllImageReference(user.uid).subscribe( (data) => {
+      this.ImageManagementService.deleteAllImage(user.uid, data);
+    });
+
+    this.deleteAllDiary(user.uid);
+    user.delete().then(function() {
+      alert("Account is deleted. See you again!");
+    }, function(error) {
+      console.log(error);
+    });
+  }
+
+  getAllImageReference(userId){
+    return this.db.object('diaries/' + userId + '/allImages');
   }
 }

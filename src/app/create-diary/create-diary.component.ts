@@ -62,18 +62,20 @@ export class CreateDiaryComponent implements OnInit {
       if(this.imgFile === undefined){
         //NO updated image
         imgURL = this.setDefaultImage();
-        this.userService.makeDiary(this.good1, this.good2, this.good3, this.privacyLevel, this.userId, imgURL);
+        let imgFileName = 'none';
+        this.userService.makeDiary(this.good1, this.good2, this.good3, this.privacyLevel, this.userId, imgURL, imgFileName);
+        //After create diary, clear the form
+        this.good1 = "";
+        this.good2 = "";
+        this.good3 = "";
+        this.privacyLevel = "onlyMe";
       }else {
         //User updated image
         //save to firebase storage
         this.uploadImage();
       }
 
-      //After create diary, clear the form
-      this.good1 = "";
-      this.good2 = "";
-      this.good3 = "";
-      this.privacyLevel = "onlyMe";
+
 
     }else {
       //show the error message
@@ -98,10 +100,19 @@ export class CreateDiaryComponent implements OnInit {
 
     promise1.then( (imgFile)=> {
       //SUCCESS: get the image url
+      console.log('imgFile~~');
+      console.log(imgFile);
       return this.imgManagementService.downloadImage(this.userId, imgFile);
     })
     .then((imgURL)=> {
-      this.userService.makeDiary(this.good1, this.good2, this.good3, this.privacyLevel, this.userId, imgURL);
+      let imgFileName = this.imgFile[0].name;
+      console.log("good1" + this.good1);
+      this.userService.makeDiary(this.good1, this.good2, this.good3, this.privacyLevel, this.userId, imgURL, imgFileName);
+      //After create diary, clear the form
+      this.good1 = "";
+      this.good2 = "";
+      this.good3 = "";
+      this.privacyLevel = "onlyMe";
     }).catch((error)=> {
       console.log(error);
     });

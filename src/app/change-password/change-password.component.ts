@@ -41,9 +41,7 @@ export class ChangePasswordComponent implements OnInit {
 
 
   confirm(email, password){
-
     //TODO: add credential -> then run update function
-
     let promise = new Promise((resolve) => {
       let credential = this.userService.getCredentials(email, password);
       resolve(credential);
@@ -77,13 +75,11 @@ export class ChangePasswordComponent implements OnInit {
         this.newPassword = '';
         this.confirmPassword = '';
 
-        //close the form
-        this.isChangePasswordFormOpened = false;
-        this.isAccountSettingOpened = false;
+        //show the result message
         this.messageSender.emit("Updated!");
 
-        //show the success message
       }), function(error) {
+        //show the result message
         this.messageSender.emit("Error");
       };
     }

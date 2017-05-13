@@ -11,7 +11,6 @@ export class SettingsComponent implements OnInit {
   @Input() messageSender: string;
   public message: string;
   public searchKeyword: string;
-
   public isProfileSettingOpened: boolean = false;
   public isAccountSettingOpened: boolean = false;
   public isConfirmPasswordFormOpened: boolean = false;

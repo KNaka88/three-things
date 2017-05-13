@@ -71,4 +71,22 @@ export class ImageManagementService {
     });
   }
 
+  deleteAllImage(userId, data){
+    let allImageURL = [];
+
+    //create imageURL array
+    for (let key in data) {
+      if (data.hasOwnProperty(key)) {
+        allImageURL.push(data[key].imgURL);
+      }
+    }
+
+    let imageRef = this.storageRef.child('images/' + userId);
+    imageRef.delete().then(()=>{
+      console.log('delete success!');
+    }).catch((error)=> {
+      console.log(error);
+    });
+  }
+
 }
