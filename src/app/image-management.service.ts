@@ -42,7 +42,6 @@ export class ImageManagementService {
             console.log("Error:");
             console.log(error);
           }, function() {
-              console.log("Promise1, resolve");
               resolve(imgFileName);
           }
         );
@@ -74,21 +73,19 @@ export class ImageManagementService {
   }
 
   deleteAllImage(userId, data){
-    let allImageURL = [];
 
-    //create imageURL array
+    let allPromise = [];
+
+    //create delete image promise array
     for (let key in data) {
       if (data.hasOwnProperty(key)) {
-        allImageURL.push(data[key].imgURL);
+        let imageRef = this.storageRef.child('images/' + userId + '/' + data[key].imgFileName);
+
+        let promise = imageRef.delete();
+
+        allPromise.push(promise);
       }
     }
-
-    let imageRef = this.storageRef.child('images/' + userId);
-    imageRef.delete().then(()=>{
-      console.log('delete success!');
-    }).catch((error)=> {
-      console.log(error);
-    });
+    return Promise.all(allPromise);
   }
-
 }

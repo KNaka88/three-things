@@ -142,8 +142,13 @@ export class UserService {
   }
 
   deleteAllDiary(userId){
-    this.db.list('users/' + userId).remove();
-    this.db.list('diaries/' + userId).remove();
+
+      let p1 = this.db.list('users/' + userId).remove();
+      let p2 = this.db.list('diaries/' + userId).remove();
+
+      let allPromise = Promise.all([p1, p2]);
+
+      return allPromise;
   }
 
 
@@ -172,16 +177,30 @@ export class UserService {
   }
 
   deleteAccount(){
-    let user = firebase.auth().currentUser;
-    this.getAllImageReference(user.uid).subscribe( (data) => {
-      this.ImageManagementService.deleteAllImage(user.uid, data);
-    });
 
-    this.deleteAllDiary(user.uid);
-    user.delete().then(function() {
-      alert("Account is deleted. See you again!");
-    }, function(error) {
-      console.log(error);
+    let user = firebase.auth().currentUser;
+
+    console.log("getAllImageReference");
+    this.getAllImageReference(user.uid).subscribe( (data) => {
+
+      //avoid running function several times
+      if(data.$value !== null) {
+        this.ImageManagementService.deleteAllImage(user.uid, data)
+        .then(()=> {
+          console.log("Running deleteAlldiary");
+          return this.deleteAllDiary(user.uid);
+        })
+        .then( () => {
+          console.log("Running delete account()");
+          return user.delete();
+        })
+        .then( () => {
+          alert("Account is deleted. See you again!");
+        }, (error) =>{
+          console.log("Show error");
+          console.log(error);
+        });
+      }
     });
   }
 
