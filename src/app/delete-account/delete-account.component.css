@@ -1,0 +1,16 @@
+.delete-account-form {
+  display:block;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.2rem;
+}
+
+.sub-header {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.mdl-grid {
+  justify-content: center;
+}

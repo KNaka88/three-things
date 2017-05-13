@@ -4,23 +4,27 @@
     {{message}}
   </div>
   <div>
-    <p (click)="toggleProfileSetting()">Profile Setting</p>
+    <p (click)="toggleProfileSetting()" class="sub-menu">Profile Setting</p>
 
 
-    <p (click)="toggleAccountSetting()">Account Setting</p>
+    <p (click)="toggleAccountSetting()" class="sub-menu">Account Setting</p>
+
+    <div class='border-div'></div>
+
     <div *ngIf='isProfileSettingOpened'>
       <app-change-name (messageSender)="setMessage($event)"></app-change-name>
     </div>
 
 
+
     <div *ngIf='isAccountSettingOpened'>
-      <p (click)="toggleConfirmPasswordForm()">Change Password</p>
+      <p (click)="toggleConfirmPasswordForm()" class='action-menu'>Change Password</p>
+      <p (click)="toggleDeleteAccountForm()" class='action-menu'>Delete Account</p>
       <div *ngIf="isConfirmPasswordFormOpened">
         <app-change-password (messageSender)="setMessage($event)"></app-change-password>
       </div>
 
 
-      <p (click)="toggleDeleteAccountForm()">Delete Account</p>
       <div *ngIf='isDeleteAccountFormOpened'>
         <app-delete-account></app-delete-account>
       </div>
