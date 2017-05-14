@@ -14,16 +14,13 @@ export class ImageManagementService {
 
   constructor() { }
 
-  uploadImage(fileList, userId) {
+  uploadImage(fileList, imgFileName, userId) {
 
 
     let promise1 = new Promise((resolve) => {
 
       if(fileList.length > 0) {
-
         this.file = fileList[0];
-        let imgFileName = this.file.name;
-
         let uploadTask = this.storageRef.child('images/' + userId +  '/' + imgFileName).put(this.file, this.metadata);
 
         uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,

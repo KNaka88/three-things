@@ -92,8 +92,9 @@ export class CreateDiaryComponent implements OnInit {
 
 
   uploadImage() {
-    let imgFileName = this.imgFile[0].name;
-    let promise1 = this.imgManagementService.uploadImage(this.imgFile, this.userId);
+
+    let imgFileName = Date.now() + this.imgFile[0].name;
+    let promise1 = this.imgManagementService.uploadImage(this.imgFile, imgFileName, this.userId);
 
 
     promise1.then( (imgFileName) => {

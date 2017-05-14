@@ -138,6 +138,8 @@ export class UserService {
   deleteDiary(userId, diary){
     let year =  new Date(diary.date).getUTCFullYear();
     let month = new Date(diary.date).getUTCMonth() + 1;
+
+
     this.db.list('/diaries/' + userId + '/year/' + year + '/' + month + '/' + diary.$key).remove();
   }
 
