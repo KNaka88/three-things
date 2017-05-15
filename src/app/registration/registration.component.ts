@@ -38,27 +38,6 @@ export class RegistrationComponent implements OnInit {
   ngOnInit() {
   }
 
-
-  // validationCheck(){
-  //   //check if password is typed correct
-  //   let verified = (this.isPasswordMatch && this.isPasswordLength && this.isEmailVerified);
-  //
-  //   if(verified){
-  //     console.log("verified");
-  //       //check if searchKeyword is already exist
-  //       this.userService.getUserIdBySearchKeyword(this.searchKeyword).subscribe( (result) => {
-  //         //if there no searchKeyword exists
-  //         if(result.length === 0){
-  //           this.registerUser(this.firstName, this.lastName, this.email, this.password, this.searchKeyword);
-  //         }else{
-  //           this.displayError = "This keyword already exists. Try another keyword"
-  //         }
-  //       });
-  //   }
-  // }
-
-
-
   registerUser(){
 
     //check if form is typed correct

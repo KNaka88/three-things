@@ -10,5 +10,26 @@
   </div>
 
 
+  <!-- If user already has searchKeyword, show this div -->
+  <div *ngIf="searchKeywordRegistered; else registerSearchKeyword">
+    <div class="form-group">
+      <label>Search Keyword</label>
+      <p class="search-keyword">{{searchKeyword}}</p>
+    </div>
+  </div>
+
+
+  <!-- if user does not have searchKeyword, show this div -->
+  <ng-template #registerSearchKeyword>
+    <div class="form-group">
+      <label for="searchKeyword">Search Keyword <span class="info-message">*</span></label>
+      <input  type="text" id="searchKeyword" class="form-control" [(ngModel)]="searchKeyword" name="searchKeyword"><br>
+      <span class="info-message">* You can connect with your friends<br>by adding search keyword (optional)</span>
+    </div>
+  </ng-template>
+
+
   <button (click)="updateUserName()" class='btn btn-success btn-block'>Update</button>
+
+  {{displayError}}
 </div>

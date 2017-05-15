@@ -99,7 +99,7 @@ export class UserService {
     });
   }
 
-  registerSearchKeyword(searchKeyword, userId){
+  registerSearchKeyword(userId, searchKeyword){
     return this.db.list('searchKeywords').push({
       userId: userId,
       searchKeyword: searchKeyword
@@ -203,12 +203,14 @@ export class UserService {
   }
 
   //used at setting.component
-  updateUserName(firstName, lastName, userId){
+  updateUserName(firstName, lastName, userId, searchKeyword){
     return this.db.object('users/' + userId).update({
       firstName: firstName,
       lastName: lastName,
+      searchKeyword: searchKeyword
     });
   }
+
 
   deleteAccount(){
 
