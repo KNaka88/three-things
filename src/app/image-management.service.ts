@@ -60,8 +60,9 @@ export class ImageManagementService {
     return promise2;
   }
 
-  deleteImage(){
-    let imageRef = this.storageRef.child('images/portland.jpg');
+  deleteImage(userId, imgFileName){
+    let imageRef = this.storageRef.child('images/' + userId + '/' + imgFileName);
+
     imageRef.delete().then(()=>{
       console.log('delete success!');
     }).catch((error)=> {
@@ -70,7 +71,6 @@ export class ImageManagementService {
   }
 
   deleteAllImage(userId, data){
-
     let allPromise = [];
 
     //create delete image promise array

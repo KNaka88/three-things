@@ -78,18 +78,25 @@ export class UserService {
 
 //CREATE
   makeDiary(good1, good2, good3, privacyLevel, userId, imgURL, imgFileName){
-    let diary = {
-      date: Date.now(),
-      good1: good1,
-      good2: good2,
-      good3: good3,
-      privacyLevel: privacyLevel,
-      imgURL: imgURL
-    }
     let year = new Date().getUTCFullYear();
     let month = new Date().getUTCMonth() + 1;
-    this.db.list('diaries/' + userId + '/year/' + year + '/' + month).push(diary);
-    this.db.list('diaries/' + userId + '/allImages/').push( {imgFileName: imgFileName});
+    let imagePath = this.db.list('diaries/' + userId + '/allImages/').push( {imgFileName: imgFileName});
+
+    imagePath.then((data) => {
+      let imgFilePath = data.path.o[3];
+
+      let diary = {
+        date: Date.now(),
+        good1: good1,
+        good2: good2,
+        good3: good3,
+        privacyLevel: privacyLevel,
+        imgURL: imgURL,
+        imgFilePath: imgFilePath,
+        imgFileName: imgFileName,
+      }
+      this.db.list('diaries/' + userId + '/year/' + year + '/' + month).push(diary);
+    });
   }
 
   registerSearchKeyword(searchKeyword, userId){
@@ -136,15 +143,40 @@ export class UserService {
 
 
   deleteDiary(userId, diary){
+    let user = firebase.auth().currentUser;
     let year =  new Date(diary.date).getUTCFullYear();
     let month = new Date(diary.date).getUTCMonth() + 1;
+    let query = this.db.list('/diaries/' + userId + '/year/' + year + '/' + month + '/' + diary.$key);
 
+    query.subscribe((value) => {
+      let imgFilePath = "";
+      let imgFileName = "";
 
-    this.db.list('/diaries/' + userId + '/year/' + year + '/' + month + '/' + diary.$key).remove();
+      //Get imgFilePath and imgFileName
+      for (let key in value) {
+        if(value[key].$key === "imgFilePath"){
+          imgFilePath = value[key].$value;
+        }
+
+        if(value[key].$key === "imgFileName"){
+          imgFileName = value[key].$value;
+        }
+      }
+
+      //1: delete diary
+      this.db.list('/diaries/' + userId + '/year/' + year + '/' + month + '/' + diary.$key).remove();
+
+      //2: delete from allImages
+      this.db.list('/diaries/' + userId + '/allImages/' + imgFilePath).remove();
+
+      //3: delete from firebase storage
+      if(imgFileName !== "none"){
+        this.ImageManagementService.deleteImage(user.uid, imgFileName);
+      }
+    });
   }
 
   deleteAllDiary(userId){
-
       let p1 = this.db.list('users/' + userId).remove();
       let p2 = this.db.list('diaries/' + userId).remove();
 
