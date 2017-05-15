@@ -57,7 +57,7 @@ export class ChangeNameComponent implements OnInit {
 
     if(verified){
       searchKeywordCheckPromise.then( (result)=> {
-        
+
         //if searchKeyword is available or empty, run this program
         let promise1 = this.userService.updateUserName(this.firstName, this.lastName, this.userId, this.searchKeyword);
 
@@ -86,7 +86,7 @@ export class ChangeNameComponent implements OnInit {
 
     let promise = new Promise((resolve) => {
 
-      let friendIdObservable = this.userService.getUserIdBySearchKeyword(searchKeyword);
+      let userIdObservable = this.userService.getUserIdBySearchKeyword(searchKeyword);
 
       if(searchKeyword === ""){
         //If user doesn't type anything, return true
@@ -94,7 +94,8 @@ export class ChangeNameComponent implements OnInit {
 
       }else{
         //check if searchKeyword is already exist
-        friendIdObservable.subscribe( (result) => {
+        userIdObservable.subscribe( (result) => {
+          console.log(result);
           if(includeWhiteSpace){
             this.displayError = "White space is not allowed";
           }else if(result.length === 0){
