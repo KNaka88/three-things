@@ -1,0 +1,22 @@
+.find-friends-header {
+  text-align: center;
+}
+
+.find-friends-menu {
+  display:block;
+  margin-top: 10vh;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+  box-shadow: 2px 2px 2px 2px gray;
+  opacity:0.8;
+  text-align: center;
+}
+
+.find-friends-form {
+  display:block;
+  width: 90%;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}

@@ -30,7 +30,6 @@ export class CreateDiaryComponent implements OnInit {
     private userService: UserService,
     private imgManagementService: ImageManagementService,
     private route: ActivatedRoute,
-    // private params: Params,
   ) { }
 
   ngOnInit() {

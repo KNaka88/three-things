@@ -1,0 +1,12 @@
+<h2 class='find-friends-header'>Find Friends</h2>
+<div class='mdl-textfield find-friends-menu'>
+  <div class="find-friends-form">
+    <div class="form-group">
+      <label for="friendSearchKeyword">Search </label>
+      <input  type="text" id="friendSearchKeyword" class="form-control" [(ngModel)]="friendSearchKeyword" name="friendSearchKeyword" placeholder="Type frined's search keyword"><br>
+    </div>
+  </div>
+  <div class='mdl-grid'>
+    <button (click)="searchFriend()" class='btn btn-success btn-block'>Search</button>
+  </div>
+</div>

@@ -8,6 +8,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { PastDiariesComponent } from './past-diaries/past-diaries.component';
 import { PastDiariesYearMonthComponent} from './past-diaries-year-month/past-diaries-year-month.component';
 import { SettingsComponent } from './settings/settings.component';
+import { FindFriendComponent } from './find-friend/find-friend.component';
+
 
 const appRoutes: Routes = [
  {
@@ -41,6 +43,10 @@ const appRoutes: Routes = [
  {
    path: 'user/:id/settings',
    component: SettingsComponent
+ },
+ {
+   path: 'user/:id/find_friends',
+   component: FindFriendComponent
  }
 ];
 

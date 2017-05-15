@@ -30,6 +30,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { DeleteAccountComponent } from './delete-account/delete-account.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ChangeNameComponent } from './change-name/change-name.component';
+import { FindFriendComponent } from './find-friend/find-friend.component';
 
 export const firebaseConfig = {
   apiKey: masterFirebaseConfig.apiKey,
@@ -60,6 +61,7 @@ export const firebaseConfig = {
     DeleteAccountComponent,
     ChangePasswordComponent,
     ChangeNameComponent,
+    FindFriendComponent,
   ],
   imports: [
     BrowserModule,
