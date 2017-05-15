@@ -11,8 +11,8 @@ img#background {
   bottom:0px;
   left: 0px;
 
-  -webkit-filter: opacity(.5);
-  filter: opacity(.5);
+  -webkit-filter: opacity(.1);
+  filter: opacity(.1);
   z-index: -1;
 }
 
