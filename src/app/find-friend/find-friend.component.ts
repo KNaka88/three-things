@@ -75,7 +75,6 @@ export class FindFriendComponent implements OnInit {
   }
 
   checkIfTheyAreFriends(friendId){
-
     let friends = false;
     let waiting = false;
 
@@ -110,35 +109,6 @@ export class FindFriendComponent implements OnInit {
         //get friend profile
         this.friendName = friendProfile.firstName + " " + friendProfile.lastName;
 
-
-        //Get Friend Status
-        let friendStatusObservable = this.userService.getFriendStatus(this.userId, this.friendId);
-
-        //Get user Status
-        let userStatusObservable = this.userService.getUserstatus(this.userId, this.friendId);
-
-        let friendStatus = "";
-        let userStatus = "";
-
-        let promise1 = this.getFriendStatus(friendStatusObservable);
-        let promise2 = this.getUserStatus(userStatusObservable);
-
-        Promise.all([promise1,promise2]).then( (result)=>{
-          console.log(result);
-          if(result[0] === "null" && result[1] === "null"){
-            //Both User and Friend have not sent friend request
-            console.log("case1");
-          }else if(result[0] === "false" && result[1] === "true"){
-            //User sent friend request, but friend haven't responded yet
-            console.log("case2");
-          }else if(result[0] === "true" && result[1] === "false"){
-            //friend sent friend request, but user haven't responded yet
-            console.log("case3");
-          }else if(result[0] === "true" && result[1] === "true"){
-            //User and Friend are friend;
-            console.log("case4");
-          }
-        });
       });
   }
 
@@ -149,11 +119,10 @@ export class FindFriendComponent implements OnInit {
 
 
   getAllFriendsRequestWaiting(){
-    this.waitingList = [];
     let friendsRequestWaitingList = this.userService.getAllFriendsRequestWaiting(this.userId);
 
     friendsRequestWaitingList.subscribe((data)=>{
-;
+
       let friendGroupIds = [];
       for(let i=0; i<data.length; i++){
         friendGroupIds.push(data[i].friendGroupId);
@@ -161,9 +130,11 @@ export class FindFriendComponent implements OnInit {
       let friendsGroupResultArray = this.userService.getAllFriendsStatusWaiting(friendGroupIds);
 
       if(friendsGroupResultArray.length !== 0){
+        this.waitingList = [];
         friendsGroupResultArray.forEach( (elem)=> {
           elem.subscribe( (res) => {
             this.waitingList.push(res);
+            console.log(this.waitingList);
           });
         });
       }
@@ -178,21 +149,15 @@ export class FindFriendComponent implements OnInit {
     });
   }
 
-
-  getAllSentFriendsRequest(){
-    this.sentList = this.userService.getAllSentFriendsRequest(this.userId);
-    this.sentList.subscribe((data)=>{
-      console.log(data);
-    });
-  }
-
-
-  cancelFriendRequest(friendGroup){
-    this.userService.cancelFriendRequest(this.userId, friendGroup);
-  }
+  // cancelFriendRequest(friendGroup){
+  //   this.userService.cancelFriendRequest(this.userId, friendGroup);
+  // }
 
   acceptFriendRequest(friendGroup){
     this.userService.acceptFriendRequest(this.userId, friendGroup);
+
+    this.getAllFriendsRequestWaiting();
+    this.getAllFriendsList();
   }
 
   getFriendStatus(friendStatusObservable){

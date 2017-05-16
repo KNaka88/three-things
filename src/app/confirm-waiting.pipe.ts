@@ -13,7 +13,7 @@ export class ConfirmWaitingPipe implements PipeTransform {
       let result = [];
       value.forEach( (element) => {
         //if $key === friendId && $value === userId
-        if(element[1].$value === userId){
+        if(element[1].$value === userId && element[3].$value === false){
           result.push(element);
         }
       });
