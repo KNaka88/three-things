@@ -19,7 +19,6 @@ export class ChangeNameComponent implements OnInit {
   public searchKeyword: string = "";
   public searchKeywordRegistered: boolean = false;
   public displayError: string;
-  public completeSearchKeyword: string;
   // public isProfileSettingOpened: boolean = false;
 
 
@@ -41,7 +40,7 @@ export class ChangeNameComponent implements OnInit {
       this.firstName = profile.firstName;
       this.lastName =  profile.lastName;
       this.email = profile.email;
-      this.completeSearchKeyword = profile.searchKeyword;
+      this.searchKeyword = profile.searchKeyword;
 
       if(profile.searchKeyword !== undefined){
         this.searchKeywordRegistered = true;
@@ -102,6 +101,8 @@ export class ChangeNameComponent implements OnInit {
           }else if(result.length === 0){
             //if there no searchKeyword exists
             resolve("can use");
+          }else if(this.searchKeywordRegistered){
+            resolve("already registered");
           }else{
             this.displayError = "This keyword already exists";
             searchKeyword = "";
