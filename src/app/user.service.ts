@@ -383,7 +383,7 @@ export class UserService {
   }
 
 
-  getAllFriendsStatusWaiting(friendGroupIdsArray){
+  getAllFriendsStatus(friendGroupIdsArray){
     let FriendsGroupResultArray = [];
 
     friendGroupIdsArray.forEach( (friendsGroupId)=>{

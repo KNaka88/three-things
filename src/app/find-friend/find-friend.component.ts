@@ -80,7 +80,7 @@ export class FindFriendComponent implements OnInit {
     let friends = false;
     let waiting = false;
 
-      //1. Check if they are already friends or not
+      // 1. Check if they are already friends or not
       this.allFriendsList.forEach((elements)=> {
         elements.forEach((element)=>{
           if(element.$value === friendId){
@@ -88,7 +88,6 @@ export class FindFriendComponent implements OnInit {
           }
         });
       });
-
 
       //2. Check already friend request is sent or not
       this.waitingList.forEach((elements)=> {
@@ -129,7 +128,7 @@ export class FindFriendComponent implements OnInit {
       for(let i=0; i<data.length; i++){
         friendGroupIds.push(data[i].friendGroupId);
       }
-      let friendsGroupResultArray = this.userService.getAllFriendsStatusWaiting(friendGroupIds);
+      let friendsGroupResultArray = this.userService.getAllFriendsStatus(friendGroupIds);
 
       if(friendsGroupResultArray.length !== 0){
         this.waitingList = [];
@@ -145,9 +144,25 @@ export class FindFriendComponent implements OnInit {
 
 
   getAllFriendsList(){
+
     let friendsList = this.userService.getAllFriendsList(this.userId);
     friendsList.subscribe((data)=> {
-      this.allFriendsList = data;
+      console.log('data');
+      console.log(data);
+      let friendGroupIds = [];
+      for(let i=0; i<data.length; i++){
+        friendGroupIds.push(data[i].friendGroupId);
+      }
+      let friendsGroupResultArray = this.userService.getAllFriendsStatus(friendGroupIds);
+
+      if(friendsGroupResultArray.length !== 0){
+        this.allFriendsList = [];
+        friendsGroupResultArray.forEach( (elem)=> {
+          elem.subscribe( (res) => {
+            this.allFriendsList.push(res);
+          });
+        });
+      }
     });
   }
 
