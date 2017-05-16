@@ -38,6 +38,8 @@ export class FindFriendComponent implements OnInit {
   }
 
   searchFriend(){
+    this.displayError = "";
+    this.friendName = "";
     let getFriendIdPromise = this.getFriendId();
 
     getFriendIdPromise

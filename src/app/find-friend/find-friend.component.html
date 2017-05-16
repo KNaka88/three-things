@@ -16,14 +16,11 @@
       <button (click)="sendFriendRequest()">Send Friend Request</button>
     </div>
   </div>
-  all friends
-  {{allFriendsList}}
-
 </div>
 
 
 <div class='mdl-textfield find-friends-menu'>
-  Friends Confirmation Waiting
+  <label>Friends Confirmation Waiting</label>
   <div *ngIf="waitingList">
     <div *ngFor="let result of (waitingList | confirmWaiting: value : userId)">
       {{result[5].$value}}
@@ -34,7 +31,7 @@
 </div>
 
 <div class='mdl-textfield find-friends-menu'>
-  Sent Requests
+  <label>Sent Requests</label>
   <div *ngIf="waitingList">
     <div *ngFor="let result of (waitingList | sentRequests: value : userId)">
       {{result[2].$value}}
