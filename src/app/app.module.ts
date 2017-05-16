@@ -32,6 +32,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { ChangeNameComponent } from './change-name/change-name.component';
 import { FindFriendComponent } from './find-friend/find-friend.component';
 import { ConfirmWaitingPipe } from './confirm-waiting.pipe';
+import { SentRequestsPipe } from './sent-requests.pipe';
 
 export const firebaseConfig = {
   apiKey: masterFirebaseConfig.apiKey,
@@ -64,6 +65,7 @@ export const firebaseConfig = {
     ChangeNameComponent,
     FindFriendComponent,
     ConfirmWaitingPipe,
+    SentRequestsPipe,
   ],
   imports: [
     BrowserModule,

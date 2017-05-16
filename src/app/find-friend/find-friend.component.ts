@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { ConfirmWaitingPipe } from '../confirm-waiting.pipe';
-
+import { SentRequestsPipe } from '../sent-requests.pipe';
 @Component({
   selector: 'app-find-friend',
   templateUrl: './find-friend.component.html',
