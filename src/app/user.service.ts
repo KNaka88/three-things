@@ -239,4 +239,132 @@ export class UserService {
   getAllImageReference(userId){
     return this.db.object('diaries/' + userId + '/allImages');
   }
+
+  sendFriendRequest(userId, friendId, friendName){
+    let userName = "";
+    let userObservable = this.getUserById(userId);
+
+    userObservable.subscribe((data)=> {
+      userName = data.firstName + " " + data.lastName;
+
+      this.db.list('friends/' + userId + "/sent").push({
+        name: friendName,
+        friendId: friendId,
+        status: "true"
+      });
+
+      this.db.list('friends/' + friendId + "/received").push({
+        name: userName,
+        friendId: userId,
+        status: "false",
+      });
+    });
+
+  }
+
+  getAllFriendsConfirmWaiting(userId){
+    return this.db.list("friends/" + userId + "/received", {
+      query: {
+        orderByChild: "status",
+        equalTo: "false",
+      }
+    });
+  }
+
+  getAllSentFriendsRequest(userId){
+    return this.db.list("friends/" + userId + "/sent", {
+      query: {
+        orderByChild: "status",
+        equalTo: "true",
+      }
+    });
+  }
+
+  updateFriendRequest(userId, friendObject, response){
+
+    if(response === "false"){
+      this.declineFriendRequest(userId, friendObject);
+    }
+
+
+    if(response === "true"){
+      let query = this.db.list("friends/" + userId + "/received", {
+        query: {
+          orderByChild: "friendId",
+          equalTo: friendObject.friendId,
+        }
+      });
+
+      query.subscribe((data)=> {
+        let updateId = data[0].$key;
+
+        query.update(updateId, {
+          status: response,
+        });
+      });
+    }
+  }
+
+  cancelFriendRequest(userId, friendObject){
+
+    //Delete from user
+    let sentQuery = this.db.list("friends/" + userId + "/sent", {
+      query: {
+        orderByChild: "friendId",
+        equalTo: friendObject.friendId,
+      }
+    });
+
+
+    //Delete from friend
+    let receivedQuery = this.db.list("friends/" + friendObject.friendId + "/received", {
+      query: {
+        orderByChild: "friendId",
+        equalTo: userId,
+      }
+    });
+
+    sentQuery.subscribe((data)=>{
+      let removeId = data[0].$key;
+      sentQuery.remove(removeId);
+    });
+
+    receivedQuery.subscribe((data)=>{
+      let removeId = data[0].$key;
+      receivedQuery.remove(removeId);
+    });
+  }
+
+  declineFriendRequest(userId, friendObject){
+    //Delete from friend
+    let receivedQuery = this.db.list("friends/" + userId + "/received", {
+      query: {
+        orderByChild: "friendId",
+        equalTo: friendObject.friendId,
+      }
+    });
+
+    receivedQuery.subscribe((data)=>{
+      let removeId = data[0].$key;
+      receivedQuery.remove(removeId);
+    });
+  }
+
+  getFriendStatus(userId, friendId){
+    return this.db.list("friends/" + friendId + "/received", {
+      query: {
+        orderByChild: "friendId",
+        equalTo: userId,
+      }
+    });
+  }
+
+  getUserstatus(userId, friendId){
+    return this.db.list("friends/" + userId + "/sent", {
+      query: {
+        orderByChild: "friendId",
+        equalTo: friendId,
+      }
+    });
+  }
 }

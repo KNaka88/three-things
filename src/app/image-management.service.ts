@@ -76,11 +76,14 @@ export class ImageManagementService {
     //create delete image promise array
     for (let key in data) {
       if (data.hasOwnProperty(key)) {
-        let imageRef = this.storageRef.child('images/' + userId + '/' + data[key].imgFileName);
 
-        let promise = imageRef.delete();
+        if(data[key].imgFileName !== "none"){
+          let imageRef = this.storageRef.child('images/' + userId + '/' + data[key].imgFileName);
 
-        allPromise.push(promise);
+          let promise = imageRef.delete();
+
+          allPromise.push(promise);
+        }
       }
     }
     return Promise.all(allPromise);

@@ -10,4 +10,27 @@
     <button (click)="searchFriend()" class='btn btn-success btn-block'>Search</button>
   </div>
   {{displayError}}
+  <div *ngIf="friendName">
+    {{friendName}} <button (click)="sendFriendRequest()">Send Friend Request</button>
+  </div>
+  {{friendId}}
+</div>
+
+
+<div class='mdl-textfield find-friends-menu'>
+  Friends Confirmation Waiting
+  <div *ngIf="waitingList | async">
+    <div *ngFor="let waiting of waitingList | async">
+      {{waiting.name}}<button (click)="updateFriendRequest(waiting, 'true')">Accept</button><button (click)="updateFriendRequest(waiting, 'false')">Decline</button>
+    </div>
+  </div>
+</div>
+
+<div class='mdl-textfield find-friends-menu'>
+  Sent Requests
+  <div *ngIf="sentList | async">
+    <div *ngFor="let sent of sentList | async">
+      {{sent.name}} <button (click)="cancelFriendRequest(sent)">Cancel</button>
+    </div>
+  </div>
 </div>

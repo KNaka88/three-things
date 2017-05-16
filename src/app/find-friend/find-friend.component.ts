@@ -13,6 +13,10 @@ export class FindFriendComponent implements OnInit {
   public friendSearchKeyword: string;
   public userId:string;
   public displayError:string;
+  public friendName: string;
+  public friendId: string;
+  public waitingList: FirebaseListObservable<any[]>;
+  public sentList: FirebaseListObservable<any[]>;
 
   constructor(
     private userService: UserService,
@@ -24,6 +28,9 @@ export class FindFriendComponent implements OnInit {
     this.route.params.forEach((urlParameters) => {
       //setting user id to local variable
       this.userId = urlParameters['id'];
+
+      this.getAllFriendsConfirmWaiting();
+      this.getAllSentFriendsRequest();
     });
   }
 
@@ -32,7 +39,7 @@ export class FindFriendComponent implements OnInit {
 
     getFriendIdPromise
     .then((friendId) => {
-      console.log(friendId);
+      this.checkIfTheyAreFriends(friendId);
     });
   }
 
@@ -55,6 +62,7 @@ export class FindFriendComponent implements OnInit {
           }else if(result[0].userId === this.userId){
             this.displayError = "We found you, not your friend :D";
           }else{
+            this.friendId = result[0].userId;
             resolve(result[0].userId);
           }
         });
@@ -63,4 +71,101 @@ export class FindFriendComponent implements OnInit {
     return promise;
   }
 
+  checkIfTheyAreFriends(friendId){
+
+      let friendObservable = this.userService.getUserById(friendId);
+      friendObservable.subscribe((friendProfile)=> {
+        //get friend profile
+        this.friendName = friendProfile.firstName + " " + friendProfile.lastName;
+
+
+        //Get Friend Status
+        let friendStatusObservable = this.userService.getFriendStatus(this.userId, this.friendId);
+
+        //Get user Status
+        let userStatusObservable = this.userService.getUserstatus(this.userId, this.friendId);
+
+        let friendStatus = "";
+        let userStatus = "";
+
+        let promise1 = this.getFriendStatus(friendStatusObservable);
+        let promise2 = this.getUserStatus(userStatusObservable);
+
+        Promise.all([promise1,promise2]).then( (result)=>{
+          console.log(result);
+          if(result[0] === "null" && result[1] === "null"){
+            //Both User and Friend have not sent friend request
+            console.log("case1");
+          }else if(result[0] === "false" && result[1] === "true"){
+            //User sent friend request, but friend haven't responded yet
+            console.log("case2");
+          }else if(result[0] === "true" && result[1] === "false"){
+            //friend sent friend request, but user haven't responded yet
+            console.log("case3");
+          }else if(result[0] === "true" && result[1] === "true"){
+            //User and Friend are friend;
+            console.log("case4");
+          }
+        });
+      });
+  }
+
+  sendFriendRequest(){
+    this.userService.sendFriendRequest(this.userId, this.friendId, this.friendName);
+  }
+
+  getAllFriendsConfirmWaiting(){
+    this.waitingList = this.userService.getAllFriendsConfirmWaiting(this.userId);
+    this.waitingList.subscribe((data)=>{
+      console.log(data);
+    });
+  }
+
+  getAllSentFriendsRequest(){
+    this.sentList = this.userService.getAllSentFriendsRequest(this.userId);
+    this.sentList.subscribe((data)=>{
+      console.log(data);
+    });
+  }
+
+  updateFriendRequest(friendObject, response){
+    this.userService.updateFriendRequest(this.userId, friendObject, response);
+  }
+
+  cancelFriendRequest(friendObject){
+    this.userService.cancelFriendRequest(this.userId, friendObject);
+  }
+
+  getFriendStatus(friendStatusObservable){
+    let promise = new Promise( (resolve) =>{
+
+      friendStatusObservable.subscribe((result)=>{
+        console.log("friend status");
+        console.log(result);
+        if(result.length === 0){
+          resolve("null");
+        }else{
+          //TRUE or FALSE
+          resolve(result[0].status);
+        }
+      });
+    });
+    return promise;
+  }
+
+  getUserStatus(userStatusObservable){
+    let promise = new Promise( (resolve) =>{
+
+      userStatusObservable.subscribe((result)=>{
+        console.log(result);
+        if(result.length === 0){
+          resolve("null");
+        }else{
+          //TRUE or FALSE
+          resolve(result[0].status);
+        }
+      });
+    });
+    return promise;
+  }
 }
