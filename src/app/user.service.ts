@@ -23,7 +23,7 @@ export class UserService {
   }
 
   saveUserInfoFromForm(uid: string, firstName: string, lastName: string, email: string) {
-  return this.db.object('users/' + uid).set({
+  return this.db.object('users/' + uid + "/profile").set({
     firstName: firstName,
     lastName: lastName,
     email: email
@@ -47,11 +47,11 @@ export class UserService {
 
 //READ
   getUserById(uid: string) {
-    return this.db.object("users/" + uid);
+    return this.db.object("users/" + uid + "/profile");
   }
 
   getUser(uid: string) {
-    return this.db.object('users/' + uid);
+    return this.db.object('users/' + uid + "/profile");
   }
 
   updatePassword(password){
@@ -177,6 +177,7 @@ export class UserService {
   }
 
   deleteAllDiary(userId){
+    //TODO: diaries might not exist, handle this situation
       let p1 = this.db.list('users/' + userId).remove();
       let p2 = this.db.list('diaries/' + userId).remove();
 
@@ -204,7 +205,7 @@ export class UserService {
 
   //used at setting.component
   updateUserName(firstName, lastName, userId, searchKeyword){
-    return this.db.object('users/' + userId).update({
+    return this.db.object('users/' + userId + "/profile").update({
       firstName: firstName,
       lastName: lastName,
       searchKeyword: searchKeyword
@@ -247,26 +248,46 @@ export class UserService {
     userObservable.subscribe((data)=> {
       userName = data.firstName + " " + data.lastName;
 
-      this.db.list('friends/' + userId + "/sent").push({
-        name: friendName,
+      let createFriendList = this.db.list('friends').push({
+        sender_name: userName,
+        sender_id: userId,
+        sender_status: true,
+        friend_name: friendName,
         friendId: friendId,
-        status: "true"
+        friend_status: false,
       });
 
-      this.db.list('friends/' + friendId + "/received").push({
-        name: userName,
-        friendId: userId,
-        status: "false",
+      createFriendList.then((data)=>{
+        let friendGroupId = data.path.o[1];
+
+        this.db.list('users/' + userId + '/friends/').push({
+          friendGroupId: friendGroupId,
+          status: false,
+        });
+
+        this.db.list('users/' + friendId + '/friends/').push({
+          friendGroupId: friendGroupId,
+          status: false,
+        });
       });
     });
 
   }
 
-  getAllFriendsConfirmWaiting(userId){
-    return this.db.list("friends/" + userId + "/received", {
+  getAllFriendsRequestWaiting(userId){
+    return this.db.list("users/" + userId + "/friends", {
       query: {
         orderByChild: "status",
-        equalTo: "false",
+        equalTo: false,
+      }
+    });
+  }
+
+  getAllFriendsList(userId){
+    return this.db.list("users/" + userId + "/friends", {
+      query: {
+        orderByChild: "status",
+        equalTo: true,
       }
     });
   }
@@ -359,6 +380,9 @@ export class UserService {
     });
   }
 
+
+
+
   getUserstatus(userId, friendId){
     return this.db.list("friends/" + userId + "/sent", {
       query: {
@@ -366,5 +390,14 @@ export class UserService {
         equalTo: friendId,
       }
     });
+  }
+
+  getAllFriendsStatusWaiting(friendGroupIdsArray){
+    let FriendsGroupResultArray = [];
+
+    friendGroupIdsArray.forEach( (friendsGroupId)=>{
+      FriendsGroupResultArray.push(this.db.list("friends/" + friendsGroupId ));
+    });
+    return FriendsGroupResultArray;
   }
 }

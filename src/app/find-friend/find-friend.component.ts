@@ -15,7 +15,7 @@ export class FindFriendComponent implements OnInit {
   public displayError:string;
   public friendName: string;
   public friendId: string;
-  public waitingList: FirebaseListObservable<any[]>;
+  public waitingList = [];
   public sentList: FirebaseListObservable<any[]>;
 
   constructor(
@@ -29,8 +29,8 @@ export class FindFriendComponent implements OnInit {
       //setting user id to local variable
       this.userId = urlParameters['id'];
 
-      this.getAllFriendsConfirmWaiting();
-      this.getAllSentFriendsRequest();
+      this.getAllFriendsRequestWaiting();
+      this.getAllFriendsList();
     });
   }
 
@@ -73,6 +73,16 @@ export class FindFriendComponent implements OnInit {
 
   checkIfTheyAreFriends(friendId){
 
+      //1. Check if they are already friends or not
+
+
+      //2. Check already friend request is sent or not
+
+
+
+
+
+
       let friendObservable = this.userService.getUserById(friendId);
       friendObservable.subscribe((friendProfile)=> {
         //get friend profile
@@ -114,12 +124,40 @@ export class FindFriendComponent implements OnInit {
     this.userService.sendFriendRequest(this.userId, this.friendId, this.friendName);
   }
 
-  getAllFriendsConfirmWaiting(){
-    this.waitingList = this.userService.getAllFriendsConfirmWaiting(this.userId);
-    this.waitingList.subscribe((data)=>{
+
+  getAllFriendsRequestWaiting(){
+    let friendsRequestWaitingList = this.userService.getAllFriendsRequestWaiting(this.userId);
+
+    friendsRequestWaitingList.subscribe((data)=>{
+;
+      let friendGroupIds = [];
+      for(let i=0; i<data.length; i++){
+        friendGroupIds.push(data[i].friendGroupId);
+      }
+      let friendsGroupResultArray = this.userService.getAllFriendsStatusWaiting(friendGroupIds);
+      console.log("friendsGroupResultArray");
+      console.log(friendsGroupResultArray);
+
+      if(friendsGroupResultArray.length !== 0){
+        friendsGroupResultArray.forEach( (elem)=> {
+          elem.subscribe( (res) => {
+            this.waitingList = res;
+            console.log(this.waitingList);
+          });
+        });
+      }
+    });
+  }
+
+
+  getAllFriendsList(){
+    let friendsList = this.userService.getAllFriendsList(this.userId);
+    friendsList.subscribe((data)=> {
+      console.log("all friends list");
       console.log(data);
     });
   }
+
 
   getAllSentFriendsRequest(){
     this.sentList = this.userService.getAllSentFriendsRequest(this.userId);
