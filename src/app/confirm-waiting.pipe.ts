@@ -12,14 +12,11 @@ export class ConfirmWaitingPipe implements PipeTransform {
     if(value.length !== 0){
       let result = [];
       value.forEach( (element) => {
-
         //if $key === friendId && $value === userId
-        if(element[0].$value === userId){
+        if(element[1].$value === userId){
           result.push(element);
         }
       });
-      console.log("return");
-      console.log(result);
       return result;
     }
   }

@@ -13,7 +13,7 @@ export class SentRequestsPipe implements PipeTransform {
       value.forEach( (element) => {
 
         //if $key === sender_id && $value === userId
-        if(element[3].$value === userId){
+        if(element[4].$value === userId){
           result.push(element);
         }
       });

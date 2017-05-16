@@ -17,7 +17,9 @@ export class FindFriendComponent implements OnInit {
   public friendName: string;
   public friendId: string;
   public waitingList = [];
+  public allFriendsList = [];
   public sentList: FirebaseListObservable<any[]>;
+  public notFriend: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -74,15 +76,34 @@ export class FindFriendComponent implements OnInit {
 
   checkIfTheyAreFriends(friendId){
 
+    let friends = false;
+    let waiting = false;
+
       //1. Check if they are already friends or not
+      this.allFriendsList.forEach((elements)=> {
+        elements.forEach((element)=>{
+          if(element.$value === friendId){
+            friends = true;
+          }
+        });
+      });
 
 
       //2. Check already friend request is sent or not
+      this.waitingList.forEach((elements)=> {
+        elements.forEach((element)=>{
+          if(element.$value === friendId){
+            waiting = true;
+          }
+        });
+      });
 
+      if( friends || waiting ){
+          //They are either friends or already send friend request
 
-
-
-
+      }else {
+        this.notFriend = true;
+      }
 
       let friendObservable = this.userService.getUserById(friendId);
       friendObservable.subscribe((friendProfile)=> {
@@ -123,6 +144,7 @@ export class FindFriendComponent implements OnInit {
 
   sendFriendRequest(){
     this.userService.sendFriendRequest(this.userId, this.friendId, this.friendName);
+    this.notFriend = false;
   }
 
 
@@ -137,14 +159,11 @@ export class FindFriendComponent implements OnInit {
         friendGroupIds.push(data[i].friendGroupId);
       }
       let friendsGroupResultArray = this.userService.getAllFriendsStatusWaiting(friendGroupIds);
-      console.log("friendsGroupResultArray");
-      console.log(friendsGroupResultArray);
 
       if(friendsGroupResultArray.length !== 0){
         friendsGroupResultArray.forEach( (elem)=> {
           elem.subscribe( (res) => {
             this.waitingList.push(res);
-            console.log(this.waitingList);
           });
         });
       }
@@ -155,8 +174,7 @@ export class FindFriendComponent implements OnInit {
   getAllFriendsList(){
     let friendsList = this.userService.getAllFriendsList(this.userId);
     friendsList.subscribe((data)=> {
-      console.log("all friends list");
-      console.log(data);
+      this.allFriendsList = data;
     });
   }
 
@@ -172,16 +190,14 @@ export class FindFriendComponent implements OnInit {
     this.userService.updateFriendRequest(this.userId, friendObject, response);
   }
 
-  cancelFriendRequest(friendObject){
-    this.userService.cancelFriendRequest(this.userId, friendObject);
+  cancelFriendRequest(friendGroup){
+    this.userService.cancelFriendRequest(this.userId, friendGroup);
   }
 
   getFriendStatus(friendStatusObservable){
     let promise = new Promise( (resolve) =>{
 
       friendStatusObservable.subscribe((result)=>{
-        console.log("friend status");
-        console.log(result);
         if(result.length === 0){
           resolve("null");
         }else{
@@ -197,7 +213,6 @@ export class FindFriendComponent implements OnInit {
     let promise = new Promise( (resolve) =>{
 
       userStatusObservable.subscribe((result)=>{
-        console.log(result);
         if(result.length === 0){
           resolve("null");
         }else{

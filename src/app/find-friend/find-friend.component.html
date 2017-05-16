@@ -11,9 +11,14 @@
   </div>
   {{displayError}}
   <div *ngIf="friendName">
-    {{friendName}} <button (click)="sendFriendRequest()">Send Friend Request</button>
+    {{friendName}}
+    <div *ngIf="notFriend">
+      <button (click)="sendFriendRequest()">Send Friend Request</button>
+    </div>
   </div>
-  {{friendId}}
+  all friends
+  {{allFriendsList}}
+
 </div>
 
 
@@ -21,7 +26,7 @@
   Friends Confirmation Waiting
   <div *ngIf="waitingList">
     <div *ngFor="let result of (waitingList | confirmWaiting: value : userId)">
-      {{result[4].$value}}
+      {{result[5].$value}}
     </div>
   </div>
 </div>
@@ -30,7 +35,7 @@
   Sent Requests
   <div *ngIf="waitingList">
     <div *ngFor="let result of (waitingList | sentRequests: value : userId)">
-      {{result[1].$value}} <button (click)="cancelFriendRequest(sent)">Cancel</button>
+      {{result[2].$value}} <button (click)="cancelFriendRequest(result)">Cancel</button>
     </div>
   </div>
 </div>

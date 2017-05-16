@@ -269,6 +269,10 @@ export class UserService {
           friendGroupId: friendGroupId,
           status: false,
         });
+
+        this.db.list('friends/').update(friendGroupId, {
+          friendGroupId: friendGroupId,
+        });
       });
     });
 
@@ -327,33 +331,41 @@ export class UserService {
   }
 
   cancelFriendRequest(userId, friendObject){
+    console.log(friendObject);
 
-    //Delete from user
-    let sentQuery = this.db.list("friends/" + userId + "/sent", {
+    let friendId = "";
+
+    if(friendObject[1].$value !== userId){
+      friendId = friendObject[1].$value;
+    }else{
+      friendId = friendObject[4].$value;
+    }
+
+    let userFriendsQuery = this.db.list("users/" + userId + "/friends", {
       query: {
-        orderByChild: "friendId",
-        equalTo: friendObject.friendId,
+        orderByChild: "friendGroupId",
+        equalTo: friendObject[0].$value,
       }
     });
 
-
-    //Delete from friend
-    let receivedQuery = this.db.list("friends/" + friendObject.friendId + "/received", {
+    let friendFriendsQuery = this.db.list("users/" + friendId + "/friends", {
       query: {
-        orderByChild: "friendId",
-        equalTo: userId,
+        orderByChild: "friendGroupId",
+        equalTo: friendObject[0].$value,
       }
     });
 
-    sentQuery.subscribe((data)=>{
+    userFriendsQuery.subscribe((data)=>{
       let removeId = data[0].$key;
-      sentQuery.remove(removeId);
+      userFriendsQuery.remove(removeId);
     });
 
-    receivedQuery.subscribe((data)=>{
+    friendFriendsQuery.subscribe((data)=>{
       let removeId = data[0].$key;
-      receivedQuery.remove(removeId);
+      friendFriendsQuery.remove(removeId);
     });
+
+    this.db.list("friends").remove(friendObject[0].$value);
   }
 
   declineFriendRequest(userId, friendObject){
