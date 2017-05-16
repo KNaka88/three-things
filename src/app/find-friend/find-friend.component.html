@@ -20,8 +20,8 @@
 <div class='mdl-textfield find-friends-menu'>
   Friends Confirmation Waiting
   <div *ngIf="waitingList">
-    <div *ngFor="let result of waitingList">
-      {{result.$key}}
+    <div *ngFor="let result of (waitingList | confirmWaiting: value : userId)">
+      {{result[4].$value}}
     </div>
   </div>
 </div>

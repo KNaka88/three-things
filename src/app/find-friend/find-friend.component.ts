@@ -3,6 +3,7 @@ import { UserService } from '../user.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { ConfirmWaitingPipe } from '../confirm-waiting.pipe';
 
 @Component({
   selector: 'app-find-friend',
@@ -126,6 +127,7 @@ export class FindFriendComponent implements OnInit {
 
 
   getAllFriendsRequestWaiting(){
+    this.waitingList = [];
     let friendsRequestWaitingList = this.userService.getAllFriendsRequestWaiting(this.userId);
 
     friendsRequestWaitingList.subscribe((data)=>{
@@ -141,7 +143,7 @@ export class FindFriendComponent implements OnInit {
       if(friendsGroupResultArray.length !== 0){
         friendsGroupResultArray.forEach( (elem)=> {
           elem.subscribe( (res) => {
-            this.waitingList = res;
+            this.waitingList.push(res);
             console.log(this.waitingList);
           });
         });
