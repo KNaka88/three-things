@@ -19,6 +19,7 @@ export class ChangeNameComponent implements OnInit {
   public searchKeyword: string = "";
   public searchKeywordRegistered: boolean = false;
   public displayError: string;
+  public completeSearchKeyword: string;
   // public isProfileSettingOpened: boolean = false;
 
 
@@ -40,7 +41,7 @@ export class ChangeNameComponent implements OnInit {
       this.firstName = profile.firstName;
       this.lastName =  profile.lastName;
       this.email = profile.email;
-      this.searchKeyword = profile.searchKeyword;
+      this.completeSearchKeyword = profile.searchKeyword;
 
       if(profile.searchKeyword !== undefined){
         this.searchKeywordRegistered = true;
