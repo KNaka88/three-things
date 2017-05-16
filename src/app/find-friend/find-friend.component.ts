@@ -186,12 +186,13 @@ export class FindFriendComponent implements OnInit {
     });
   }
 
-  updateFriendRequest(friendObject, response){
-    this.userService.updateFriendRequest(this.userId, friendObject, response);
-  }
 
   cancelFriendRequest(friendGroup){
     this.userService.cancelFriendRequest(this.userId, friendGroup);
+  }
+
+  acceptFriendRequest(friendGroup){
+    this.userService.acceptFriendRequest(this.userId, friendGroup);
   }
 
   getFriendStatus(friendStatusObservable){
@@ -223,4 +224,5 @@ export class FindFriendComponent implements OnInit {
     });
     return promise;
   }
+
 }

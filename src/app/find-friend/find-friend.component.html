@@ -27,6 +27,8 @@
   <div *ngIf="waitingList">
     <div *ngFor="let result of (waitingList | confirmWaiting: value : userId)">
       {{result[5].$value}}
+      <button (click)="acceptFriendRequest(result)">Accept</button>
+      <button (click)="cancelFriendRequest(result)">Decline</button>
     </div>
   </div>
 </div>

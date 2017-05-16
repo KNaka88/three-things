@@ -305,33 +305,51 @@ export class UserService {
     });
   }
 
-  updateFriendRequest(userId, friendObject, response){
+  acceptFriendRequest(userId, friendObject){
+    console.log(friendObject);
 
-    if(response === "false"){
-      this.declineFriendRequest(userId, friendObject);
+    let friendId = "";
+
+    if(friendObject[1].$value !== userId){
+      friendId = friendObject[1].$value;
+    }else{
+      friendId = friendObject[4].$value;
     }
 
+    let userFriendsQuery = this.db.list("users/" + userId + "/friends", {
+      query: {
+        orderByChild: "friendGroupId",
+        equalTo: friendObject[0].$value,
+      }
+    });
 
-    if(response === "true"){
-      let query = this.db.list("friends/" + userId + "/received", {
-        query: {
-          orderByChild: "friendId",
-          equalTo: friendObject.friendId,
-        }
+    let friendFriendsQuery = this.db.list("users/" + friendId + "/friends", {
+      query: {
+        orderByChild: "friendGroupId",
+        equalTo: friendObject[0].$value,
+      }
+    });
+
+    userFriendsQuery.subscribe((data)=>{
+      let updateId = data[0].$key;
+      userFriendsQuery.update(updateId, {
+        status: true,
       });
+    });
 
-      query.subscribe((data)=> {
-        let updateId = data[0].$key;
-
-        query.update(updateId, {
-          status: response,
-        });
+    friendFriendsQuery.subscribe((data)=>{
+      let updateId = data[0].$key;
+      friendFriendsQuery.update(updateId, {
+        status: true,
       });
-    }
+    });
+
+    this.db.list("friends").update(friendObject[0].$value, {
+      friend_status: true,
+    });
   }
 
   cancelFriendRequest(userId, friendObject){
-    console.log(friendObject);
 
     let friendId = "";
 
