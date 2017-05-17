@@ -8,7 +8,8 @@ import { UserService } from './user.service';
 export class ConfirmWaitingPipe implements PipeTransform {
 
   transform(value: any[], args:string[], userId): any[]{
-
+    console.log("beginning");
+    console.log(value);
     if(value.length !== 0){
       let result = [];
       value.forEach( (element) => {
@@ -17,7 +18,12 @@ export class ConfirmWaitingPipe implements PipeTransform {
           result.push(element);
         }
       });
+      console.log("result");
+      console.log(result);
       return result;
     }
+    console.log("nothing");
+    console.log(value);
+    return value;
   }
 }

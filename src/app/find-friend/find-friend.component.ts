@@ -168,6 +168,8 @@ export class FindFriendComponent implements OnInit {
 
   // cancelFriendRequest(friendGroup){
   //   this.userService.cancelFriendRequest(this.userId, friendGroup);
+  //   this.getAllFriendsRequestWaiting();
+  //   this.getAllFriendsList();
   // }
 
   acceptFriendRequest(friendGroup){

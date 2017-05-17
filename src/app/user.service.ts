@@ -298,7 +298,6 @@ export class UserService {
 
 
   acceptFriendRequest(userId, friendObject){
-
     let friendId = "";
 
     if(friendObject[1].$value !== userId){
@@ -325,6 +324,7 @@ export class UserService {
       let updateId = data[0].$key;
       userFriendsQuery.update(updateId, {
         status: true,
+        friendId: friendId,
       });
     });
 
@@ -332,6 +332,7 @@ export class UserService {
       let updateId = data[0].$key;
       friendFriendsQuery.update(updateId, {
         status: true,
+        friendId: userId,
       });
     });
 
@@ -341,8 +342,6 @@ export class UserService {
   }
 
   cancelFriendRequest(userId, friendObject){
-
-    let promise = new Promise((resolve)=> {
       let friendId = "";
 
       if(friendObject[1].$value !== userId){
@@ -376,10 +375,6 @@ export class UserService {
       });
 
       this.db.list("friends").remove(friendObject[0].$value);
-
-    });
-
-    return promise;
   }
 
 
