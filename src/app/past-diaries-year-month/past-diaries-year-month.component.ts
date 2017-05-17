@@ -107,4 +107,8 @@ export class PastDiariesYearMonthComponent implements OnInit {
     this.isFormVisible = false;
   }
 
+  setPrivacyLevel(privacyLevel){
+  this.privacyLevel = privacyLevel;
+  }
+
 }

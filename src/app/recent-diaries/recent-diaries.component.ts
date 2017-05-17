@@ -39,7 +39,6 @@ export class RecentDiariesComponent implements OnInit {
     }
 
     if(this.thisForm !== formNumber){
-      console.log("false!!");
       //When User clicked another EDIT button, run this program
 
       //Close Previous Form
@@ -64,7 +63,6 @@ export class RecentDiariesComponent implements OnInit {
       editForm.style.display = "block";
 
     }else{
-      console.log("true!!");
       let thisCard = document.getElementById("card-" + formNumber);
       let editForm = document.getElementById("edit-form-" + formNumber);
       this.isFormVisible = !this.isFormVisible;
@@ -86,6 +84,7 @@ export class RecentDiariesComponent implements OnInit {
 
   updateDiary(thisDiary){
     this.userService.updateDiary(this.good1, this.good2, this.good3, this.privacyLevel, this.userId, thisDiary);
+
     //After create diary, clear the form
     this.good1 = "";
     this.good2 = "";
@@ -94,6 +93,10 @@ export class RecentDiariesComponent implements OnInit {
 
     //Close the form
     this.isFormVisible = false;
+  }
+
+  setPrivacyLevel(privacyLevel){
+  this.privacyLevel = privacyLevel;
   }
 
 }

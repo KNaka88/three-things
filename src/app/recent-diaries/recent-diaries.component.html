@@ -29,9 +29,9 @@
                     <label for="privacy">Privacy</label>
                     <select id="privacy" class='form-control' (change)="setPrivacyLevel($event.target.value)">
                       <option value="onlyMe" selected="selected">Only Me</option>
-                      <option value='onlyFriends'>Only Friends</option>
-                      <option value='anyone'>Anyone</option>
+                      <option value='onlyFriends'>Friends</option>
                     </select>
+                    Current: {{diary.privacyLevel}}
                   </div>
                 </div>
               </div>
@@ -40,9 +40,9 @@
         <!--End of Edit Form -->
 
         <div class="mdl-card__supporting-text">
-          <h4>{{diary.good1}}</h4>
-          <h4>{{diary.good2}}</h4>
-          <h4>{{diary.good3}}</h4>
+          <h4 class="center">{{diary.good1}}</h4>
+          <h4 class="center">{{diary.good2}}</h4>
+          <h4 class="center">{{diary.good3}}</h4>
         </div>
         <div class="mdl-card__actions mdl-card--border">
           <div *ngIf="!isFormVisible">
