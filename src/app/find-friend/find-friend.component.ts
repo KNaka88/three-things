@@ -124,7 +124,7 @@ export class FindFriendComponent implements OnInit {
     let friendsRequestWaitingList = this.userService.getAllFriendsRequestWaiting(this.userId);
 
     friendsRequestWaitingList.subscribe((data)=>{
-
+      console.log(data);
       let friendGroupIds = [];
       for(let i=0; i<data.length; i++){
         friendGroupIds.push(data[i].friendGroupId);

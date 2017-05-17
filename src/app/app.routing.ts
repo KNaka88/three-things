@@ -10,6 +10,7 @@ import { PastDiariesYearMonthComponent} from './past-diaries-year-month/past-dia
 import { SettingsComponent } from './settings/settings.component';
 import { FindFriendComponent } from './find-friend/find-friend.component';
 import { FriendsDiaryComponent } from './friends-diary/friends-diary.component';
+import { FriendDiaryComponent} from './friend-diary/friend-diary.component';
 
 const appRoutes: Routes = [
  {
@@ -51,6 +52,10 @@ const appRoutes: Routes = [
  {
    path: 'user/:id/friends_diary',
    component: FriendsDiaryComponent
+ },
+ {
+   path: 'user/:id/friends_diary/:friendName',
+   component: FriendDiaryComponent
  }
 ];
 

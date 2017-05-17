@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { UserService } from '../user.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
@@ -11,6 +11,7 @@ import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/d
   styleUrls: ['./friends-diary.component.css']
 })
 export class FriendsDiaryComponent implements OnInit {
+@Output() friendProfileSender = new EventEmitter();
 public userId: string;
 public friendsListObservable: any;
   constructor(
@@ -41,4 +42,9 @@ public friendsListObservable: any;
       });
     });
   }
+
+  sendFriendProfile(friend){
+    this.friendProfileSender.emit(friend);
+  }
+
 }

@@ -19,7 +19,7 @@
           <a class="mdl-navigation__link" routerLink='/user/{{userId}}/'>Top</a>
           <a class="mdl-navigation__link" routerLink='/user/{{userId}}/past_diaries'>Past Diary</a>
           <a class="mdl-navigation__link" routerLink='/user/{{userId}}/friends_diary'>See Other's Diary</a>
-          <a class="mdl-navigation__link" routerLink='/user/{{userId}}/find_friends'>Find Friends</a>
+          <a class="mdl-navigation__link"  routerLink='/user/{{userId}}/find_friends'><span id="friend-notification" class="mdl-badge">Find Friends</span></a>
           <a class="mdl-navigation__link" routerLink='/user/{{userId}}/settings'>Setting</a>
           <a class="mdl-navigation__link" (click)="logout()">Logout</a>
         </nav>
@@ -27,5 +27,6 @@
     </div>
     <div class="mdl-layout__content main-content">
       <div id='space-div'></div>
+      {{notification}}
       <router-outlet></router-outlet>
     </div>
