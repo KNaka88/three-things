@@ -12,19 +12,3 @@
   opacity:0.8;
   text-align: center;
 }
-
-/*.friends-diary-form {
-  display:block;
-  width: 90%;
-  margin-top: 20px;
-  margin-left: auto;
-  margin-right: auto;
-}*/
-
-.demo-list-control {
-  width: 300px;
-}
-
-.demo-list-radio {
-  display: inline;
-}
