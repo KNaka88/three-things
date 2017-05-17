@@ -55,7 +55,7 @@ const appRoutes: Routes = [
  },
  {
    path: 'user/:id/friends_diary/:friendName',
-   component: FriendDiaryComponent
+   component: FriendDiaryComponent,
  }
 ];
 

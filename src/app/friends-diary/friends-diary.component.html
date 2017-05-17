@@ -1,15 +1,19 @@
 <h2 class='friends-diary-header'>See Friends Diary</h2>
 <div class='mdl-textfield friends-diary-list'>
   <ul class="demo-list-control mdl-list">
-    <div *ngFor="let friend of friendsListObservable">
+    <div *ngFor="let friend of friendsList">
       <li class="mdl-list__item">
         <span class="mdl-list__item-primary-content">
           <i class="material-icons  mdl-list__item-avatar">person</i>
-          <a (click)="sendFriendProfile(friend)" routerLink="[{{(friend | async)?.firstName}}{{(friend | async)?.lastName}}, friend]">{{(friend | async)?.firstName}} {{(friend | async)?.lastName}}</a>
+          <div (click)="openFriendPage(friend)">{{friend.firstName}} {{friend.lastName}}</div>
         </span>
         <span class="mdl-list__item-secondary-action">
         </span>
       </li>
     </div>
   </ul>
+</div>
+
+<div *ngIf="isFriendPageOpened">
+  <app-friend-diary [friend]="friend"></app-friend-diary>
 </div>

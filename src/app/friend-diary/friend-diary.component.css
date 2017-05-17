@@ -1,0 +1,24 @@
+
+.header {
+  text-align: center;
+  font-weight: 200;
+}
+
+.year {
+  font-size: 1.5rem;
+  font-weight: bold;
+  list-style: none;
+}
+
+.month {
+  list-style: none;
+}
+
+.diary-list {
+  display:block;
+  margin-top: 10vh;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+  opacity:0.8;
+}

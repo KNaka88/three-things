@@ -26,7 +26,8 @@ export class UserService {
   return this.db.object('users/' + uid + "/profile").set({
     firstName: firstName,
     lastName: lastName,
-    email: email
+    email: email,
+    uid: uid
   });
 }
 
@@ -106,6 +107,15 @@ export class UserService {
     });
   }
 
+  getFriendDiary(friendId){
+    // return this.db.list('diaries/' + friendId + '/year/', {
+    //     query: {
+    //       orderByChild: "privacyLevel",
+    //       equalTo: "onlyFriends",
+    //     }
+    // });
+    return this.db.list('diaries/' + friendId + '/year');
+  }
 
 
   getCredentials(email, password){
@@ -116,8 +126,9 @@ export class UserService {
   showMyAllDiaries(userId){
     return this.db.list('diaries/' + userId + '/year/');
   }
-
-
+  showFriendAllDiaries(friendId){
+    return this.db.list('diaries/' + friendId + '/year/');
+  }
 
   //Used at past-diaries-year.component.ts
   getYearDiaries(userId, year){
@@ -127,6 +138,15 @@ export class UserService {
   //Used at past-diaries-year-month.component.ts
   getMonthlyDiaries(userId, year, month){
     return this.db.list('diaries/' + userId + '/year/' + year + '/' + month);
+  }
+
+  getFriendMonthlyDiaries(friendId, year, month){
+    return this.db.list('diaries/' + friendId + '/year/' + year + '/' + month, {
+      query: {
+        orderByChild: "privacyLevel",
+        equalTo: "onlyFriends",
+      }
+    });
   }
 
   //Used at recent-diaries.component.ts

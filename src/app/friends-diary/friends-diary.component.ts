@@ -1,22 +1,29 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { UserService } from '../user.service';
 import { ActivatedRoute } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { DataStorageService } from '../data-storage.service';
+import {Router} from "@angular/router";
 
 
 @Component({
   selector: 'app-friends-diary',
   templateUrl: './friends-diary.component.html',
-  styleUrls: ['./friends-diary.component.css']
+  styleUrls: ['./friends-diary.component.css'],
+  providers: [DataStorageService]
 })
 export class FriendsDiaryComponent implements OnInit {
-@Output() friendProfileSender = new EventEmitter();
 public userId: string;
-public friendsListObservable: any;
+public friendsList:any;
+public isFriendPageOpened:boolean = false;
+public friend: any;
+
   constructor(
+    private dataStorageService: DataStorageService,
     private userService: UserService,
     private route: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -27,24 +34,28 @@ public friendsListObservable: any;
     });
 
     let friendsList = this.userService.getAllFriendsList(this.userId);
-    this.friendsListObservable = [];
+    this.friendsList = [];
 
 
     friendsList.subscribe((result)=> {
       result.forEach( (element)=> {
         let friendId = element.friendId;
         let result = this.userService.getUserById(friendId);
-        this.friendsListObservable.push(result);
-
         result.subscribe((element)=>{
-          console.log(element);
+          this.friendsList.push(element);
         });
       });
     });
   }
 
-  sendFriendProfile(friend){
-    this.friendProfileSender.emit(friend);
+  openFriendPage(friend){
+    this.friend = friend;
+    this.isFriendPageOpened = true;
+    this.userService.getFriendDiary(friend.uid).subscribe((result)=>{
+      console.log(result);
+    });
+
+
   }
 
 }

@@ -1,5 +1,15 @@
-<p>
-  friend-diary works!
-</p>
-<div (friendProfileSender)="friendProfile"></div>
-{{friendProfile}}
+<div class="mdl-textfield mdl-js-textfield diary-list">
+  <h2 class='header'>{{friend.firstName}}'s Diary</h2>
+  <div *ngIf="friendAllDiaries">
+      <div *ngFor="let friendAllDiariesByYear of friendAllDiaries">
+        <ul>
+          <li class='year'>{{friendAllDiariesByYear.$key}}:</li>
+          <div *ngFor="let month of friendAllDiariesByYear | keys">
+            <ul>
+              <li><div class='month' (click)="showMonthlyDiary(friendAllDiariesByYear.$key, month)">{{month | monthNumberToWord:monthNumber}}</div></li>
+            </ul>
+          </div>
+        </ul>
+      </div>
+  </div>
+</div>
