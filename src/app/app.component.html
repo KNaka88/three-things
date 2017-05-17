@@ -5,8 +5,8 @@
             <div class="mdl-layout-spacer"></div>
             <nav class="mdl-navigation">
               <a class="mdl-navigation__link" routerLink='/user/{{userId}}/'>Top</a>
-              <!-- <a class="mdl-navigation__link">See Other's Diary</a> -->
               <a class="mdl-navigation__link" routerLink='/user/{{userId}}/past_diaries'>Past Diary</a>
+              <a class="mdl-navigation__link" routerLink='/user/{{userId}}/friends_diary'>See Other's Diary</a>
               <a class="mdl-navigation__link" routerLink='/user/{{userId}}/find_friends'>Find Friends</a>
               <a class="mdl-navigation__link" routerLink='/user/{{userId}}/settings'>Setting</a>
               <a class="mdl-navigation__link" (click)="logout()">Logout</a>
@@ -17,8 +17,8 @@
         <span class="mdl-layout-title">Three Things</span>
         <nav class="mdl-navigation">
           <a class="mdl-navigation__link" routerLink='/user/{{userId}}/'>Top</a>
-          <!-- <a class="mdl-navigation__link">See Other's Diary</a> -->
           <a class="mdl-navigation__link" routerLink='/user/{{userId}}/past_diaries'>Past Diary</a>
+          <a class="mdl-navigation__link" routerLink='/user/{{userId}}/friends_diary'>See Other's Diary</a>
           <a class="mdl-navigation__link" routerLink='/user/{{userId}}/find_friends'>Find Friends</a>
           <a class="mdl-navigation__link" routerLink='/user/{{userId}}/settings'>Setting</a>
           <a class="mdl-navigation__link" (click)="logout()">Logout</a>

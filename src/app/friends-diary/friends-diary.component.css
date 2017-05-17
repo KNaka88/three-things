@@ -1,0 +1,30 @@
+.friends-diary-header {
+  text-align: center;
+}
+
+.friends-diary-list {
+  display:block;
+  margin-top: 10vh;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+  box-shadow: 2px 2px 2px 2px gray;
+  opacity:0.8;
+  text-align: center;
+}
+
+/*.friends-diary-form {
+  display:block;
+  width: 90%;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}*/
+
+.demo-list-control {
+  width: 300px;
+}
+
+.demo-list-radio {
+  display: inline;
+}
