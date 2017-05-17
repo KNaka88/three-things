@@ -35,6 +35,7 @@ import { ConfirmWaitingPipe } from './confirm-waiting.pipe';
 import { SentRequestsPipe } from './sent-requests.pipe';
 import { FriendsDiaryComponent } from './friends-diary/friends-diary.component';
 import { FriendDiaryComponent } from './friend-diary/friend-diary.component';
+import { FriendPastDiariesYearMonthComponent } from './friend-past-diaries-year-month/friend-past-diaries-year-month.component';
 
 export const firebaseConfig = {
   apiKey: masterFirebaseConfig.apiKey,
@@ -70,6 +71,7 @@ export const firebaseConfig = {
     SentRequestsPipe,
     FriendsDiaryComponent,
     FriendDiaryComponent,
+    FriendPastDiariesYearMonthComponent,
   ],
   imports: [
     BrowserModule,

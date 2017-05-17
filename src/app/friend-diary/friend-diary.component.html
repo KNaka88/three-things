@@ -13,3 +13,7 @@
       </div>
   </div>
 </div>
+
+<div *ngIf="friendPastDiariesOpened">
+  <app-friend-past-diaries [friendFilteredDiaries]="friendFilteredDiaries"></app-friend-past-diaries>
+</div>

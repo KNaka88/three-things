@@ -16,6 +16,8 @@ export class FriendDiaryComponent implements OnInit {
   public isProdEnvironment: any;
   public friendId: any;
   public friendAllDiaries: any;
+  public friendFilteredDiaries: any;
+  public friendPastDiariesOpened: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,13 +37,12 @@ export class FriendDiaryComponent implements OnInit {
   }
 
   showMonthlyDiary(year, month){
-    console.log(year);
-    console.log(month);
-    let result = this.userService.getFriendMonthlyDiaries(this.friendId, year, month);
-    result.subscribe((data)=>{
+    this.friendFilteredDiaries = this.userService.getFriendMonthlyDiaries(this.friendId, year, month);
+    this.friendFilteredDiaries.subscribe((data)=>{
       console.log("data");
       console.log(data);
     });
+    this.friendPastDiariesOpened = true;
   }
 
 }
