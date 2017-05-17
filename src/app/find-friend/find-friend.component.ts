@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { ConfirmWaitingPipe } from '../confirm-waiting.pipe';
 import { SentRequestsPipe } from '../sent-requests.pipe';
+
 @Component({
   selector: 'app-find-friend',
   templateUrl: './find-friend.component.html',
@@ -135,7 +136,6 @@ export class FindFriendComponent implements OnInit {
         friendsGroupResultArray.forEach( (elem)=> {
           elem.subscribe( (res) => {
             this.waitingList.push(res);
-            console.log(this.waitingList);
           });
         });
       }
@@ -144,11 +144,8 @@ export class FindFriendComponent implements OnInit {
 
 
   getAllFriendsList(){
-
     let friendsList = this.userService.getAllFriendsList(this.userId);
     friendsList.subscribe((data)=> {
-      console.log('data');
-      console.log(data);
       let friendGroupIds = [];
       for(let i=0; i<data.length; i++){
         friendGroupIds.push(data[i].friendGroupId);
@@ -166,11 +163,30 @@ export class FindFriendComponent implements OnInit {
     });
   }
 
-  // cancelFriendRequest(friendGroup){
-  //   this.userService.cancelFriendRequest(this.userId, friendGroup);
-  //   this.getAllFriendsRequestWaiting();
-  //   this.getAllFriendsList();
-  // }
+  callCancelFriendRequest(friendGroup){
+    //This is not good handling problem. But call cancelFriendRequest 2nd time is working better than merely calling once. If someone who foundout better way, please let me know.
+    this.cancelFriendRequest(friendGroup);
+    this.cancelFriendRequest(friendGroup);
+  }
+
+  cancelFriendRequest(friendGroup){
+    let promise1 = new Promise((resolve)=> {
+      this.waitingList = [];
+      resolve();
+    });
+    let promise2 = new Promise((resolve)=>{
+      this.allFriendsList = [];
+      resolve();
+    });
+
+    let promise3 = this.userService.cancelFriendRequest(this.userId, friendGroup);
+    promise1.then( ()=> {
+      return promise2;
+    })
+    .then(()=> {
+      return promise3;
+    });
+  }
 
   acceptFriendRequest(friendGroup){
     this.userService.acceptFriendRequest(this.userId, friendGroup);

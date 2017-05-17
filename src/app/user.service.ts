@@ -342,6 +342,10 @@ export class UserService {
   }
 
   cancelFriendRequest(userId, friendObject){
+      let promise1;
+      let promise2;
+      let promise3;
+
       let friendId = "";
 
       if(friendObject[1].$value !== userId){
@@ -365,16 +369,30 @@ export class UserService {
       });
 
       userFriendsQuery.subscribe((data)=>{
-        let removeId = data[0].$key;
-        userFriendsQuery.remove(removeId);
+        promise1 = new Promise((resolve)=> {
+          let removeId = data[0].$key;
+          userFriendsQuery.remove(removeId).then(()=>{
+            resolve("promise1 success");
+          });
+        });
       });
 
       friendFriendsQuery.subscribe((data)=>{
-        let removeId = data[0].$key;
-        friendFriendsQuery.remove(removeId);
+        promise2 = new Promise((resolve) => {
+          let removeId = data[0].$key;
+          promise2 = friendFriendsQuery.remove(removeId).then(()=>{
+            resolve("promise2 success");
+          });
+        });
       });
 
-      this.db.list("friends").remove(friendObject[0].$value);
+      promise3 = new Promise((resolve)=> {
+        this.db.list("friends").remove(friendObject[0].$value).then(()=> {
+          resolve("promise3 success");
+        });
+      });
+
+      return Promise.all([promise1, promise2, promise3]);
   }
 
 
