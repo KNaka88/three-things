@@ -27,6 +27,13 @@ export class FriendDiaryComponent implements OnInit {
     this.showFriendAllDiaries();
   }
 
+  ngOnChanges(){
+    this.friendId = this.friend.uid;
+    this.showFriendAllDiaries();
+  }
+
+
+
   showFriendAllDiaries(){
     this.userService.showFriendAllDiaries(this.friendId).subscribe( (diaries)=> {
       this.friendAllDiaries = diaries;

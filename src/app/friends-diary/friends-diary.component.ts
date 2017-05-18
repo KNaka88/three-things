@@ -33,7 +33,6 @@ public friend: any;
     let friendsList = this.userService.getAllFriendsList(this.userId);
     this.friendsList = [];
 
-
     friendsList.subscribe((result)=> {
       result.forEach( (element)=> {
         let friendId = element.friendId;
@@ -48,10 +47,6 @@ public friend: any;
   openFriendPage(friend){
     this.friend = friend;
     this.isFriendPageOpened =  true;
-    this.userService.getFriendDiary(friend.uid).subscribe((result)=>{
-    });
-
-
   }
 
 }

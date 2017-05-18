@@ -3,7 +3,6 @@ import { UserService } from '../user.service';
 import { ActivatedRoute } from '@angular/router';
 import { FirebaseListObservable } from 'angularfire2/database';
 import { KeysPipe } from '../keys.pipe';
-import { ImageCyclePipe } from '../image-cycle.pipe';
 
 @Component({
   selector: 'app-friend-past-diaries',
