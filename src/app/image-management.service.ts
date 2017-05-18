@@ -15,27 +15,20 @@ export class ImageManagementService {
   constructor() { }
 
   uploadImage(file, imgFileName, userId) {
-    console.log("start upload image");
-
 
     let promise1 = new Promise((resolve) => {
         let uploadTask = this.storageRef.child('images/' + userId +  '/' + imgFileName).put(file, this.metadata);
-
         uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
           function(snapshot) {
             let progress = (snapshot.bytesTransferred / snapshot.totyalBytes) * 100;
-            console.log(snapshot.bytesTransferred);
-            console.log('upload is ' + progress + '% done');
+
             switch(snapshot.state) {
               case firebase.storage.TaskState.PAUSED:
-              console.log('upload is paused');
               break;
               case firebase.storage.TaskState.RUNNING:
-              console.log('upload is running');
               break;
             }
           },function(error) {
-            console.log("Error:");
             console.log(error);
           }, function() {
               resolve(imgFileName);
@@ -62,7 +55,6 @@ export class ImageManagementService {
     let imageRef = this.storageRef.child('images/' + userId + '/' + imgFileName);
 
     imageRef.delete().then(()=>{
-      console.log('delete success!');
     }).catch((error)=> {
       console.log(error);
     });

@@ -17,13 +17,13 @@
               <div *ngIf = "isFormVisible">
                 <div class="edit-form">
                   <div class="form-group">
-                    <input [(ngModel)]="good1" type="text" class='form-control'>
+                    <input [(ngModel)]="good1" type="text" class='form-control' placeholder="good thing 1">
                   </div>
                   <div class="form-group">
-                    <input [(ngModel)]="good2" type="text" class='form-control'>
+                    <input [(ngModel)]="good2" type="text" class='form-control' placeholder="good thing 2">
                   </div>
                   <div class="form-group">
-                    <input [(ngModel)]="good3" type="text" class='form-control'>
+                    <input [(ngModel)]="good3" type="text" class='form-control' placeholder="good thing 3">
                   </div>
                   <div class="form-group">
                     <label for="privacy">Privacy</label>
@@ -44,7 +44,7 @@
           <h4 class='center'>{{diary.good2}}</h4>
           <h4 class='center'>{{diary.good3}}</h4>
         </div>
-        <div class="mdl-card__actions mdl-card--border">
+        <div class="mdl-card__actions mdl-card--border center">
           <div *ngIf="!isFormVisible">
             <button (click)="editDiary(diary, i)" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
               Edit

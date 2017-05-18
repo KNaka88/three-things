@@ -3,7 +3,6 @@ import { UserService } from '../user.service';
 import { ActivatedRoute } from '@angular/router';
 import { FirebaseListObservable } from 'angularfire2/database';
 import { KeysPipe } from '../keys.pipe';
-import { ImageCyclePipe } from '../image-cycle.pipe';
 
 @Component({
   selector: 'app-past-diaries-year-month',
@@ -43,6 +42,13 @@ export class PastDiariesYearMonthComponent implements OnInit {
     });
   }
 
+
+  deleteDiary(diary){
+    if(confirm("You want to delete this diary?")){
+      this.userService.deleteDiary(this.userId, diary);
+    }
+  }
+
   editDiary(diary, formNumber){
     //Initialize value of thisForm (only once)
     if(this.thisForm === null){
@@ -50,7 +56,6 @@ export class PastDiariesYearMonthComponent implements OnInit {
     }
 
     if(this.thisForm !== formNumber){
-      console.log("false!!");
       //When User clicked another EDIT button, run this program
 
       //Close Previous Form
@@ -75,7 +80,6 @@ export class PastDiariesYearMonthComponent implements OnInit {
       editForm.style.display = "block";
 
     }else{
-      console.log("true!!");
       let thisCard = document.getElementById("card-" + formNumber);
       let editForm = document.getElementById("edit-form-" + formNumber);
       this.isFormVisible = !this.isFormVisible;
@@ -86,12 +90,6 @@ export class PastDiariesYearMonthComponent implements OnInit {
       } else {
         thisCard.style.display = "block";
       }
-    }
-  }
-
-  deleteDiary(diary){
-    if(confirm("You want to delete this diary?")){
-      this.userService.deleteDiary(this.userId, diary);
     }
   }
 

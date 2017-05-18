@@ -38,8 +38,32 @@ export class RegistrationComponent implements OnInit {
   ngOnInit() {
   }
 
-  registerUser(){
 
+  ngDoCheck(){
+    //if password length is more than 6, change color to green
+    if(this.password.length >= 6){
+      this.isPasswordLength = true;
+    }else{
+      this.isPasswordLength = false;
+    }
+
+    //if password and confirm password matches, change color to green
+    if (this.password === this.confirmPassword && this.password.length >= 6){
+      this.isPasswordMatch = true;
+    }else{
+      this.isPasswordMatch = false;
+    }
+
+    //if email is valid format, change color to green
+    if(this.emailValidation.test(this.email)){
+      this.isEmailVerified = true;
+    }else {
+      this.isEmailVerified = false;
+    }
+  }
+
+
+  registerUser(){
     //check if form is typed correct
     let verified = (this.firstName && this.lastName && this.isPasswordMatch && this.isPasswordLength && this.isEmailVerified);
 
@@ -67,29 +91,4 @@ export class RegistrationComponent implements OnInit {
       alert('Please type all necessary information');
     }
   }
-
-  ngDoCheck(){
-    //if password length is more than 6, change color to green
-    if(this.password.length >= 6){
-      this.isPasswordLength = true;
-    }else{
-      this.isPasswordLength = false;
-    }
-
-    //if password and confirm password matches, change color to green
-    if (this.password === this.confirmPassword && this.password.length >= 6){
-      this.isPasswordMatch = true;
-    }else{
-      this.isPasswordMatch = false;
-    }
-
-    //if email is valid format, change color to green
-    if(this.emailValidation.test(this.email)){
-      this.isEmailVerified = true;
-    }else {
-      this.isEmailVerified = false;
-    }
-  }
-
-
 }

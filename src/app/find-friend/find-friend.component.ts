@@ -19,7 +19,6 @@ export class FindFriendComponent implements OnInit {
   public friendId: string;
   public waitingList = [];
   public allFriendsList = [];
-  public sentList: FirebaseListObservable<any[]>;
   public notFriend: boolean = false;
 
   constructor(
@@ -38,43 +37,36 @@ export class FindFriendComponent implements OnInit {
     });
   }
 
-  searchFriend(){
-    this.displayError = "";
-    this.friendName = "";
-    let getFriendIdPromise = this.getFriendId();
 
-    getFriendIdPromise
-    .then((friendId) => {
-      this.checkIfTheyAreFriends(friendId);
-    });
+  acceptFriendRequest(friendGroup){
+    this.userService.acceptFriendRequest(this.userId, friendGroup);
+    this.getAllFriendsRequestWaiting();
+    this.getAllFriendsList();
   }
 
+  callCancelFriendRequest(friendGroup){
+    //This is not good handling problem. But call cancelFriendRequest 2nd time is working better than merely calling once. If someone who foundout better way, please let me know.
+    this.cancelFriendRequest(friendGroup);
+    this.cancelFriendRequest(friendGroup);
+  }
 
-  getFriendId(){
-    let promise = new Promise((resolve) => {
-
-      let friendSearchKeyword = this.friendSearchKeyword.toLowerCase();
-      let includeWhiteSpace = /\s/g.test(friendSearchKeyword);
-
-      if(includeWhiteSpace){
-        this.displayError = "White space is not allowed";
-      }else{
-        let friendIdObservable = this.userService.getUserIdBySearchKeyword(friendSearchKeyword);
-
-
-        friendIdObservable.subscribe((result) => {
-          if(result.length === 0){
-            this.displayError = "No Result";
-          }else if(result[0].userId === this.userId){
-            this.displayError = "We found you, not your friend :D";
-          }else{
-            this.friendId = result[0].userId;
-            resolve(result[0].userId);
-          }
-        });
-      }
+  cancelFriendRequest(friendGroup){
+    let promise1 = new Promise((resolve)=> {
+      this.waitingList = [];
+      resolve();
     });
-    return promise;
+    let promise2 = new Promise((resolve)=>{
+      this.allFriendsList = [];
+      resolve();
+    });
+
+    let promise3 = this.userService.cancelFriendRequest(this.userId, friendGroup);
+    promise1.then( ()=> {
+      return promise2;
+    })
+    .then(()=> {
+      return promise3;
+    });
   }
 
   checkIfTheyAreFriends(friendId){
@@ -110,13 +102,7 @@ export class FindFriendComponent implements OnInit {
       friendObservable.subscribe((friendProfile)=> {
         //get friend profile
         this.friendName = friendProfile.firstName + " " + friendProfile.lastName;
-
       });
-  }
-
-  sendFriendRequest(){
-    this.userService.sendFriendRequest(this.userId, this.friendId, this.friendName);
-    this.notFriend = false;
   }
 
 
@@ -124,7 +110,6 @@ export class FindFriendComponent implements OnInit {
     let friendsRequestWaitingList = this.userService.getAllFriendsRequestWaiting(this.userId);
 
     friendsRequestWaitingList.subscribe((data)=>{
-      console.log(data);
       let friendGroupIds = [];
       for(let i=0; i<data.length; i++){
         friendGroupIds.push(data[i].friendGroupId);
@@ -163,66 +148,86 @@ export class FindFriendComponent implements OnInit {
     });
   }
 
-  callCancelFriendRequest(friendGroup){
-    //This is not good handling problem. But call cancelFriendRequest 2nd time is working better than merely calling once. If someone who foundout better way, please let me know.
-    this.cancelFriendRequest(friendGroup);
-    this.cancelFriendRequest(friendGroup);
-  }
+  getFriendId(){
+    let promise = new Promise((resolve) => {
 
-  cancelFriendRequest(friendGroup){
-    let promise1 = new Promise((resolve)=> {
-      this.waitingList = [];
-      resolve();
-    });
-    let promise2 = new Promise((resolve)=>{
-      this.allFriendsList = [];
-      resolve();
-    });
+      let friendSearchKeyword = this.friendSearchKeyword.toLowerCase();
+      let includeWhiteSpace = /\s/g.test(friendSearchKeyword);
 
-    let promise3 = this.userService.cancelFriendRequest(this.userId, friendGroup);
-    promise1.then( ()=> {
-      return promise2;
-    })
-    .then(()=> {
-      return promise3;
-    });
-  }
+      if(includeWhiteSpace){
+        this.displayError = "White space is not allowed";
+      }else{
+        let friendIdObservable = this.userService.getUserIdBySearchKeyword(friendSearchKeyword);
 
-  acceptFriendRequest(friendGroup){
-    this.userService.acceptFriendRequest(this.userId, friendGroup);
 
-    this.getAllFriendsRequestWaiting();
-    this.getAllFriendsList();
-  }
-
-  getFriendStatus(friendStatusObservable){
-    let promise = new Promise( (resolve) =>{
-
-      friendStatusObservable.subscribe((result)=>{
-        if(result.length === 0){
-          resolve("null");
-        }else{
-          //TRUE or FALSE
-          resolve(result[0].status);
-        }
-      });
+        friendIdObservable.subscribe((result) => {
+          if(result.length === 0){
+            this.displayError = "No Result";
+          }else if(result[0].userId === this.userId){
+            this.displayError = "We found you, not your friend :D";
+          }else{
+            this.friendId = result[0].userId;
+            resolve(result[0].userId);
+          }
+        });
+      }
     });
     return promise;
   }
 
-  getUserStatus(userStatusObservable){
-    let promise = new Promise( (resolve) =>{
+  searchFriend(){
+    this.displayError = "";
+    this.friendName = "";
+    let getFriendIdPromise = this.getFriendId();
 
-      userStatusObservable.subscribe((result)=>{
-        if(result.length === 0){
-          resolve("null");
-        }else{
-          //TRUE or FALSE
-          resolve(result[0].status);
-        }
-      });
+    getFriendIdPromise
+    .then((friendId) => {
+      this.checkIfTheyAreFriends(friendId);
     });
-    return promise;
   }
+
+  sendFriendRequest(){
+    this.userService.sendFriendRequest(this.userId, this.friendId, this.friendName);
+    this.notFriend = false;
+  }
+
+
+
+
+
+
+
+
+
+  // getFriendStatus(friendStatusObservable){
+  //   let promise = new Promise( (resolve) =>{
+  //
+  //     friendStatusObservable.subscribe((result)=>{
+  //       if(result.length === 0){
+  //         resolve("null");
+  //       }else{
+  //         //TRUE or FALSE
+  //         resolve(result[0].status);
+  //       }
+  //     });
+  //   });
+  //   return promise;
+  // }
+
+  // 
+  // getUserStatus(userStatusObservable){
+  //   let promise = new Promise( (resolve) =>{
+  //
+  //     userStatusObservable.subscribe((result)=>{
+  //       if(result.length === 0){
+  //         resolve("null");
+  //       }else{
+  //         //TRUE or FALSE
+  //         resolve(result[0].status);
+  //       }
+  //     });
+  //   });
+  //   return promise;
+  // }
 
 }

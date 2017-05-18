@@ -21,7 +21,6 @@ import { PastDiariesComponent } from './past-diaries/past-diaries.component';
 import { KeysPipe } from './keys.pipe';
 import { PastDiariesYearMonthComponent } from './past-diaries-year-month/past-diaries-year-month.component';
 import { MonthNumberToWordPipe } from './month-number-to-word.pipe';
-import { ImageCyclePipe } from './image-cycle.pipe';
 import { RecentDiariesComponent } from './recent-diaries/recent-diaries.component';
 import { ReversePipe } from './reverse.pipe';
 import { CreateDiaryComponent } from './create-diary/create-diary.component';
@@ -58,7 +57,6 @@ export const firebaseConfig = {
     KeysPipe,
     PastDiariesYearMonthComponent,
     MonthNumberToWordPipe,
-    ImageCyclePipe,
     RecentDiariesComponent,
     ReversePipe,
     CreateDiaryComponent,

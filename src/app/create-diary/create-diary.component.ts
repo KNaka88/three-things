@@ -18,7 +18,6 @@ export class CreateDiaryComponent implements OnInit {
   public user: FirebaseObjectObservable<any>;
   public today: number;
   public errorMessage: boolean = false;
-
   public good1: string;
   public good2: string;
   public good3: string;
@@ -49,6 +48,8 @@ export class CreateDiaryComponent implements OnInit {
 
   }
 
+
+
   makeDiary(){
     //check if user typed all the form
     if(this.good1 && this.good2 && this.good3){
@@ -75,64 +76,60 @@ export class CreateDiaryComponent implements OnInit {
         //save to firebase storage
         this.uploadImage();
       }
-
-
-
     }else {
       //show the error message
       this.errorMessage = true;
     }
   }
 
+
+  setDefaultImage() {
+    //If user doesn't upload image, set random image
+    let imageNumber = Math.floor(Math.random() * 7);
+    return '../../assets/card/card-image' + imageNumber + '.jpg';
+  }
+
   setPrivacyLevel(privacyLevel){
+    //When user select privacy level, this function will be triggered
     this.privacyLevel = privacyLevel;
   }
+
   setUploadImage(event){
       this.imgFile = event.target.files;
   }
 
-
   uploadImage() {
     this.ng2ImgToolsService.resizeExactFill([this.imgFile[0]], 330, 330, "white").subscribe(result => {
-            //Crop Image Success
-            this.croppedImgFile = result;
+      //Crop Image Success
+      this.croppedImgFile = result;
 
-            //Crete Unique File Name
-            let imgFileName = Date.now() + this.croppedImgFile.name;
+      //Crete Unique File Name
+      let imgFileName = Date.now() + this.croppedImgFile.name;
 
-            //Call uploadImage() and get return as promise
-            let promise1 = this.imgManagementService.uploadImage(this.croppedImgFile, imgFileName, this.userId);
+      //Call uploadImage() and get return as promise
+      let promise1 = this.imgManagementService.uploadImage(this.croppedImgFile, imgFileName, this.userId);
 
+      //If upload image was success, call downloadImage() and get imgURL as resolve value
+      promise1.then( (imgFileName) => {
+        return this.imgManagementService.downloadImage(imgFileName, this.userId);
+      })
+      .then( (imgURL) => {
+        //if imgURL was obtained, create diary on database
+        this.userService.makeDiary(this.good1, this.good2, this.good3, this.privacyLevel, this.userId, imgURL, imgFileName);
+        //After create diary, clear the form
+        this.good1 = "";
+        this.good2 = "";
+        this.good3 = "";
+        this.privacyLevel = "onlyMe";
+      })
+      //if download image failed, show error status
+      .catch((error)=> {
+        console.log(error);
+      });
 
-            //If upload image was success, call downloadImage() and get imgURL as resolve value
-            promise1.then( (imgFileName) => {
-              return this.imgManagementService.downloadImage(imgFileName, this.userId);
-            })
-            .then( (imgURL) => {
-              //if imgURL was obtained, create diary on database
-              this.userService.makeDiary(this.good1, this.good2, this.good3, this.privacyLevel, this.userId, imgURL, imgFileName);
-              //After create diary, clear the form
-              this.good1 = "";
-              this.good2 = "";
-              this.good3 = "";
-              this.privacyLevel = "onlyMe";
-            })
-            //if download image failed, show error status
-            .catch((error)=> {
-              console.log(error);
-            });
-
-
-
-
-        }, error => {
-          //if crop image failed, show error
-          console.log(error);
-        });
-  }
-
-  setDefaultImage() {
-      let imageNumber = Math.floor(Math.random() * 7);
-      return '../../assets/card/card-image' + imageNumber + '.jpg';
+    }, error => {
+      //if crop image failed, show error
+      console.log(error);
+    });
   }
 }

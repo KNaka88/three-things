@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { UserService } from '../user.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { UserService } from '../user.service';
   templateUrl: './delete-account.component.html',
   styleUrls: ['./delete-account.component.css']
 })
-export class DeleteAccountComponent implements OnInit {
+export class DeleteAccountComponent {
   @Output() messageSender = new EventEmitter();
   public newPassword: string = '';
   public confirmPassword: string = '';
@@ -20,17 +20,13 @@ export class DeleteAccountComponent implements OnInit {
     private userService: UserService,
   ) { }
 
-  ngOnInit() {
-  }
 
 
   confirm(email, password){
-    //TODO: add credential -> then run update function
     let promise = new Promise((resolve) => {
       let credential = this.userService.getCredentials(email, password);
       resolve(credential);
     });
-
 
     promise.then( (credential) => {
       this.userService.reauthenticate(credential).then( ()=> {
@@ -43,5 +39,4 @@ export class DeleteAccountComponent implements OnInit {
       }
     });
   }
-
 }

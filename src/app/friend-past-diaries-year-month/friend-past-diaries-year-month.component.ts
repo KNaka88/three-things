@@ -27,8 +27,6 @@ export class FriendPastDiariesYearMonthComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('show');
-    console.log(this.friendFilteredDiaries);
   }
 
 

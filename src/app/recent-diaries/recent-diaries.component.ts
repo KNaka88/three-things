@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { ActivatedRoute } from '@angular/router';
-import { ImageCyclePipe } from '../image-cycle.pipe';
 import { ReversePipe } from '../reverse.pipe';
 
 @Component({
@@ -30,6 +29,12 @@ export class RecentDiariesComponent implements OnInit {
       //getting diaries of recent
       this.diaries = this.userService.getRecentDiaries(this.userId);
     });
+  }
+
+  deleteDiary(diary){
+    if(confirm("You want to delete this diary?")){
+      this.userService.deleteDiary(this.userId, diary);
+    }
   }
 
   editDiary(diary, formNumber){
@@ -73,12 +78,6 @@ export class RecentDiariesComponent implements OnInit {
       } else {
         thisCard.style.display = "block";
       }
-    }
-  }
-
-  deleteDiary(diary){
-    if(confirm("You want to delete this diary?")){
-      this.userService.deleteDiary(this.userId, diary);
     }
   }
 

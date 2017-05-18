@@ -40,4 +40,8 @@
 
 .edit-form {
     height: 330px;
+    padding-top: 30px;
+    width:90%;
+    margin-left: auto;
+    margin-right: auto;
 }

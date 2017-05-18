@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { UserService } from './user.service';
 import { Router } from "@angular/router";
-import * as firebase from 'firebase/app';
 import { MdlUppgradeElementDirective } from './mdl-uppgrade-element.directive';
 
 @Component({
@@ -33,6 +32,7 @@ export class AppComponent {
         }
     });
   }
+
   logout() {
     //log out from firebase
     this.userService.logout();

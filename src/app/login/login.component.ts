@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {UserService} from "../user.service";
 import {Router} from "@angular/router";
 
@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./login.component.css'],
   providers: [UserService]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   public error: any;
 
   //display
@@ -21,10 +21,6 @@ export class LoginComponent implements OnInit {
     public userService: UserService,
     private router: Router
   ) { }
-
-  ngOnInit() {
-  }
-
 
   //call userService login and access to firebase auth
   login(email, password) {

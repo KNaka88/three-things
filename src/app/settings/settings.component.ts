@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { UserService } from '../user.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { UserService } from '../user.service';
   styleUrls: ['./settings.component.css'],
   providers: [UserService]
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent {
   @Input() messageSender: string;
   public message: string;
   public searchKeyword: string;
@@ -17,43 +17,9 @@ export class SettingsComponent implements OnInit {
   public isChangePasswordFormOpened: boolean = false;
   public isDeleteAccountFormOpened: boolean = false;
 
-
   constructor(
     private userService: UserService,
   ) { }
-
-  ngOnInit() {
-  }
-
-  toggleProfileSetting(){
-    this.isProfileSettingOpened = !this.isProfileSettingOpened;
-    this.isAccountSettingOpened = false;
-    this.message = "";
-  }
-
-  toggleAccountSetting(){
-    this.isAccountSettingOpened = !this.isAccountSettingOpened;
-    this.isProfileSettingOpened = false;
-    this.message = "";
-  }
-
-  toggleDeleteAccountForm(){
-    this.isDeleteAccountFormOpened = !this.isDeleteAccountFormOpened;
-    this.isConfirmPasswordFormOpened = false;
-  }
-
-  toggleConfirmPasswordForm(){
-    this.isConfirmPasswordFormOpened = !this.isConfirmPasswordFormOpened;
-    this.isDeleteAccountFormOpened = false;
-  }
-
-  setMessage(updateMessage){
-    this.message = updateMessage;
-
-    //close all opened form
-    this.closeAllForm();
-  }
-
 
   closeAllForm(){
     this.isProfileSettingOpened = false;
@@ -63,4 +29,31 @@ export class SettingsComponent implements OnInit {
     this.isConfirmPasswordFormOpened = false;
   }
 
+  toggleAccountSetting(){
+    this.isAccountSettingOpened = !this.isAccountSettingOpened;
+    this.isProfileSettingOpened = false;
+    this.message = "";
+  }
+
+  toggleConfirmPasswordForm(){
+    this.isConfirmPasswordFormOpened = !this.isConfirmPasswordFormOpened;
+    this.isDeleteAccountFormOpened = false;
+  }
+
+  toggleDeleteAccountForm(){
+    this.isDeleteAccountFormOpened = !this.isDeleteAccountFormOpened;
+    this.isConfirmPasswordFormOpened = false;
+  }
+
+  toggleProfileSetting(){
+    this.isProfileSettingOpened = !this.isProfileSettingOpened;
+    this.isAccountSettingOpened = false;
+    this.message = "";
+  }
+
+  setMessage(updateMessage){
+    this.message = updateMessage;
+    //close all opened form
+    this.closeAllForm();
+  }
 }

@@ -14,7 +14,6 @@ export class PastDiariesComponent implements OnInit {
   public myAllDiaries: any;
   public userId: any;
 
-
   constructor(
     private userService: UserService,
     private route: ActivatedRoute

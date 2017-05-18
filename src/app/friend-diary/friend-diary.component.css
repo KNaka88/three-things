@@ -14,6 +14,11 @@
   list-style: none;
 }
 
+.month:hover {
+  color: #337ab7;
+  cursor: pointer;
+}
+
 .diary-list {
   display:block;
   margin-top: 1vh;

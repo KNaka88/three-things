@@ -17,13 +17,13 @@
               <div *ngIf = "isFormVisible">
                 <div class="edit-form">
                   <div class="form-group">
-                    <input [(ngModel)]="good1" type="text" class='form-control'>
+                    <input [(ngModel)]="good1" type="text" class='form-control' placeholder="good thing 1">
                   </div>
                   <div class="form-group">
-                    <input [(ngModel)]="good2" type="text" class='form-control'>
+                    <input [(ngModel)]="good2" type="text" class='form-control' placeholder="good thing 2">
                   </div>
                   <div class="form-group">
-                    <input [(ngModel)]="good3" type="text" class='form-control'>
+                    <input [(ngModel)]="good3" type="text" class='form-control' placeholder="good thing 3">
                   </div>
                   <div class="form-group">
                     <label for="privacy">Privacy</label>
@@ -31,7 +31,7 @@
                       <option value="onlyMe" selected="selected">Only Me</option>
                       <option value='onlyFriends'>Friends</option>
                     </select>
-                    Current: {{diary.privacyLevel}}
+                    <p class='current-privacy'>Current: {{diary.privacyLevel}}</p>
                   </div>
                 </div>
               </div>

@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DataStorageService } from '../data-storage.service';
 import { UserService } from '../user.service';
 import { KeysPipe } from '../keys.pipe';
 
@@ -8,7 +7,6 @@ import { KeysPipe } from '../keys.pipe';
   selector: 'app-friend-diary',
   templateUrl: './friend-diary.component.html',
   styleUrls: ['./friend-diary.component.css'],
-  providers: [DataStorageService]
 })
 export class FriendDiaryComponent implements OnInit {
   @Input() friend: any;
@@ -21,7 +19,6 @@ export class FriendDiaryComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private dataStorageService: DataStorageService,
     private userService: UserService,
     ){}
 
@@ -38,10 +35,6 @@ export class FriendDiaryComponent implements OnInit {
 
   showMonthlyDiary(year, month){
     this.friendFilteredDiaries = this.userService.getFriendMonthlyDiaries(this.friendId, year, month);
-    this.friendFilteredDiaries.subscribe((data)=>{
-      console.log("data");
-      console.log(data);
-    });
     this.friendPastDiariesOpened = true;
   }
 

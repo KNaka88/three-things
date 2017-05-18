@@ -1,5 +1,5 @@
 import * as firebase from 'firebase';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../user.service';
 
@@ -9,19 +9,16 @@ import { UserService } from '../user.service';
   styleUrls: ['./reset-password.component.css'],
   providers: [UserService],
 })
-export class ResetPasswordComponent implements OnInit {
+export class ResetPasswordComponent {
   public isSubmitted: boolean = false;
   public message: any;
 
   constructor(
     private userService: UserService,
   ) { }
-  ngOnInit() {
-  }
 
   resetPassword(email: string): firebase.Promise<any> {
     return firebase.auth().sendPasswordResetEmail(email).then( value => {
-      console.log(value);
       this.isSubmitted = true;
       this.message = "Sent!";
     }, reason => {

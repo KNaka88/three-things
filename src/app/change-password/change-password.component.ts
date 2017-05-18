@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter} from '@angular/core';
+import { Component, Output, EventEmitter} from '@angular/core';
 import { UserService } from '../user.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { UserService } from '../user.service';
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.css']
 })
-export class ChangePasswordComponent implements OnInit {
+export class ChangePasswordComponent{
   @Output() messageSender = new EventEmitter();
   public newPassword: string = '';
   public confirmPassword: string = '';
@@ -20,8 +20,6 @@ export class ChangePasswordComponent implements OnInit {
     private userService: UserService,
   ) { }
 
-  ngOnInit() {
-  }
 
   ngDoCheck(){
     //if password length is more than 6, change color to green
@@ -49,10 +47,8 @@ export class ChangePasswordComponent implements OnInit {
 
 
     promise.then( (credential) => {
-      console.log(credential);
       this.userService.reauthenticate(credential).then( ()=> {
         //user reauthenticated
-        console.log('reauthenticated success');
         this.isChangePasswordFormOpened = true;
       }), function(error){
         //error
@@ -70,7 +66,6 @@ export class ChangePasswordComponent implements OnInit {
       let update = this.userService.updatePassword(this.newPassword);
       update.then(()=>{
         //success
-
         //clear the form
         this.newPassword = '';
         this.confirmPassword = '';
