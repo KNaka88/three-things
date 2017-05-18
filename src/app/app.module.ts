@@ -36,6 +36,7 @@ import { SentRequestsPipe } from './sent-requests.pipe';
 import { FriendsDiaryComponent } from './friends-diary/friends-diary.component';
 import { FriendDiaryComponent } from './friend-diary/friend-diary.component';
 import { FriendPastDiariesYearMonthComponent } from './friend-past-diaries-year-month/friend-past-diaries-year-month.component';
+import { Ng2ImgToolsModule } from 'ng2-img-tools';
 
 export const firebaseConfig = {
   apiKey: masterFirebaseConfig.apiKey,
@@ -81,6 +82,7 @@ export const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    Ng2ImgToolsModule
   ],
   providers: [UserService, ImageManagementService],
   bootstrap: [AppComponent]

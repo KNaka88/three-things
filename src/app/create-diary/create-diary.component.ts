@@ -4,7 +4,7 @@ import { ImageManagementService } from '../image-management.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
-
+import { Ng2ImgToolsService } from 'ng2-img-tools';
 
 @Component({
   selector: 'app-create-diary',
@@ -25,12 +25,14 @@ export class CreateDiaryComponent implements OnInit {
   public privacyLevel: string = "onlyMe";
   public url:any;
   public imgFile:FileList;
+  public croppedImgFile:File;
 
   constructor(
     private userService: UserService,
     private imgManagementService: ImageManagementService,
     private route: ActivatedRoute,
-  ) { }
+    private ng2ImgToolsService: Ng2ImgToolsService,
+  ) {}
 
   ngOnInit() {
     //getting user id from url
@@ -91,26 +93,42 @@ export class CreateDiaryComponent implements OnInit {
 
 
   uploadImage() {
+    this.ng2ImgToolsService.resize([this.imgFile[0]], 330, 330).subscribe(result => {
+            //Crop Image Success
+            this.croppedImgFile = result;
 
-    let imgFileName = Date.now() + this.imgFile[0].name;
-    let promise1 = this.imgManagementService.uploadImage(this.imgFile, imgFileName, this.userId);
+            //Crete Unique File Name
+            let imgFileName = Date.now() + this.croppedImgFile.name;
+
+            //Call uploadImage() and get return as promise
+            let promise1 = this.imgManagementService.uploadImage(this.croppedImgFile, imgFileName, this.userId);
 
 
-    promise1.then( (imgFileName) => {
-      return this.imgManagementService.downloadImage(imgFileName, this.userId);
-    })
-    .then( (imgURL) => {
-      this.userService.makeDiary(this.good1, this.good2, this.good3, this.privacyLevel, this.userId, imgURL, imgFileName);
-      //After create diary, clear the form
-      this.good1 = "";
-      this.good2 = "";
-      this.good3 = "";
-      this.privacyLevel = "onlyMe";
-    })
+            //If upload image was success, call downloadImage() and get imgURL as resolve value
+            promise1.then( (imgFileName) => {
+              return this.imgManagementService.downloadImage(imgFileName, this.userId);
+            })
+            .then( (imgURL) => {
+              //if imgURL was obtained, create diary on database
+              this.userService.makeDiary(this.good1, this.good2, this.good3, this.privacyLevel, this.userId, imgURL, imgFileName);
+              //After create diary, clear the form
+              this.good1 = "";
+              this.good2 = "";
+              this.good3 = "";
+              this.privacyLevel = "onlyMe";
+            })
+            //if download image failed, show error status
+            .catch((error)=> {
+              console.log(error);
+            });
 
-    .catch((error)=> {
-      console.log(error);
-    });
+
+
+
+        }, error => {
+          //if crop image failed, show error
+          console.log(error);
+        });
   }
 
   setDefaultImage() {
