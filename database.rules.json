@@ -1,0 +1,28 @@
+{
+  "rules": {
+    ".read": "auth !== null",
+    ".write": "auth !== null",
+    
+    "users": {
+      "$userId": {
+        "friends": {
+          ".indexOn": "status"
+        }
+      }
+    },
+    "diaries": {
+      "$userId": {
+        "year": {
+          "$year": {
+            "$month": {
+              ".indexOn": ["privacyLevel", "date"]
+            }
+          }
+        }
+      }
+    },
+    "searchKeywords": {
+      ".indexOn": "searchKeyword"
+    }
+  }
+}
