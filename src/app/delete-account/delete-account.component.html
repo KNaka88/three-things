@@ -10,19 +10,3 @@
       <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" (click)="confirm(email.value, password.value)">Confirm</button>
     </div>
   </div>
-
-  <div *ngIf='isDeleteAccountFormOpened'>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input  type="password" id='password' class="form-control" [(ngModel)]="newPassword" name="newPassword" [class.isPasswordLength]="isPasswordLength" [class.isNotPasswordLength]="!isPasswordLength" required><br>
-    </div>
-    <div class="form-group">
-      <label for="confirmPassword">Confirm Password</label>
-      <input  type="password" id='confirmPassword' class="form-control" [class.confirmPassword]="isPasswordMatch" [class.notConfirmPassword]="!isPasswordMatch" [(ngModel)]="confirmPassword" name="confirmPassword" required><br>
-    </div>
-    <br>
-    <div class='mdl-grid'>
-      <button (click)="updatePassword()" class='btn btn-success btn-block'>Update</button>
-    </div>
-  </div>
-</div>

@@ -8,22 +8,13 @@ import { UserService } from '../user.service';
 })
 export class DeleteAccountComponent {
   @Output() messageSender = new EventEmitter();
-  public newPassword: string = '';
-  public confirmPassword: string = '';
-  public isPasswordMatch: boolean;
-  public isPasswordLength: boolean;
-  public isDeleteAccountFormOpened: boolean = false;
-  public isAccountSettingOpened: boolean = false;
-
 
   constructor(
     private userService: UserService,
   ) { }
 
-
-
   confirm(email, password){
-    let promise = new Promise((resolve) => {
+    let promise = new Promise((resolve, reject) => {
       let credential = this.userService.getCredentials(email, password);
       resolve(credential);
     });
@@ -37,6 +28,9 @@ export class DeleteAccountComponent {
         //error
         console.log(error);
       }
-    });
+    }).catch(
+      (reason) => {
+        console.log(reason);
+      });
   }
 }
