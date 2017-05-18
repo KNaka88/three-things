@@ -59,6 +59,7 @@ You need to get google map api and firebase account
 ![add your firebase api](/src/assets/readme-image/api-instruction.png)
 
 ## Known Bugs
+* Not working from smartphone page (menu disappears, cannot tap some button)
 * Notification badge does not properly working
 * Cancel Friend Request, Decline Friend Request is not properly working
 * If you go to three-things.site page while you're logged in, navigation menu does not disappear.
