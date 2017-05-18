@@ -11,8 +11,11 @@ h2.title {
   justify-content: center;
 }
 
+
+
 .main-div {
   margin-right: 1%;
+  height: 590px;
 }
 .card {
   width: 330px;

@@ -93,7 +93,7 @@ export class CreateDiaryComponent implements OnInit {
 
 
   uploadImage() {
-    this.ng2ImgToolsService.resize([this.imgFile[0]], 330, 330).subscribe(result => {
+    this.ng2ImgToolsService.resizeExactFill([this.imgFile[0]], 330, 330, "white").subscribe(result => {
             //Crop Image Success
             this.croppedImgFile = result;
 
