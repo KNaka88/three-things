@@ -45,7 +45,7 @@ You will need the following things properly installed on your computer.
 * [Angular CLI](https://cli.angular.io/)
 
 ## API Key
-You need to get google map api and firebase account
+You need to get firebase account
 * [Firebase](https://firebase.google.com/docs/web/setup)
 
 ## Installation
@@ -83,7 +83,7 @@ You need to get google map api and firebase account
 [angularfire2](https://github.com/angular/angularfire2) version 4.0.0
 
 ## License
-  _Copyright (c) 2017 **Sarah Leahy, Jake Campa, Koji Nakagawa**_
+  _Copyright (c) 2017 **Koji Nakagawa**_
 
   _Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
