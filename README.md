@@ -6,7 +6,7 @@
 * This app offers cloud based personal diary page
 * User can also connect with friends and see others' diaries by adding search keyword
 
-* [Web Page](https://www.three-things.site)
+* [Web Page](https://three-things.site)
 
 ## How to use?
 
